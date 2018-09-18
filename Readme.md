@@ -1,11 +1,11 @@
 # Kaip pradėti
 Pirmiausia jums reikės integruoti visą GitHub repozitorija prie savo paskyrų, kad galėtume visi dribti prie vieno projekto. Čia surašysiu instrukcijas kaip tai galima padaryti ir kaip reikės naudotis papraščiausiomis Git funkcijomis.
 
-- Viršuje dešinėje matysite mygtuką 'Fork', kurį paspaudę nukopijuosite viską iš čia į savo GitHub paskyros repozitoriją.
-- Visi pas jus esantys failai "priklauso" jums ir jūs galėsite laisvai juos modifikuoti. Žinoma GitHub svetainėje tai daryti nėra labai patogu, todėl jums reikės viską persikelti į savo darbovietę kompiuteryje. 
+- ~~Viršuje dešinėje matysite mygtuką 'Fork', kurį paspaudę nukopijuosite viską iš čia į savo GitHub paskyros repozitoriją.~~
+- ~~Visi pas jus esantys failai "priklauso" jums ir jūs galėsite laisvai juos modifikuoti. Žinoma GitHub svetainėje tai daryti nėra labai patogu, todėl jums reikės viską persikelti į savo darbovietę kompiuteryje.~~
 - Yra keli skirtingi būdai viską sinchronizuoti su Visual Studio esančiu jūsų kompiuteryje - instaliuoti GitHub pluginą ko gero bus paprasčiausias variantas, bet aš asmeniškai žadu naudoti Git Bash - patarčiau ir jums, jeigu norite labiau išmokti visą procesą.
 - Pasidomėkite kaip veikia branch'ai - yra nemažai medžiagos internete.
-- Kai atliekate veiksmus su failais ir norite išsaugoti pakeitimus, jums reikės viską commitinti į jūsų repozitoriją ir tada čia svetainėje daryti pull request. 
+- Kai atliekate veiksmus su failais ir norite išsaugoti pakeitimus, jums reikės savo branchą įpushinti į mūsų repozitoriją ir tada, kai galutinis brancho variantas padarytas - svetainėje daryti pull request. 
 - Kai tik prisijungsiu, aš matysiu, kokius pakeitimus padarėte ir galėsiu sutikti sujungti (merge) mano repozitoriją su jūsų arba jei kažkas negerai, atitinkamai pakomentuosiu. Kol kas visus pull request'us darykite man, vėliau galėsim pasikeisti.
 
 ### Galiu čia surašyti žingsnius, jeigu ketinate naudoti Git Bash / CMD.
@@ -36,4 +36,4 @@ $ git commit                 //Paruošia pakeitimus ir juos įrašo į istoriją
 $ git pull <link> <branch>   //Visada prieš pushinant vertėtų iš pagrindinės (to kuris pull requestus approvina) repozitorijos įsikelti up to date failus ir sujungti su tai, kuo dirbat. Jeigu bus merge conflict, tai susėsim kartu visi ir išspręsim.
 $ git push <link> <branch>   //Visus pakeitimus "įstumia" į jūsų GitHub repozitoriją.
 ```
-Yra dar nemažai įvairių komandų ir būdų esamas komandas panaudoti, bet čia jau galite labiau pasidomėti ;)
+Yra dar nemažai įvairių komandų ir būdų esamas komandas panaudoti, bet čia jau galite patys pasidomėti ;)
