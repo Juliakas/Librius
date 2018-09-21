@@ -16,7 +16,7 @@ namespace MyLibrarian
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SignInWindow());
+            Application.Run(new MainWindow());
         }
     }
 }

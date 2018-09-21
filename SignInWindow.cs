@@ -64,8 +64,6 @@ namespace MyLibrarian
 
 
 
-
-
         //Non event handler methods
         #region
 
@@ -95,8 +93,9 @@ namespace MyLibrarian
             passwordField.PasswordChar = '*';
         }
 
+
         #endregion
 
-
+ 
     }
 }
