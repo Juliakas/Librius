@@ -13,7 +13,6 @@ namespace MyLibrarian
         /// The main entry point for the application.
         /// </summary>
 
-        //"Data Source =.\\SQLEXPRESS; Database = LibraryDatabase; Integrated Security = True"
         //Properties.Settings.Default.LibraryDatabaseConnectionString;
 
         [STAThread]
