@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace MyLibrarian
 {
@@ -11,6 +12,9 @@ namespace MyLibrarian
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+
+        //Properties.Settings.Default.LibraryDatabaseConnectionString;
+
         [STAThread]
         static void Main()
         {
