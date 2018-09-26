@@ -12,19 +12,22 @@ namespace MyLibrarian
 {
     public partial class MainWindow : Form 
     {
-        String firstName;
-        String lastName;
-        long id;
+        private String firstName;
+        private String lastName;
+        private int id;
 
-        String title;
-        String author;
-        String isbn;
-        DateTime date;
+        private String title;
+        private String author;
+        private String isbn;
+        private DateTime date;
 
+        ControllerDB database;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            database = new ControllerDB("MyLibrarian.Properties.Settings.LibraryDatabaseConnectionString");
         }
 
         private void MainFormClosed(object sender, FormClosedEventArgs e)
@@ -34,24 +37,40 @@ namespace MyLibrarian
 
         private void addUserButton_Click(object sender, EventArgs e)
         {
-            if (!(string.IsNullOrEmpty(firstNameTextBox.Text) && string.IsNullOrEmpty(lastNameTextBox.Text) && string.IsNullOrEmpty(idTextBox.Text)))
+            if (!(string.IsNullOrEmpty(firstNameTextBox.Text)
+                || string.IsNullOrEmpty(lastNameTextBox.Text)
+                || string.IsNullOrEmpty(idTextBox.Text)))
             {
                 firstName = firstNameTextBox.Text;
                 lastName = lastNameTextBox.Text;
-                id = Convert.ToInt64(idTextBox.Text);
+                if (idTextBox.Text.Length == 7)
+                {
+                    id = Convert.ToInt32(idTextBox.Text);
+                    database.AddItemsToSkaitytojas(id, firstName, lastName);
+                }
+
+                else
+                {
+                    string message = "id field must have 7 characters!";
+                    string caption = "Invalid field";
+                    MessageBox.Show(message, caption);
+                }
             }
             else
             {
-                string message = "Not all fields are filled";
+                string message = "Not all fields are filled!";
                 string caption = "Empty fields";
-                DialogResult result;
-                result = MessageBox.Show(message, caption);
+                MessageBox.Show(message, caption);
             }
+
         }
 
         private void addBookButton_Click(object sender, EventArgs e)
         {
-            if (!(string.IsNullOrEmpty(titleTextBox.Text) && string.IsNullOrEmpty(authorTextBox.Text) && string.IsNullOrEmpty(isbnTextBox.Text) && string.IsNullOrEmpty(pDateTextBox.Text)))
+            if (!(string.IsNullOrEmpty(titleTextBox.Text) 
+                || string.IsNullOrEmpty(authorTextBox.Text) 
+                || string.IsNullOrEmpty(isbnTextBox.Text) 
+                || string.IsNullOrEmpty(pDateTextBox.Text)))
             {
                 if (DateTime.TryParse(pDateTextBox.Text, out date))
                 {
@@ -89,5 +108,7 @@ namespace MyLibrarian
             BooksListWindow booksListWindow = new BooksListWindow();
             booksListWindow.Show();
         }
+
+        
     }
 }
