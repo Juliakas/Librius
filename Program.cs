@@ -15,6 +15,8 @@ namespace MyLibrarian
 
         //Properties.Settings.Default.LibraryDatabaseConnectionString;
 
+        
+
         [STAThread]
         static void Main()
         {
@@ -22,5 +24,6 @@ namespace MyLibrarian
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
         }
+
     }
 }
