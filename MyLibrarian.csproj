@@ -72,11 +72,6 @@
       <DependentUpon>BooksListWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ControllerDB.cs" />
-    <Compile Include="LibraryDatabaseDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryDatabaseDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,17 +114,6 @@
     <EmbeddedResource Include="Forms\UsersListWindow.resx">
       <DependentUpon>UsersListWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="LibraryDatabaseDataSet.xsc">
-      <DependentUpon>LibraryDatabaseDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="LibraryDatabaseDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>LibraryDatabaseDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LibraryDatabaseDataSet.xss">
-      <DependentUpon>LibraryDatabaseDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -142,15 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LibraryDatabase.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="LibraryDatabase_log.ldf">
-      <DependentUpon>LibraryDatabase.mdf</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

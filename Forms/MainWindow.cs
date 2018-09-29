@@ -50,7 +50,7 @@ namespace MyLibrarian
                 if (idTextBox.Text.Length == 7)
                 {
                     id = Convert.ToInt32(idTextBox.Text);
-                    Database.InsertToSkaitytojas(id, firstName, lastName);
+                    Database.InsertToReader(id, firstName, lastName);
                 }
 
                 else
@@ -82,7 +82,7 @@ namespace MyLibrarian
                     title = titleTextBox.Text;
                     author = authorTextBox.Text;
                     isbn = isbnTextBox.Text;
-                    Database.InsertToKnyga(isbn, title, author, date);
+                    Database.InsertToBook(isbn, title, author, date);
                 }
                 else
                 {
