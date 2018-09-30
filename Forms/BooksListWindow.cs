@@ -20,7 +20,7 @@ namespace MyLibrarian
         {
             InitializeComponent();
             MainWindow main = MainWindow.Instance;
-            database = main.Database;
+            database = AuthWindow.Instance.Database;
 
             PopulateTable();
         }

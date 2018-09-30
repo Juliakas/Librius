@@ -17,8 +17,7 @@ namespace MyLibrarian
         public UsersListWindow()
         {
             InitializeComponent();
-            MainWindow main = MainWindow.Instance;
-            database = main.Database;
+            database = AuthWindow.Instance.Database;
 
             PopulateTable();
         }
