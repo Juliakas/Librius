@@ -16,7 +16,7 @@ namespace MyLibrarian
         //Setup
         public ControllerDB()
         {
-            string connectionString = "server=localhost;database=LibraryDatabase;Trusted_connection=yes";
+            string connectionString = "server=localhost\\SQLEXPRESS;database=LibraryDatabase;Trusted_connection=yes";
             connection = new SqlConnection(connectionString);
             connection.Open();
         }
