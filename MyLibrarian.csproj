@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AuthWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AuthWindow.Designer.cs">
+      <DependentUpon>AuthWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BooksListWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,18 @@
       <DependentUpon>BooksListWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ControllerDB.cs" />
+    <Compile Include="Forms\MainUserWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainUserWindow.Designer.cs">
+      <DependentUpon>MainUserWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RegistrationWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RegistrationWindow.Designer.cs">
+      <DependentUpon>RegistrationWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="LibraryDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,6 +115,9 @@
     <Compile Include="Forms\UsersListWindow.Designer.cs">
       <DependentUpon>UsersListWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AuthWindow.resx">
+      <DependentUpon>AuthWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BooksListWindow.resx">
       <DependentUpon>BooksListWindow.cs</DependentUpon>
     </EmbeddedResource>

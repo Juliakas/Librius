@@ -21,8 +21,6 @@ namespace MyLibrarian
         private String isbn;
         private DateTime date;
 
-        internal ControllerDB Database { get; }
-
         public static MainWindow Instance { get; set; }
 
         public MainWindow()
@@ -30,12 +28,12 @@ namespace MyLibrarian
             InitializeComponent();
             Instance = this;
 
-            Database = new ControllerDB();
         }
 
         private void MainFormClosed(object sender, FormClosedEventArgs e)
         {
-            Database.Close();
+
+            AuthWindow.Instance.Database.Close();
             Application.Exit();
         }
 
@@ -50,7 +48,7 @@ namespace MyLibrarian
                 if (idTextBox.Text.Length == 7)
                 {
                     id = Convert.ToInt32(idTextBox.Text);
-                    Database.InsertToSkaitytojas(id, firstName, lastName);
+                    AuthWindow.Instance.Database.InsertToSkaitytojas(id, firstName, lastName);
                 }
 
                 else
@@ -82,7 +80,7 @@ namespace MyLibrarian
                     title = titleTextBox.Text;
                     author = authorTextBox.Text;
                     isbn = isbnTextBox.Text;
-                    Database.InsertToKnyga(isbn, title, author, date);
+                    AuthWindow.Instance.Database.InsertToKnyga(isbn, title, author, date);
                 }
                 else
                 {
