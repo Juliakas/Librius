@@ -32,7 +32,7 @@ namespace MyLibrarian
         //Skaitytojas
         public void InsertToReader(int id, String firstName, String lastName)
         {
-            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname) VALUES (@id, @name, @surname)";
+            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname, Password) VALUES (@id, @name, @surname)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -73,15 +73,23 @@ namespace MyLibrarian
 
         public bool SearchReader(int id, string password)
         {
-            string query = "SELECT COUNT(*) FROM db_owner.Reader WHERE ID = @id AND Password = @password";
+            string query = "SELECT * FROM db_owner.Reader WHERE ID = @id";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.Add("@id", id);
-            command.Parameters.Add("@password", password);
 
+            SqlDataReader reader = command.ExecuteReader();
+            Hashing hashing = new Hashing();
+            reader.Read();
+            string hash = reader.GetString(3);
+
+            reader.Close();
             command.Dispose();
 
-            return (Int32)command.ExecuteScalar() > 0;
+            if (hashing.Verify(password, hash))
+                return true;
+
+            return false;
         }
 
 
