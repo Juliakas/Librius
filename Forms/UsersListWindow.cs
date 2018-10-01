@@ -26,7 +26,7 @@ namespace MyLibrarian
         {
             userListView.View = View.Details;
             userListView.Items.Clear();
-            dt = database.GetDataTableSkaitytojas();
+            dt = database.GetDataTableReader();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
@@ -46,7 +46,7 @@ namespace MyLibrarian
                 int id;
                 Int32.TryParse(str, out id);
 
-                database.DeleteFromSkaitytojas(id);
+                database.DeleteFromReader(id);
                 PopulateTable();
             }
 

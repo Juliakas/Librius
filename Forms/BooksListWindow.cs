@@ -30,14 +30,14 @@ namespace MyLibrarian
         {
             bookListView.View = View.Details;
             bookListView.Items.Clear();
-            dt = database.GetDataTableKnyga();
+            dt = database.GetDataTableBook();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
                 ListViewItem listitem = new ListViewItem(dr["ISBN"].ToString());
-                listitem.SubItems.Add(dr["Pavadinimas"].ToString());
-                listitem.SubItems.Add(dr["Autorius"].ToString());
-                listitem.SubItems.Add(DateTime.Parse(dr["Isleista"].ToString()).ToShortDateString());
+                listitem.SubItems.Add(dr["Title"].ToString());
+                listitem.SubItems.Add(dr["Author"].ToString());
+                listitem.SubItems.Add(DateTime.Parse(dr["Date"].ToString()).ToShortDateString());
                 bookListView.Items.Add(listitem);
             }
         }
@@ -50,7 +50,7 @@ namespace MyLibrarian
                 ListViewItem item = bookListView.SelectedItems[i];
                 string isbn = item.SubItems[0].Text;
 
-                database.DeleteFromKnyga(isbn);
+                database.DeleteFromBook(isbn);
                 PopulateTable();
             }
         }

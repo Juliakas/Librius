@@ -13,44 +13,42 @@ namespace MyLibrarian
     {
         SqlConnection connection;
 
-
         //Setup
         public ControllerDB()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings
-                [GetConnectionString()].ConnectionString;
+            string connectionString = "server=localhost\\SQLEXPRESS;database=LibraryDatabase;Trusted_connection=yes";
             connection = new SqlConnection(connectionString);
             connection.Open();
         }
 
         private string GetConnectionString()
         {
-            return "MyLibrarian.Properties.Settings.LibraryDatabaseConnectionString";
+            return "server=localhost;database=LibraryDatabase;Trusted_connection=yes";
         }
 
 
 
 
         //Skaitytojas
-        public void InsertToSkaitytojas(int id, String firstName, String lastName)
+        public void InsertToReader(int id, String firstName, String lastName)
         {
-            string query = "INSERT INTO Skaitytojas (ID, Vardas, Pavarde) VALUES (@id, @vardas, @pavarde)";
+            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname) VALUES (@id, @name, @surname)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.Add("@id", id);
-            command.Parameters.Add("@vardas", firstName);
-            command.Parameters.Add("@pavarde", lastName);
+            command.Parameters.Add("@name", firstName);
+            command.Parameters.Add("@surname", lastName);
 
             command.ExecuteNonQuery();
 
             command.Dispose();
         }
 
-        public DataTable GetDataTableSkaitytojas()
+        public DataTable GetDataTableReader()
         {
             string output = "";
-            string query = "SELECT ID, Vardas, Pavarde FROM Skaitytojas";
+            string query = "SELECT ID, Name, Surname FROM db_owner.Reader";
 
             SqlCommand command = new SqlCommand(query, connection);
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
@@ -62,9 +60,9 @@ namespace MyLibrarian
             return dt;
         }
 
-        public void DeleteFromSkaitytojas(int id)
+        public void DeleteFromReader(int id)
         {
-            string query = "DELETE FROM Skaitytojas WHERE ID = @id";
+            string query = "DELETE FROM db_owner.Reader WHERE ID = @id";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.Add("@id", id);
@@ -99,17 +97,17 @@ namespace MyLibrarian
 
 
         //Knyga
-        internal void InsertToKnyga(string isbn, string title, string author, DateTime date)
+        internal void InsertToBook(string isbn, string title, string author, DateTime date)
         {
-            string query = "INSERT INTO Knyga (ISBN, Pavadinimas, Autorius, Isleista) " +
-                "VALUES (@isbn, @pavadinimas, @autorius, @isleista)";
+            string query = "INSERT INTO db_owner.Book (ISBN, Title, Author, Date) " +
+                "VALUES (@isbn, @title, @author, @date)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.Add("@isbn", isbn);
-            command.Parameters.Add("@pavadinimas", title);
-            command.Parameters.Add("@autorius", author);
-            command.Parameters.Add("@isleista", date);
+            command.Parameters.Add("@title", title);
+            command.Parameters.Add("@author", author);
+            command.Parameters.Add("@date", date);
 
 
             command.ExecuteNonQuery();
@@ -117,10 +115,10 @@ namespace MyLibrarian
             command.Dispose();
         }
 
-        public DataTable GetDataTableKnyga()
+        public DataTable GetDataTableBook()
         {
             string output = "";
-            string query = "SELECT ISBN, Pavadinimas, Autorius, Isleista FROM Knyga";
+            string query = "SELECT ISBN, Title, Author, Date FROM db_owner.Book";
 
             SqlCommand command = new SqlCommand(query, connection);
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
@@ -132,9 +130,9 @@ namespace MyLibrarian
             return dt;
         }
 
-        internal void DeleteFromKnyga(string isbn)
+        internal void DeleteFromBook(string isbn)
         {
-            string query = "DELETE FROM Knyga WHERE ISBN = @isbn";
+            string query = "DELETE FROM db_owner.Book WHERE ISBN = @isbn";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.Add("@isbn", isbn);
