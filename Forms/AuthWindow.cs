@@ -73,7 +73,7 @@ namespace MyLibrarian
             }
             else
             {
-                MessageBox.Show("Error", "Incorrect User ID and / or Passowrd");
+                MessageBox.Show("Error", "Incorrect User ID and / or Password");
             }
         }
 

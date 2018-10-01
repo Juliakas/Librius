@@ -21,13 +21,15 @@ namespace MyLibrarian
         private String isbn;
         private DateTime date;
 
+        ControllerDB Database;
+
         public static MainWindow Instance { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             Instance = this;
-
+            Database = AuthWindow.Instance.Database;
         }
 
         private void MainFormClosed(object sender, FormClosedEventArgs e)

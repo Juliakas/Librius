@@ -73,23 +73,15 @@ namespace MyLibrarian
 
         public bool SearchReader(int id, string password)
         {
-            //string query = "SELECT COUNT(*) FROM Skaitytojas WHERE ID = @id AND Passord = @password";
+            string query = "SELECT COUNT(*) FROM db_owner.Reader WHERE ID = @id AND Password = @password";
 
-            //SqlCommand command = new SqlCommand(query, connection);
-            //command.Parameters.Add("@id", id);
-            //command.Parameters.Add("@password", password);
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.Add("@id", id);
+            command.Parameters.Add("@password", password);
 
-            //command.Dispose();
+            command.Dispose();
 
-            //return (Int32)command.ExecuteScalar() > 0;
-
-
-
-
-            //Man reikia, kad grąžintu true, jeigu atitinka 'id' ir 'password' parametrai su kažkokia reikšme duombazėje. Tokiu atveju 'COUNT(*) grąžins 1
-            //Priešingu atveju nieko neras ir grąžins 0
-
-            return true;
+            return (Int32)command.ExecuteScalar() > 0;
         }
 
 
