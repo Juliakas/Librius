@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyLibrarian.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -123,6 +124,10 @@ namespace MyLibrarian
             booksListWindow.Show();
         }
 
-
+        private void faceRecognitionButton_Click(object sender, EventArgs e)
+        {
+            RecogniseFaceWindow recogniseFaceWindow = new RecogniseFaceWindow();
+            recogniseFaceWindow.Show();
+        }
     }
 }
