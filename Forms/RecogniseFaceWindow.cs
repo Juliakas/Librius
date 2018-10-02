@@ -16,7 +16,7 @@ namespace MyLibrarian.Forms
 {
     public partial class RecogniseFaceWindow : Form
     {
-        private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("4b6ae37dff0042b991b9a8af80e7e46b", "https://westeurope.api.cognitive.microsoft.com/face/v1.0");
+        private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("api_key", "endpoint");
 
         string _imagePath = "";
         string _groupId = "";
