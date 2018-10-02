@@ -26,6 +26,7 @@ namespace MyLibrarian.Forms
             InitializeComponent();
         }
 
+        // read image as a stream and analize it by custom DetectAsync method
         private async Task<Face[]> UploadAndDetectFaces(string imageFilePath)
         {
             try
@@ -52,7 +53,7 @@ namespace MyLibrarian.Forms
             }
         }
 
-
+        // load image for detection
         private void browseButton_Click(object sender, EventArgs e)
         {
             using (var od = new OpenFileDialog())
@@ -66,6 +67,7 @@ namespace MyLibrarian.Forms
             }
         }
 
+        // Create a new PersonGroup in which new users will be added
         private async void createGroupButton_ClickAsync(object sender, EventArgs e)
         {
             try
@@ -96,6 +98,7 @@ namespace MyLibrarian.Forms
             }
         }
 
+        // Browse and choose a folder with personal images in it
         private void browseFolderButton_Click(object sender, EventArgs e)
         {
             using (var fb = new FolderBrowserDialog())
@@ -107,6 +110,7 @@ namespace MyLibrarian.Forms
             }
         }
 
+        // Add a new user to the users list
         private async void addUserButton_ClickAsync(object sender, EventArgs e)
         {
             try
@@ -144,6 +148,7 @@ namespace MyLibrarian.Forms
             }
         }
 
+        // Train PersonGroup using the provided images to increase precision in associating a face to a name
         private async void trainButton_ClickAsync(object sender, EventArgs e)
         {
             try
@@ -179,6 +184,7 @@ namespace MyLibrarian.Forms
             }
         }
 
+        // recognise image
         private async void identifyButton_ClickAsync(object sender, EventArgs e)
         {
             try
