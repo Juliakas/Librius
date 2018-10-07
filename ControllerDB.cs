@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using System.Windows.Forms;
 
 namespace MyLibrarian
 {
@@ -15,10 +16,17 @@ namespace MyLibrarian
 
         //Setup
         public ControllerDB()
-        {
-            string connectionString = "server=localhost\\SQLEXPRESS;database=LibraryDatabase;Trusted_connection=yes";
-            connection = new SqlConnection(connectionString);
-            connection.Open();
+        {   
+            try
+            {
+                string connectionString = "server=localhost\\SQLEXPRESS;database=LibraryDatabase;Trusted_connection=yes";
+                connection = new SqlConnection(connectionString);
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private string GetConnectionString()
