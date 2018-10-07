@@ -89,14 +89,20 @@ namespace MyLibrarian
             SqlDataReader reader = command.ExecuteReader();
             Hashing hashing = new Hashing();
             reader.Read();
-            string hash = reader.GetString(3);
+            if (reader.HasRows)
+            {
+                string hash = reader.GetString(3);
+
+                if (hashing.Verify(password, hash))
+                {
+                    reader.Close();
+                    command.Dispose();
+                    return true;
+                }
+            }
 
             reader.Close();
             command.Dispose();
-
-            if (hashing.Verify(password, hash))
-                return true;
-
             return false;
         }
 

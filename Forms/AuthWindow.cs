@@ -69,7 +69,7 @@ namespace MyLibrarian
 
             if (Database.SearchReader(userId, password))
             {
-                new MainUserWindow(userId).Show();
+                new MainWindow().Show();
             }
             else
             {
