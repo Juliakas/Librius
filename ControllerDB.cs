@@ -19,7 +19,7 @@ namespace MyLibrarian
         {   
             try
             {
-                string connectionString = "server=localhost\\SQLEXPRESS;database=LibraryDatabase;Trusted_connection=yes";
+                string connectionString = "server=localhost\\LIBRARYDATA;database=LibraryDatabase;Trusted_connection=yes";
                 connection = new SqlConnection(connectionString);
                 connection.Open();
             }
