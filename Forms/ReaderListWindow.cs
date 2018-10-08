@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace MyLibrarian.Forms
 {
-    public partial class UsersListWindow : Form
+    public partial class ReaderListWindow : Form
     {
         DataTable dt;
         ControllerDB database;
-        public UsersListWindow()
+        public ReaderListWindow()
         {
             InitializeComponent();
             database = AuthWindow.Instance.Database;
@@ -26,7 +26,7 @@ namespace MyLibrarian.Forms
         {
             userListView.View = View.Details;
             userListView.Items.Clear();
-            dt = database.GetDataTableReader();
+            dt = database.GetDataTable(ControllerDB.Table.Reader);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];

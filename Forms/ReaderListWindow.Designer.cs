@@ -1,6 +1,6 @@
 ﻿namespace MyLibrarian.Forms
 {
-    partial class UsersListWindow
+    partial class ReaderListWindow
     {
         /// <summary>
         /// Required designer variable.

@@ -114,7 +114,7 @@ namespace MyLibrarian.Forms
 
         private void showUsersButton_Click(object sender, EventArgs e)
         {
-            UsersListWindow usersListWindow = new UsersListWindow();
+            ReaderListWindow usersListWindow = new ReaderListWindow();
             usersListWindow.Show();
         }
 

@@ -30,7 +30,7 @@ namespace MyLibrarian.Forms
         {
             bookListView.View = View.Details;
             bookListView.Items.Clear();
-            dt = database.GetDataTableBook();
+            dt = database.GetDataTable(ControllerDB.Table.Book);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
