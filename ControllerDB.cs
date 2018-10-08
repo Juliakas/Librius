@@ -12,6 +12,12 @@ namespace MyLibrarian
 {
     public class ControllerDB
     {
+        public enum Table
+        {
+            Student, Book
+        }
+
+
         SqlConnection connection;
 
         //Setup
