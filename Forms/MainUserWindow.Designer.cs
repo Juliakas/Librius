@@ -1,4 +1,4 @@
-﻿namespace MyLibrarian
+﻿namespace MyLibrarian.Forms
 {
     partial class MainUserWindow
     {
