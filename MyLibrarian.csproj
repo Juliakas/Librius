@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Forms\AuthWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,12 +123,6 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Hashing.cs" />
-    <Compile Include="SignInWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SignInWindow.Designer.cs">
-      <DependentUpon>SignInWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\UsersListWindow.cs">
@@ -147,9 +142,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RecogniseFaceWindow.resx">
       <DependentUpon>RecogniseFaceWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SignInWindow.resx">
-      <DependentUpon>SignInWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

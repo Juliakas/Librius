@@ -25,8 +25,7 @@ namespace MyLibrarian
         {   
             try
             {
-                string connectionString = "server=localhost\\LIBRARYDATA;database=LibraryDatabase;Trusted_connection=yes";
-                connection = new SqlConnection(connectionString);
+                connection = new SqlConnection(GetConnectionString());
                 connection.Open();
             }
             catch (Exception ex)
@@ -37,7 +36,7 @@ namespace MyLibrarian
 
         private string GetConnectionString()
         {
-            return "server=localhost;database=LibraryDatabase;Trusted_connection=yes";
+            return Constants.connectionString;
         }
 
 
