@@ -13,12 +13,7 @@ namespace MyLibrarian.Forms
 {
     public partial class MainWindow : Form 
     {
-
-        public String title;
-        private String author;
-        private String isbn;
-        private DateTime date;
-
+        
         ControllerDB Database;
 
         public static MainWindow Instance { get; set; }
