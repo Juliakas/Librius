@@ -8,20 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyLibrarian.Data;
 
 namespace MyLibrarian.Forms
 {
     public partial class MainWindow : Form 
     {
-        private String firstName;
-        private String lastName;
-        private int id;
-
-        public String title;
-        private String author;
-        private String isbn;
-        private DateTime date;
-
+        
         ControllerDB Database;
 
         public static MainWindow Instance { get; set; }
@@ -84,15 +77,13 @@ namespace MyLibrarian.Forms
             {
                 if (isbnTextBox.Text.Length == 13)
                 {
+                    DateTime date;
                     DateTime.TryParse(pDateTextBox.Text, out date);
-                    title = titleTextBox.Text;
-                    author = authorTextBox.Text;
-                    isbn = isbnTextBox.Text;
+                    string title = titleTextBox.Text;
+                    string author = authorTextBox.Text;
+                    string isbn = isbnTextBox.Text;
 
-                    Database.InsertToBook(isbn, title, author, date);
-
-                    AuthWindow.Instance.Database.InsertToBook(isbn, title, author, date);
-
+                    Database.InsertToBook(new Book(isbn, title, author, date));
                 }
                 else
                 {

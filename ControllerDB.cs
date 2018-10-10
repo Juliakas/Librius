@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using MyLibrarian.Data;
 
 namespace MyLibrarian
 {
@@ -43,15 +44,16 @@ namespace MyLibrarian
 
 
         //Skaitytojas
-        public void InsertToReader(String firstName, String lastName, String hash)
+        public void InsertToReader(Reader reader)
         {
-            string query = "INSERT INTO db_owner.Reader (Name, Surname, Password) VALUES (@name, @surname, @hash)";
+            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname, Password) VALUES (@id, @name, @surname, @hash)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@name", firstName);
-            command.Parameters.Add("@surname", lastName);
-            command.Parameters.Add("@hash", hash);
+            command.Parameters.Add("@id", reader.id);
+            command.Parameters.Add("@name", reader.name);
+            command.Parameters.Add("@surname", reader.surname);
+            command.Parameters.Add("@hash", reader.hash);
 
             command.ExecuteNonQuery();
 
@@ -118,17 +120,17 @@ namespace MyLibrarian
 
 
         //Knyga
-        internal void InsertToBook(string isbn, string title, string author, DateTime date)
+        internal void InsertToBook(Book book)
         {
             string query = "INSERT INTO db_owner.Book (ISBN, Title, Author, Date) " +
                 "VALUES (@isbn, @title, @author, @date)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@isbn", isbn);
-            command.Parameters.Add("@title", title);
-            command.Parameters.Add("@author", author);
-            command.Parameters.Add("@date", date);
+            command.Parameters.Add("@isbn", book.isbn);
+            command.Parameters.Add("@title", book.title);
+            command.Parameters.Add("@author", book.author);
+            command.Parameters.Add("@date", book.date);
 
 
             command.ExecuteNonQuery();
@@ -146,8 +148,6 @@ namespace MyLibrarian
 
             command.Dispose();
         }
-
-
 
         //Close
         public void Close()

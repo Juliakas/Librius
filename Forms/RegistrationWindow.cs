@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyLibrarian.Data;
 
 namespace MyLibrarian.Forms
 {
@@ -281,13 +282,22 @@ namespace MyLibrarian.Forms
             string passwordHash = new Hashing().GenerateHash(PasswordBox.Text);
 
             ControllerDB database = AuthWindow.Instance.Database;
-            database.InsertToReader(firstName, lastName, passwordHash);
-
             DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
-            DataRow row = table.Rows[table.Rows.Count - 1];
-            id = (int)row["ID"];
-
+            try
+            {
+                DataRow row = table.Rows[table.Rows.Count - 1];
+                id = (int)row["ID"] + 1;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                id = 1710000;
+            }
+            
+            database.InsertToReader(new Reader(id, firstName, lastName, passwordHash));
+            
             MessageBox.Show("Your ID", String.Format("{0:D7}",id.ToString()));
+            this.Hide();
+            AuthWindow.Instance.Show();
         }
 
 
