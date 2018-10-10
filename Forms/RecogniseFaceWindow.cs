@@ -11,11 +11,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.ProjectOxford.Face;
 using Microsoft.ProjectOxford.Face.Contract;
+using AForge;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using System.Drawing.Imaging;
 
 namespace MyLibrarian.Forms
 {
     public partial class RecogniseFaceWindow : Form
     {
+        FilterInfoCollection device;
+        VideoCaptureDevice finalFrame;
+
+        bool cameraIsRunning = true;
+
         private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("api_key", "endpoint");
 
         string _imagePath = "";
@@ -24,6 +33,28 @@ namespace MyLibrarian.Forms
         public RecogniseFaceWindow()
         {
             InitializeComponent();
+            camera_start();
+        }
+
+        private void camera_start ()
+        {
+            device = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            finalFrame = new VideoCaptureDevice(device[0].MonikerString);
+            finalFrame.Start();
+            finalFrame.NewFrame += new AForge.Video.NewFrameEventHandler(newFrame_event);
+        }
+
+        private void newFrame_event(object send, NewFrameEventArgs e)
+        {
+            try
+            {
+                facePictureBox.Image = (Image)e.Frame.Clone();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         // read image as a stream and analize it by custom DetectAsync method
@@ -50,20 +81,6 @@ namespace MyLibrarian.Forms
             {
                 MessageBox.Show(ex.Message);
                 return new Face[0];
-            }
-        }
-
-        // load image for detection
-        private void browseButton_Click(object sender, EventArgs e)
-        {
-            using (var od = new OpenFileDialog())
-            {
-                od.Filter = "All files(*.*)|*.*";
-                if (od.ShowDialog() == DialogResult.OK)
-                {
-                    _imagePath = od.FileName;
-                    facePictureBox.Load(_imagePath);
-                }
             }
         }
 
@@ -101,12 +118,17 @@ namespace MyLibrarian.Forms
         // Browse and choose a folder with personal images in it
         private void browseFolderButton_Click(object sender, EventArgs e)
         {
+            browse_folder(imageFolderTextBox);
+        }
+
+        private void browse_folder(TextBox textBox)
+        {
             using (var fb = new FolderBrowserDialog())
             {
                 if (fb.ShowDialog() == DialogResult.OK)
-                    imageFolderTextBox.Text = fb.SelectedPath;
+                    textBox.Text = fb.SelectedPath;
                 else
-                    imageFolderTextBox.Text = "";
+                    textBox.Text = "";
             }
         }
 
@@ -217,6 +239,47 @@ namespace MyLibrarian.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void takePictureButton_Click(object sender, EventArgs e)
+        {
+            if (cameraIsRunning)
+            {
+                finalFrame.Stop();
+                cameraIsRunning = false;
+            }
+            else
+            {
+                camera_start();
+                cameraIsRunning = true;
+            }
+                
+        }
+
+        private void browseSaveButton_Click(object sender, EventArgs e)
+        {
+            browse_folder(folderSaveTextBox);
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            if ((fileNameTextBox.Text) != "" && (folderSaveTextBox.Text != ""))
+            {
+                if (!cameraIsRunning)
+                {
+                    facePictureBox.Image.Save(folderSaveTextBox.Text+ "//" +fileNameTextBox.Text+".jpg", ImageFormat.Jpeg);
+                }
+                else
+                {
+                    MessageBox.Show("Picture is not taken");
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("File name and folder fields must be filled");
+            }
+            
         }
     }
 }
