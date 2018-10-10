@@ -43,15 +43,15 @@ namespace MyLibrarian
 
 
         //Skaitytojas
-        public void InsertToReader(int id, String firstName, String lastName)
+        public void InsertToReader(String firstName, String lastName, String hash)
         {
-            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname, Password) VALUES (@id, @name, @surname)";
+            string query = "INSERT INTO db_owner.Reader (Name, Surname, Password) VALUES (@name, @surname, @hash)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@id", id);
             command.Parameters.Add("@name", firstName);
             command.Parameters.Add("@surname", lastName);
+            command.Parameters.Add("@hash", hash);
 
             command.ExecuteNonQuery();
 
@@ -61,11 +61,11 @@ namespace MyLibrarian
         public DataTable GetDataTable(Table tbl)
         {
             string output = "";
-            string query = "SELECT * FROM db_owner.@table";
+            string tableName = Enum.GetName(tbl.GetType(), tbl);
+            string query = "SELECT * FROM db_owner." + tableName;
+            
 
             SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.Add("@table", tbl.ToString());
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
