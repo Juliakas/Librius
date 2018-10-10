@@ -42,35 +42,36 @@ namespace MyLibrarian.Forms
 
         private void addUserButton_Click(object sender, EventArgs e)
         {
-            if (!(string.IsNullOrEmpty(firstNameTextBox.Text)
-                || string.IsNullOrEmpty(lastNameTextBox.Text)
-                || string.IsNullOrEmpty(idTextBox.Text)))
-            {
-                firstName = firstNameTextBox.Text;
-                lastName = lastNameTextBox.Text;
-                if (idTextBox.Text.Length == 7)
-                {
-                    id = Convert.ToInt32(idTextBox.Text);
+            //if (!(string.IsNullOrEmpty(firstNameTextBox.Text)
+            //    || string.IsNullOrEmpty(lastNameTextBox.Text)
+            //    || string.IsNullOrEmpty(idTextBox.Text)))
+            //{
+            //    firstName = firstNameTextBox.Text;
+            //    lastName = lastNameTextBox.Text;
+            //    if (idTextBox.Text.Length == 7)
+            //    {
+            //        id = Convert.ToInt32(idTextBox.Text);
 
-                    Database.InsertToReader(id, firstName, lastName);
-                    
-                    AuthWindow.Instance.Database.InsertToReader(id, firstName, lastName);
+            //        Database.InsertToReader(id, firstName, lastName);
 
-                }
+            //        AuthWindow.Instance.Database.InsertToReader(id, firstName, lastName);
 
-                else
-                {
-                    string message = "id field must have 7 characters!";
-                    string caption = "Invalid fields";
-                    MessageBox.Show(message, caption);
-                }
-            }
-            else
-            {
-                string message = "Not all fields are filled!";
-                string caption = "Empty fields";
-                MessageBox.Show(message, caption);
-            }
+            //    }
+
+            //    else
+            //    {
+            //        string message = "id field must have 7 characters!";
+            //        string caption = "Invalid fields";
+            //        MessageBox.Show(message, caption);
+            //    }
+            //}
+            //else
+            //{
+            //    string message = "Not all fields are filled!";
+            //    string caption = "Empty fields";
+            //    MessageBox.Show(message, caption);
+            //}
+            throw new NotImplementedException();
 
         }
 

@@ -32,8 +32,7 @@ namespace MyLibrarian.Forms
             PasswordPlaceholderText();
         }
 
-        //Non event handler methods
-        #region
+        #region Placeholder text methods
         private void UserIdPlaceholderText()
         {
             UserIdBox.ForeColor = Color.Gray;
@@ -60,7 +59,7 @@ namespace MyLibrarian.Forms
             PasswordBox.PasswordChar = '*';
         }
 
-        #endregion
+        #endregion Non event handler methods
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
@@ -116,6 +115,7 @@ namespace MyLibrarian.Forms
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
+            this.Hide();
             new RegistrationWindow().Show();
         }
     }
