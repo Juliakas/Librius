@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using MyLibrarian.Data;
 
 namespace MyLibrarian
 {
