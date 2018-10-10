@@ -14,7 +14,7 @@ namespace MyLibrarian
     {
         public enum Table
         {
-            Student, Book
+            Reader, Book
         }
 
 
@@ -25,8 +25,7 @@ namespace MyLibrarian
         {   
             try
             {
-                string connectionString = "server=localhost\\LIBRARYDATA;database=LibraryDatabase;Trusted_connection=yes";
-                connection = new SqlConnection(connectionString);
+                connection = new SqlConnection(GetConnectionString());
                 connection.Open();
             }
             catch (Exception ex)
@@ -37,7 +36,7 @@ namespace MyLibrarian
 
         private string GetConnectionString()
         {
-            return "server=localhost;database=LibraryDatabase;Trusted_connection=yes";
+            return Constants.connectionString;
         }
 
 
@@ -46,23 +45,26 @@ namespace MyLibrarian
         //Skaitytojas
         public void InsertToReader(Reader reader)
         {
-            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname, Password) VALUES (@id, @name, @surname)";
+            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname, Password) VALUES (@id, @name, @surname, @hash)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.Add("@id", reader.id);
             command.Parameters.Add("@name", reader.name);
-            command.Parameters.Add("@surname",  reader.surname);
+            command.Parameters.Add("@surname", reader.surname);
+            command.Parameters.Add("@hash", reader.hash);
 
             command.ExecuteNonQuery();
 
             command.Dispose();
         }
 
-        public DataTable GetDataTableReader()
+        public DataTable GetDataTable(Table tbl)
         {
             string output = "";
-            string query = "SELECT ID, Name, Surname FROM db_owner.Reader";
+            string tableName = Enum.GetName(tbl.GetType(), tbl);
+            string query = "SELECT * FROM db_owner." + tableName;
+            
 
             SqlCommand command = new SqlCommand(query, connection);
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
@@ -133,21 +135,6 @@ namespace MyLibrarian
             command.ExecuteNonQuery();
 
             command.Dispose();
-        }
-
-        public DataTable GetDataTableBook()
-        {
-            string output = "";
-            string query = "SELECT ISBN, Title, Author, Date FROM db_owner.Book";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            command.Dispose();
-
-            return dt;
         }
 
         internal void DeleteFromBook(string isbn)
