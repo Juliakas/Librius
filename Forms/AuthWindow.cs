@@ -73,7 +73,7 @@ namespace MyLibrarian.Forms
             }
             else
             {
-                MessageBox.Show("Error", "Incorrect User ID and / or Password");
+                MessageManager.ShowMessageBox("Incorrect User ID and / or Password", "Error");
             }
         }
 

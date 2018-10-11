@@ -295,7 +295,7 @@ namespace MyLibrarian.Forms
             
             database.InsertToReader(new Reader(id, firstName, lastName, passwordHash));
             
-            MessageBox.Show("Your ID", String.Format("{0:D7}",id.ToString()));
+            MessageManager.ShowMessageBox(String.Format("{0:D7}",id.ToString()), "Your ID");
             this.Hide();
             AuthWindow.Instance.Show();
         }

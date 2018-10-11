@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="Hashing.cs" />
     <Compile Include="Data\Reader.cs" />
+    <Compile Include="Forms\MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\ReaderListWindow.cs">

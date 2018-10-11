@@ -89,8 +89,7 @@ namespace MyLibrarian.Forms
                 {
                     string message = "ISBN field must have 13 characters!";
                     string caption = "Invalid fields";
-                    DialogResult result;
-                    result = MessageBox.Show(message, caption);
+                    MessageManager.ShowMessageBox(message, caption);
                 }
 
 
@@ -99,8 +98,7 @@ namespace MyLibrarian.Forms
             {
                 string message = "Not all fields are filled!";
                 string caption = "Empty fields";
-                DialogResult result;
-                result = MessageBox.Show(message, caption);
+                MessageManager.ShowMessageBox(message, caption);
             }
         }
 

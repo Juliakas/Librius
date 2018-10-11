@@ -48,7 +48,7 @@ namespace MyLibrarian.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageManager.ShowMessageBox(ex);
                 return new Face[0];
             }
         }
@@ -74,7 +74,7 @@ namespace MyLibrarian.Forms
             {
                 if (groupNameTextBox.Text == "")
                 {
-                    MessageBox.Show("Group name field is empty");
+                    MessageManager.ShowMessageBox("Group name field is empty");
                 }
                 else
                 {
@@ -88,13 +88,13 @@ namespace MyLibrarian.Forms
 
                     await faceServiceClient.CreatePersonGroupAsync(_groupId, groupNameTextBox.Text);
 
-                    MessageBox.Show("Group successfully created");
+                    MessageManager.ShowMessageBox("Group successfully created");
                 }
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageManager.ShowMessageBox(ex);
             }
         }
 
@@ -117,15 +117,15 @@ namespace MyLibrarian.Forms
             {
                 if (_groupId == "")
                 {
-                    MessageBox.Show("No groups found");
+                    MessageManager.ShowMessageBox("No groups found");
                 }
                 else if (newUserTextBox.Text == "")
                 {
-                    MessageBox.Show("New user field is empty");
+                    MessageManager.ShowMessageBox("New user field is empty");
                 }
                 else if (imageFolderTextBox.Text == "")
                 {
-                    MessageBox.Show("No folder attached to the user");
+                    MessageManager.ShowMessageBox("No folder attached to the user");
                 }
                 else
                 {
@@ -138,13 +138,13 @@ namespace MyLibrarian.Forms
                             await faceServiceClient.AddPersonFaceAsync(_groupId, person.PersonId, s);
                         }
                     }
-                    MessageBox.Show("Person was successfully added");
+                    MessageManager.ShowMessageBox("Person was successfully added");
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageManager.ShowMessageBox(ex);
             }
         }
 
@@ -155,7 +155,7 @@ namespace MyLibrarian.Forms
             {
                 if (_groupId == "")
                 {
-                    MessageBox.Show("Group was not created");
+                    MessageManager.ShowMessageBox("Group was not created");
                 }
                 else
                 {
@@ -174,13 +174,13 @@ namespace MyLibrarian.Forms
                         await Task.Delay(1000);
                     }
 
-                    MessageBox.Show("Training successfully completed");
+                    MessageManager.ShowMessageBox("Training successfully completed");
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageManager.ShowMessageBox(ex.Message);
             }
         }
 
@@ -210,12 +210,12 @@ namespace MyLibrarian.Forms
 
                 }
 
-                MessageBox.Show("Identification successfully completed");
+                MessageManager.ShowMessageBox("Identification successfully completed");
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageManager.ShowMessageBox(ex);
             }
         }
     }
