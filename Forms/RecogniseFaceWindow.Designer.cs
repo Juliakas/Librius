@@ -319,6 +319,7 @@
             this.Controls.Add(this.facePictureBox);
             this.Name = "RecogniseFaceWindow";
             this.Text = "RecogniseFaceWindow";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecogniseFaceWindow_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.facePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
