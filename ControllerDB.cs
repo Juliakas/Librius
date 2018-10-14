@@ -31,7 +31,7 @@ namespace MyLibrarian
             }
             catch (Exception ex)
             {
-                MessageManager.ShowMessageBox(ex);
+                // MessageManager.ShowMessageBox(ex);
             }
         }
 

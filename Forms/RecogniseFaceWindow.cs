@@ -281,5 +281,10 @@ namespace MyLibrarian.Forms
             }
             
         }
+
+        private void RecogniseFaceWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            finalFrame.Stop();
+        }
     }
 }
