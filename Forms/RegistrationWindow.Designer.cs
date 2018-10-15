@@ -147,6 +147,9 @@
             this.Controls.Add(this.PasswordBox);
             this.Controls.Add(this.LastNameBox);
             this.Controls.Add(this.FirstNameBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RegistrationWindow";
             this.Text = "RegistrationWindow";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegistrationWindow_FormClosed);

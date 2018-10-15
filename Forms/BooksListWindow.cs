@@ -19,7 +19,6 @@ namespace MyLibrarian.Forms
         public BooksListWindow()
         {
             InitializeComponent();
-            MainWindow main = MainWindow.Instance;
             database = AuthWindow.Instance.Database;
 
             PopulateTable();
@@ -35,8 +34,8 @@ namespace MyLibrarian.Forms
             {
                 DataRow dr = dt.Rows[i];
                 ListViewItem listitem = new ListViewItem(dr["ISBN"].ToString());
-                listitem.SubItems.Add(dr["Title"].ToString());
                 listitem.SubItems.Add(dr["Author"].ToString());
+                listitem.SubItems.Add(dr["Title"].ToString());
                 listitem.SubItems.Add(DateTime.Parse(dr["Date"].ToString()).ToShortDateString());
                 bookListView.Items.Add(listitem);
             }

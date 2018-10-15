@@ -149,6 +149,9 @@
     <EmbeddedResource Include="Forms\BooksListWindow.resx">
       <DependentUpon>BooksListWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainUserWindow.resx">
+      <DependentUpon>MainUserWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
