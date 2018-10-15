@@ -283,17 +283,19 @@ namespace MyLibrarian.Forms
 
             ControllerDB database = AuthWindow.Instance.Database;
             DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
+
+            database.InsertToReader(new Reader(firstName, lastName, passwordHash));
             try
             {
                 DataRow row = table.Rows[table.Rows.Count - 1];
-                id = (int)row["ID"] + 1;
+                id = (int)row["ID"];
             }
             catch (IndexOutOfRangeException ex)
             {
                 id = 1710000;
             }
             
-            database.InsertToReader(new Reader(id, firstName, lastName, passwordHash));
+            
             
             MessageManager.ShowMessageBox(String.Format("{0:D7}",id.ToString()), "Your ID");
             this.Hide();

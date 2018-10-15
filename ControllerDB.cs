@@ -46,11 +46,10 @@ namespace MyLibrarian
         //Skaitytojas
         public void InsertToReader(Reader reader)
         {
-            string query = "INSERT INTO db_owner.Reader (ID, Name, Surname, Password) VALUES (@id, @name, @surname, @hash)";
+            string query = "INSERT INTO db_owner.Reader (Name, Surname, Password) VALUES (@name, @surname, @hash)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@id", reader.id);
             command.Parameters.Add("@name", reader.name);
             command.Parameters.Add("@surname", reader.surname);
             command.Parameters.Add("@hash", reader.hash);
