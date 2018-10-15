@@ -20,5 +20,7 @@ namespace MyLibrarian.Data
             this.surname = surname;
             this.hash = hash;
         }
+
+        public Reader(string name, string surname, string hash) : this(0, name, surname, hash) { }
     }
 }
