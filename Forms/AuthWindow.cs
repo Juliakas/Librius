@@ -77,6 +77,12 @@ namespace MyLibrarian.Forms
             }
         }
 
+        private void AdminButton_Click(object sender, EventArgs e)
+        {
+            new MainWindow().Show();
+            Instance.Hide();
+        }
+
         private void PasswordBox_Enter(object sender, EventArgs e)
         {
             if (PasswordBox.ForeColor == Color.Gray)

@@ -32,6 +32,7 @@
             this.PasswordBox = new System.Windows.Forms.TextBox();
             this.LogInButton = new System.Windows.Forms.Button();
             this.RegisterButton = new System.Windows.Forms.Button();
+            this.AdminButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UserIdBox
@@ -80,11 +81,22 @@
             this.RegisterButton.UseVisualStyleBackColor = true;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
+            // AdminButton
+            // 
+            this.AdminButton.Location = new System.Drawing.Point(12, 12);
+            this.AdminButton.Name = "AdminButton";
+            this.AdminButton.Size = new System.Drawing.Size(75, 23);
+            this.AdminButton.TabIndex = 4;
+            this.AdminButton.Text = "Admin";
+            this.AdminButton.UseVisualStyleBackColor = true;
+            this.AdminButton.Click += new System.EventHandler(this.AdminButton_Click);
+            // 
             // AuthWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(229, 206);
+            this.Controls.Add(this.AdminButton);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.LogInButton);
             this.Controls.Add(this.PasswordBox);
@@ -105,5 +117,6 @@
         private System.Windows.Forms.TextBox PasswordBox;
         private System.Windows.Forms.Button LogInButton;
         private System.Windows.Forms.Button RegisterButton;
+        private System.Windows.Forms.Button AdminButton;
     }
 }

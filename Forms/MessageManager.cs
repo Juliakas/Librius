@@ -9,7 +9,7 @@ namespace MyLibrarian.Forms
 {
     class MessageManager
     {
-        public static void ShowMessageBox (Exception e)
+        public static void ShowMessageBox(Exception e)
         {
             MessageBox.Show(e.Message);
         }
