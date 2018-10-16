@@ -35,6 +35,7 @@
             this.pDateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RemoveButton = new System.Windows.Forms.Button();
             this.ShowCopiesButton = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BookListView
@@ -96,11 +97,23 @@
             this.ShowCopiesButton.UseVisualStyleBackColor = true;
             this.ShowCopiesButton.Click += new System.EventHandler(this.ShowCopiesButton_Click);
             // 
+            // BackButton
+            // 
+            this.BackButton.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackButton.Location = new System.Drawing.Point(607, 439);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(82, 44);
+            this.BackButton.TabIndex = 4;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // BooksListWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 495);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.ShowCopiesButton);
             this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.BookListView);
@@ -124,5 +137,6 @@
         private System.Windows.Forms.ColumnHeader pDateColumnHeader;
         private System.Windows.Forms.Button RemoveButton;
         private System.Windows.Forms.Button ShowCopiesButton;
+        private System.Windows.Forms.Button BackButton;
     }
 }

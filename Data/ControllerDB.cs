@@ -9,7 +9,7 @@ using System.Data;
 using System.Windows.Forms;
 using MyLibrarian.Data;
 
-namespace MyLibrarian
+namespace MyLibrarian.Data
 {
     public class ControllerDB
     {
@@ -63,14 +63,10 @@ namespace MyLibrarian
         {
             string tableName = Enum.GetName(tbl.GetType(), tbl);
             string query = "SELECT * FROM db_owner." + tableName;
-            
 
-            SqlCommand command = new SqlCommand(query, connection);
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-
-            command.Dispose();
 
             return dt;
         }
@@ -113,10 +109,6 @@ namespace MyLibrarian
             return false;
         }
 
-
-
-
-
         //Knyga
         internal void InsertToBook(Book book)
         {
@@ -156,6 +148,17 @@ namespace MyLibrarian
             command.Parameters.Add("@id", copy.ID);
             command.Parameters.Add("@isbn", copy.ISBN);
 
+            command.ExecuteNonQuery();
+
+            command.Dispose();
+        }
+
+        public void DeleteFromCopy(Int64 id)
+        {
+            string query = "DELETE FROM db_owner.Copy WHERE ID = @id";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.Add("@id", id);
             command.ExecuteNonQuery();
 
             command.Dispose();

@@ -15,7 +15,7 @@ namespace MyLibrarian.Forms
     public partial class MainWindow : Form 
     {
         
-        ControllerDB Database;
+        private readonly ControllerDB Database;
 
         public MainWindow()
         {
@@ -66,14 +66,9 @@ namespace MyLibrarian.Forms
 
         private void showBooksButton_Click(object sender, EventArgs e)
         {
-            BooksListWindow booksListWindow = new BooksListWindow();
+            BooksListWindow booksListWindow = new BooksListWindow(this);
             booksListWindow.Show();
-        }
-
-        private void faceRecognitionButton_Click(object sender, EventArgs e)
-        {
-            RecogniseFaceWindow recogniseFaceWindow = new RecogniseFaceWindow();
-            recogniseFaceWindow.Show();
+            this.Hide();
         }
     }
 }

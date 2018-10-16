@@ -34,6 +34,7 @@
             this.BorrowedDataColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RemoveButton = new System.Windows.Forms.Button();
             this.NewCopyButton = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CopyListView
@@ -89,11 +90,23 @@
             this.NewCopyButton.UseVisualStyleBackColor = true;
             this.NewCopyButton.Click += new System.EventHandler(this.NewCopyButton_Click);
             // 
+            // BackButton
+            // 
+            this.BackButton.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackButton.Location = new System.Drawing.Point(420, 439);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(82, 44);
+            this.BackButton.TabIndex = 3;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // CopyListWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 495);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.NewCopyButton);
             this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.CopyListView);
@@ -116,5 +129,6 @@
         private System.Windows.Forms.ColumnHeader BorrowedDataColumnHeader;
         private System.Windows.Forms.Button RemoveButton;
         private System.Windows.Forms.Button NewCopyButton;
+        private System.Windows.Forms.Button BackButton;
     }
 }
