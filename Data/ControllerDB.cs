@@ -11,7 +11,7 @@ using MyLibrarian.Data;
 
 namespace MyLibrarian.Data
 {
-    public class ControllerDB
+    public sealed class ControllerDB
     {
         public enum Table
         {
@@ -19,10 +19,27 @@ namespace MyLibrarian.Data
         }
 
 
-        SqlConnection connection;
+        private readonly SqlConnection connection;
+        private static readonly object padlock = new object();
+        private static ControllerDB instance = null;
+
+        public static ControllerDB Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new ControllerDB();
+                    }
+                    return instance;
+                }
+            }
+        }
 
         //Setup
-        public ControllerDB()
+        private ControllerDB()
         {   
             try
             {

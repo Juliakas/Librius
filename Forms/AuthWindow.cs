@@ -1,4 +1,5 @@
 ﻿using MyLibrarian.Data;
+using MyLibrarian.Forms.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,15 +20,11 @@ namespace MyLibrarian.Forms
 
         internal ControllerDB Database { get; }
 
-        public static AuthWindow Instance { get; set; }
-
-
         public AuthWindow()
         {
             InitializeComponent();
 
-            Instance = this;
-            Database = new ControllerDB();
+            Database = ControllerDB.Instance;
 
             UserIdPlaceholderText();
             PasswordPlaceholderText();
@@ -69,8 +66,8 @@ namespace MyLibrarian.Forms
 
             if (Database.SearchReader(userId, password))
             {
-                new MainWindow().Show();
-                Instance.Hide();
+                new MainUserWindow(this, userId).Show();
+                this.Hide();
             }
             else
             {
@@ -80,8 +77,8 @@ namespace MyLibrarian.Forms
 
         private void AdminButton_Click(object sender, EventArgs e)
         {
-            new MainWindow().Show();
-            Instance.Hide();
+            new MainWindow(this).Show();
+            this.Hide();
         }
 
         private void PasswordBox_Enter(object sender, EventArgs e)
@@ -123,8 +120,7 @@ namespace MyLibrarian.Forms
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new RegistrationWindow().Show();
+            new RegistrationWindow(this).ShowDialog();
         }
     }
 }

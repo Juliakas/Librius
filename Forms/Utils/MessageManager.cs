@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyLibrarian.Forms
+namespace MyLibrarian.Forms.Utils
 {
     internal static class MessageManager
     {

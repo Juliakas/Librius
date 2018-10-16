@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLibrarian.Data;
+using MyLibrarian.Forms.Utils;
 
 namespace MyLibrarian.Forms
 {
@@ -17,17 +18,18 @@ namespace MyLibrarian.Forms
         
         private readonly ControllerDB Database;
 
-        public MainWindow()
+        public MainWindow(AuthWindow previousWindow)
         {
             InitializeComponent();
-            Database = AuthWindow.Instance.Database;
+            Database = ControllerDB.Instance;
         }
 
         private void MainFormClosed(object sender, FormClosedEventArgs e)
         {
 
-            AuthWindow.Instance.Database.Close();
+            Database.Close();
             Application.Exit();
+
         }
 
         private void addBookButton_Click(object sender, EventArgs e)

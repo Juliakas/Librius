@@ -22,7 +22,7 @@ namespace MyLibrarian.Forms
             InitializeComponent();
             this.previousWindow = previousWindow;
             this.isbn = isbn;
-            database = AuthWindow.Instance.Database;
+            database = ControllerDB.Instance;
         }
 
         private void AddButton_Click(object sender, EventArgs e)

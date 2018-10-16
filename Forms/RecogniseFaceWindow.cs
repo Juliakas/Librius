@@ -15,6 +15,7 @@ using AForge;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using System.Drawing.Imaging;
+using MyLibrarian.Forms.Utils;
 
 namespace MyLibrarian.Forms
 {
