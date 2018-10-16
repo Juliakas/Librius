@@ -1,4 +1,5 @@
 ﻿using MyLibrarian.Data;
+using MyLibrarian.Forms.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace MyLibrarian.Forms
         public BooksListWindow(MainWindow previousForm)
         {
             InitializeComponent();
-            database = AuthWindow.Instance.Database;
+            database = ControllerDB.Instance;
             this.previousForm = previousForm;
 
             PopulateTable();

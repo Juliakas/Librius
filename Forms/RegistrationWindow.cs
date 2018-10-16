@@ -8,15 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLibrarian.Data;
+using MyLibrarian.Forms.Utils;
 
 namespace MyLibrarian.Forms
 {
     public partial class RegistrationWindow : Form
     {
+        AuthWindow previousWindow;
+        ControllerDB database;
 
-        public RegistrationWindow()
+        public RegistrationWindow(AuthWindow previousWindow)
         {
             InitializeComponent();
+
+            this.previousWindow = previousWindow;
+            database = ControllerDB.Instance;
 
             LastNamePlaceholderText();
             PasswordPlaceholderText();
@@ -265,13 +271,12 @@ namespace MyLibrarian.Forms
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            AuthWindow.Instance.Show();
-            this.Dispose();
+            this.Hide();
         }
 
         private void RegistrationWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            FormsUtils.ExitApplication();
         }
 
         private void CreateAccountButton_Click(object sender, EventArgs e)
@@ -281,25 +286,15 @@ namespace MyLibrarian.Forms
             string lastName = LastNameBox.Text;
             string passwordHash = new Hashing().GenerateHash(PasswordBox.Text);
 
-            ControllerDB database = AuthWindow.Instance.Database;
             DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
 
             database.InsertToReader(new Reader(firstName, lastName, passwordHash));
-            try
-            {
-                DataRow row = table.Rows[table.Rows.Count - 1];
-                id = (int)row["ID"];
-            }
-            catch (IndexOutOfRangeException ex)
-            {
-                id = 1710000;
-            }
-            
-            
-            
+            DataRow row = table.Rows[table.Rows.Count - 1];
+            id = (int)row["ID"];
+
             MessageManager.ShowMessageBox(String.Format("{0:D7}",id.ToString()), "Your ID");
             this.Hide();
-            AuthWindow.Instance.Show();
+            previousWindow.Show();
         }
 
 

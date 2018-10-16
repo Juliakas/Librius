@@ -12,7 +12,7 @@ namespace MyLibrarian.Forms
 {
     public partial class MainUserWindow : Form
     {
-        public MainUserWindow(int userId)
+        public MainUserWindow(AuthWindow previousWindow, int userId)
         {
             InitializeComponent();
         }

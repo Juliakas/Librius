@@ -23,7 +23,7 @@ namespace MyLibrarian.Forms
 
             this.isbn = isbn;
             this.previousForm = previousForm;
-            database = AuthWindow.Instance.Database;
+            database = ControllerDB.Instance;
 
             PopulateTable();
         }

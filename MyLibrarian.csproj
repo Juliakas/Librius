@@ -146,9 +146,10 @@
     <Compile Include="Forms\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Utils\FormsUtils.cs" />
     <Compile Include="Hashing.cs" />
     <Compile Include="Data\Reader.cs" />
-    <Compile Include="Forms\MessageManager.cs" />
+    <Compile Include="Forms\Utils\MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AddCopyWindow.resx">
