@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MyLibrarian.Forms
 {
-    class MessageManager
+    internal static class MessageManager
     {
         public static void ShowMessageBox(Exception e)
         {

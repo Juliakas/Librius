@@ -96,6 +96,13 @@
     <Compile Include="Data\Book.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Data\Copy.cs" />
+    <Compile Include="Data\LINQ.cs" />
+    <Compile Include="Forms\AddCopyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddCopyWindow.Designer.cs">
+      <DependentUpon>AddCopyWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AuthWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,7 +121,7 @@
     <Compile Include="Forms\BooksListWindow.Designer.cs">
       <DependentUpon>BooksListWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControllerDB.cs" />
+    <Compile Include="Data\ControllerDB.cs" />
     <Compile Include="Forms\MainUserWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +151,9 @@
     <Compile Include="Forms\MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AddCopyWindow.resx">
+      <DependentUpon>AddCopyWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuthWindow.resx">
       <DependentUpon>AuthWindow.cs</DependentUpon>
     </EmbeddedResource>

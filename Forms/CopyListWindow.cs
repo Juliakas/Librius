@@ -13,24 +13,19 @@ namespace MyLibrarian.Forms
 {
     public partial class CopyListWindow : Form
     {
-        ControllerDB database;
+        private readonly ControllerDB database;
+        private readonly string isbn;
+        private readonly BooksListWindow previousForm;
 
-
-        public CopyListWindow(string isbn)
+        public CopyListWindow(BooksListWindow previousForm, string isbn)
         {
             InitializeComponent();
 
+            this.isbn = isbn;
+            this.previousForm = previousForm;
             database = AuthWindow.Instance.Database;
-            DataTable dt = database.GetDataTable(ControllerDB.Table.Copy);
-            if (dt.Rows.Count > 0)
-            {
-                IEnumerable<DataRow> filtered = from rows in dt.AsEnumerable()
-                                                where rows["ISBN"].ToString() == isbn
-                                                select rows;
-                dt = filtered.CopyToDataTable();
-            }
 
-            PopulateTable(dt);
+            PopulateTable();
         }
 
 
@@ -48,10 +43,23 @@ namespace MyLibrarian.Forms
             }
         }
 
-        private void PopulateTable()
+        internal void PopulateTable()
         {
             DataTable dt = database.GetDataTable(ControllerDB.Table.Copy);
-            PopulateTable(dt);
+            LINQ<DataRow> filter = new LINQ<DataRow>(dt.AsEnumerable());
+            filter.FilterByCondition(rows => rows["ISBN"].ToString() == isbn);
+            try
+            {
+                dt = filter.Collection.CopyToDataTable();
+            }
+            catch (ArgumentNullException ex)
+            {
+                dt.Clear();
+            }
+            finally
+            {
+                PopulateTable(dt);
+            }
         }
 
 
@@ -60,17 +68,22 @@ namespace MyLibrarian.Forms
             for (int i = 0; i < CopyListView.SelectedItems.Count; i++)
             {
                 ListViewItem item = CopyListView.SelectedItems[i];
-                string isbn = item.SubItems[0].Text;
+                Int64 id = Int64.Parse(item.SubItems[0].Text);
 
-                database.DeleteFromBook(isbn);
+                database.DeleteFromCopy(id);
                 PopulateTable();
             }
         }
 
         private void NewCopyButton_Click(object sender, EventArgs e)
         {
-            database.InsertToCopy(new Copy(220868, "9789955680093"));
-            PopulateTable();
+            new AddCopyWindow(this, isbn).ShowDialog();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            previousForm.Show();
+            this.Dispose();
         }
     }
 }

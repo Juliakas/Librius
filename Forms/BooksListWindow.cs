@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyLibrarian.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,16 +13,18 @@ namespace MyLibrarian.Forms
 {
     public partial class BooksListWindow : Form
     {
-        ControllerDB database;
+        private readonly ControllerDB database;
+        private readonly MainWindow previousForm;
 
-        public BooksListWindow()
+
+        public BooksListWindow(MainWindow previousForm)
         {
             InitializeComponent();
             database = AuthWindow.Instance.Database;
+            this.previousForm = previousForm;
 
             PopulateTable();
         }
-
 
         private void PopulateTable()
         {
@@ -54,16 +57,25 @@ namespace MyLibrarian.Forms
 
         private void ShowCopiesButton_Click(object sender, EventArgs e)
         {
-            string isbn = BookListView.SelectedItems[0].SubItems[0].Text;
+            try
+            {
+                string isbn = BookListView.SelectedItems[0].SubItems[0].Text;
 
-            this.Hide();
+                this.Hide();
 
-            CopyListWindow window = new CopyListWindow(isbn);
-            window.Show();
-            
+                new CopyListWindow(this, isbn).Show();
+            }
+            catch(System.ArgumentOutOfRangeException ex)
+            {
+                MessageManager.ShowMessageBox("Please select a book ISBN", "Error");
+            }
+
         }
 
-
-
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            previousForm.Show();
+            this.Dispose();
+        }
     }
 }
