@@ -56,6 +56,10 @@ namespace MyLibrarian.Forms
             {
                 dt.Clear();
             }
+            catch(InvalidOperationException ex)
+            {
+                dt.Clear();
+            }
             finally
             {
                 PopulateTable(dt);
