@@ -15,7 +15,7 @@ namespace MyLibrarian
     {
         public enum Table
         {
-            Reader, Book
+            Reader, Book, Copy
         }
 
 
@@ -50,9 +50,9 @@ namespace MyLibrarian
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@name", reader.name);
-            command.Parameters.Add("@surname", reader.surname);
-            command.Parameters.Add("@hash", reader.hash);
+            command.Parameters.Add("@name", reader.Name);
+            command.Parameters.Add("@surname", reader.Surname);
+            command.Parameters.Add("@hash", reader.PasswordHash);
 
             command.ExecuteNonQuery();
 
@@ -61,7 +61,6 @@ namespace MyLibrarian
 
         public DataTable GetDataTable(Table tbl)
         {
-            string output = "";
             string tableName = Enum.GetName(tbl.GetType(), tbl);
             string query = "SELECT * FROM db_owner." + tableName;
             
@@ -126,10 +125,10 @@ namespace MyLibrarian
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@isbn", book.isbn);
-            command.Parameters.Add("@title", book.title);
-            command.Parameters.Add("@author", book.author);
-            command.Parameters.Add("@date", book.date);
+            command.Parameters.Add("@isbn", book.ISBN);
+            command.Parameters.Add("@title", book.Title);
+            command.Parameters.Add("@author", book.Author);
+            command.Parameters.Add("@date", book.Date);
 
 
             command.ExecuteNonQuery();
@@ -147,6 +146,22 @@ namespace MyLibrarian
 
             command.Dispose();
         }
+
+        public void InsertToCopy(Copy copy)
+        {
+            string query = "INSERT INTO db_owner.Copy (ID, Reader, ISBN, Borrowed) VALUES (@id, null, @isbn, null)";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.Add("@id", copy.ID);
+            command.Parameters.Add("@isbn", copy.ISBN);
+
+            command.ExecuteNonQuery();
+
+            command.Dispose();
+        }
+
+
 
         //Close
         public void Close()

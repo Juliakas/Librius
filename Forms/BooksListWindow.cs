@@ -12,9 +12,7 @@ namespace MyLibrarian.Forms
 {
     public partial class BooksListWindow : Form
     {
-        DataTable dt;
         ControllerDB database;
-
 
         public BooksListWindow()
         {
@@ -27,9 +25,9 @@ namespace MyLibrarian.Forms
 
         private void PopulateTable()
         {
-            bookListView.View = View.Details;
-            bookListView.Items.Clear();
-            dt = database.GetDataTable(ControllerDB.Table.Book);
+            BookListView.View = View.Details;
+            BookListView.Items.Clear();
+            DataTable dt = database.GetDataTable(ControllerDB.Table.Book);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
@@ -37,21 +35,35 @@ namespace MyLibrarian.Forms
                 listitem.SubItems.Add(dr["Author"].ToString());
                 listitem.SubItems.Add(dr["Title"].ToString());
                 listitem.SubItems.Add(DateTime.Parse(dr["Date"].ToString()).ToShortDateString());
-                bookListView.Items.Add(listitem);
+                BookListView.Items.Add(listitem);
             }
         }
 
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < bookListView.SelectedItems.Count; i++)
+            for (int i = 0; i < BookListView.SelectedItems.Count; i++)
             {
-                ListViewItem item = bookListView.SelectedItems[i];
+                ListViewItem item = BookListView.SelectedItems[i];
                 string isbn = item.SubItems[0].Text;
 
                 database.DeleteFromBook(isbn);
                 PopulateTable();
             }
         }
+
+        private void ShowCopiesButton_Click(object sender, EventArgs e)
+        {
+            string isbn = BookListView.SelectedItems[0].SubItems[0].Text;
+
+            this.Hide();
+
+            CopyListWindow window = new CopyListWindow(isbn);
+            window.Show();
+            
+        }
+
+
+
     }
 }
