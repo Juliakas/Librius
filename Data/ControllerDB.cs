@@ -9,20 +9,37 @@ using System.Data;
 using System.Windows.Forms;
 using MyLibrarian.Data;
 
-namespace MyLibrarian
+namespace MyLibrarian.Data
 {
-    public class ControllerDB
+    public sealed class ControllerDB
     {
         public enum Table
         {
-            Reader, Book
+            Reader, Book, Copy
         }
 
 
-        SqlConnection connection;
+        private readonly SqlConnection connection;
+        private static readonly object padlock = new object();
+        private static ControllerDB instance = null;
+
+        public static ControllerDB Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new ControllerDB();
+                    }
+                    return instance;
+                }
+            }
+        }
 
         //Setup
-        public ControllerDB()
+        private ControllerDB()
         {   
             try
             {
@@ -50,9 +67,9 @@ namespace MyLibrarian
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@name", reader.name);
-            command.Parameters.Add("@surname", reader.surname);
-            command.Parameters.Add("@hash", reader.hash);
+            command.Parameters.Add("@name", reader.Name);
+            command.Parameters.Add("@surname", reader.Surname);
+            command.Parameters.Add("@hash", reader.PasswordHash);
 
             command.ExecuteNonQuery();
 
@@ -61,17 +78,12 @@ namespace MyLibrarian
 
         public DataTable GetDataTable(Table tbl)
         {
-            string output = "";
             string tableName = Enum.GetName(tbl.GetType(), tbl);
             string query = "SELECT * FROM db_owner." + tableName;
-            
 
-            SqlCommand command = new SqlCommand(query, connection);
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-
-            command.Dispose();
 
             return dt;
         }
@@ -114,10 +126,6 @@ namespace MyLibrarian
             return false;
         }
 
-
-
-
-
         //Knyga
         internal void InsertToBook(Book book)
         {
@@ -126,10 +134,10 @@ namespace MyLibrarian
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@isbn", book.isbn);
-            command.Parameters.Add("@title", book.title);
-            command.Parameters.Add("@author", book.author);
-            command.Parameters.Add("@date", book.date);
+            command.Parameters.Add("@isbn", book.ISBN);
+            command.Parameters.Add("@title", book.Title);
+            command.Parameters.Add("@author", book.Author);
+            command.Parameters.Add("@date", book.Date);
 
 
             command.ExecuteNonQuery();
@@ -147,6 +155,33 @@ namespace MyLibrarian
 
             command.Dispose();
         }
+
+        public void InsertToCopy(Copy copy)
+        {
+            string query = "INSERT INTO db_owner.Copy (ID, Reader, ISBN, Borrowed) VALUES (@id, null, @isbn, null)";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.Add("@id", copy.ID);
+            command.Parameters.Add("@isbn", copy.ISBN);
+
+            command.ExecuteNonQuery();
+
+            command.Dispose();
+        }
+
+        public void DeleteFromCopy(Int64 id)
+        {
+            string query = "DELETE FROM db_owner.Copy WHERE ID = @id";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.Add("@id", id);
+            command.ExecuteNonQuery();
+
+            command.Dispose();
+        }
+
+
 
         //Close
         public void Close()

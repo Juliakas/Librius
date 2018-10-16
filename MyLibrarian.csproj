@@ -95,11 +95,25 @@
   <ItemGroup>
     <Compile Include="Data\Book.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Data\Copy.cs" />
+    <Compile Include="Data\LINQ.cs" />
+    <Compile Include="Forms\AddCopyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddCopyWindow.Designer.cs">
+      <DependentUpon>AddCopyWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AuthWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AuthWindow.Designer.cs">
       <DependentUpon>AuthWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CopyListWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CopyListWindow.Designer.cs">
+      <DependentUpon>CopyListWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\BooksListWindow.cs">
       <SubType>Form</SubType>
@@ -107,7 +121,7 @@
     <Compile Include="Forms\BooksListWindow.Designer.cs">
       <DependentUpon>BooksListWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControllerDB.cs" />
+    <Compile Include="Data\ControllerDB.cs" />
     <Compile Include="Forms\MainUserWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,22 +146,26 @@
     <Compile Include="Forms\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Utils\FormsUtils.cs" />
     <Compile Include="Hashing.cs" />
     <Compile Include="Data\Reader.cs" />
-    <Compile Include="Forms\MessageManager.cs" />
+    <Compile Include="Forms\Utils\MessageManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\ReaderListWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ReaderListWindow.Designer.cs">
-      <DependentUpon>ReaderListWindow.cs</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="Forms\AddCopyWindow.resx">
+      <DependentUpon>AddCopyWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuthWindow.resx">
       <DependentUpon>AuthWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CopyListWindow.resx">
+      <DependentUpon>CopyListWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BooksListWindow.resx">
       <DependentUpon>BooksListWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainUserWindow.resx">
+      <DependentUpon>MainUserWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -168,9 +186,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Forms\ReaderListWindow.resx">
-      <DependentUpon>ReaderListWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

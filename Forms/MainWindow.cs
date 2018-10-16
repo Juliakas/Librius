@@ -9,62 +9,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLibrarian.Data;
+using MyLibrarian.Forms.Utils;
 
 namespace MyLibrarian.Forms
 {
     public partial class MainWindow : Form 
     {
         
-        ControllerDB Database;
+        private readonly ControllerDB Database;
 
-        public static MainWindow Instance { get; set; }
-
-        public MainWindow()
+        public MainWindow(AuthWindow previousWindow)
         {
             InitializeComponent();
-            Instance = this;
-            Database = AuthWindow.Instance.Database;
+            Database = ControllerDB.Instance;
         }
 
         private void MainFormClosed(object sender, FormClosedEventArgs e)
         {
 
-            AuthWindow.Instance.Database.Close();
+            Database.Close();
             Application.Exit();
-        }
-
-        private void addUserButton_Click(object sender, EventArgs e)
-        {
-            //if (!(string.IsNullOrEmpty(firstNameTextBox.Text)
-            //    || string.IsNullOrEmpty(lastNameTextBox.Text)
-            //    || string.IsNullOrEmpty(idTextBox.Text)))
-            //{
-            //    firstName = firstNameTextBox.Text;
-            //    lastName = lastNameTextBox.Text;
-            //    if (idTextBox.Text.Length == 7)
-            //    {
-            //        id = Convert.ToInt32(idTextBox.Text);
-
-            //        Database.InsertToReader(id, firstName, lastName);
-
-            //        AuthWindow.Instance.Database.InsertToReader(id, firstName, lastName);
-
-            //    }
-
-            //    else
-            //    {
-            //        string message = "id field must have 7 characters!";
-            //        string caption = "Invalid fields";
-            //        MessageBox.Show(message, caption);
-            //    }
-            //}
-            //else
-            //{
-            //    string message = "Not all fields are filled!";
-            //    string caption = "Empty fields";
-            //    MessageBox.Show(message, caption);
-            //}
-            throw new NotImplementedException();
 
         }
 
@@ -102,22 +66,11 @@ namespace MyLibrarian.Forms
             }
         }
 
-        private void showUsersButton_Click(object sender, EventArgs e)
-        {
-            ReaderListWindow usersListWindow = new ReaderListWindow();
-            usersListWindow.Show();
-        }
-
         private void showBooksButton_Click(object sender, EventArgs e)
         {
-            BooksListWindow booksListWindow = new BooksListWindow();
+            BooksListWindow booksListWindow = new BooksListWindow(this);
             booksListWindow.Show();
-        }
-
-        private void faceRecognitionButton_Click(object sender, EventArgs e)
-        {
-            RecogniseFaceWindow recogniseFaceWindow = new RecogniseFaceWindow();
-            recogniseFaceWindow.Show();
+            this.Hide();
         }
     }
 }

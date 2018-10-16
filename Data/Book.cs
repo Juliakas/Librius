@@ -8,17 +8,17 @@ namespace MyLibrarian.Data
 {
     public class Book
     {
-        public string isbn { get; private set;}
-        public string title { get; private set; }
-        public string author { get; private set; }
-        public DateTime date { get; private set; }
+        public string ISBN { get; private set;}
+        public string Title { get; private set; }
+        public string Author { get; private set; }
+        public DateTime Date { get; private set; }
 
         public Book(string isbn, string title, string author, DateTime date)
         {
-            this.isbn = isbn;
-            this.title = title;
-            this.author = author;
-            this.date = date;
+            this.ISBN = isbn;
+            this.Title = title;
+            this.Author = author;
+            this.Date = date;
         }
     }
 }

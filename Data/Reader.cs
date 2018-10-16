@@ -8,19 +8,19 @@ namespace MyLibrarian.Data
 {
     public class Reader
     {
-        public int id { get; private set; }
-        public string name { get; private set; }
-        public string surname { get; private set; }
-        public string hash { get; private set; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public string PasswordHash { get; private set; }
 
-        public Reader(int id, string name, string surname, string hash)
+        public Reader(int id, string name, string surname, string passwordHash)
         {
-            this.id = id;
-            this.name = name;
-            this.surname = surname;
-            this.hash = hash;
+            this.ID = id;
+            this.Name = name;
+            this.Surname = surname;
+            this.PasswordHash = passwordHash;
         }
 
-        public Reader(string name, string surname, string hash) : this(0, name, surname, hash) { }
+        public Reader(string name, string surname, string passwordHash) : this(0, name, surname, passwordHash) { }
     }
 }

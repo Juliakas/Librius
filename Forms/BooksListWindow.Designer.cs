@@ -28,30 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.bookListView = new System.Windows.Forms.ListView();
+            this.BookListView = new System.Windows.Forms.ListView();
             this.isbnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.authorColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.titleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pDateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.removeButton = new System.Windows.Forms.Button();
+            this.RemoveButton = new System.Windows.Forms.Button();
+            this.ShowCopiesButton = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // bookListView
+            // BookListView
             // 
-            this.bookListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.BookListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BookListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.isbnColumnHeader,
             this.authorColumnHeader,
             this.titleColumnHeader,
             this.pDateColumnHeader});
-            this.bookListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bookListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.bookListView.Location = new System.Drawing.Point(0, 0);
-            this.bookListView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.bookListView.Name = "bookListView";
-            this.bookListView.Size = new System.Drawing.Size(692, 495);
-            this.bookListView.TabIndex = 0;
-            this.bookListView.UseCompatibleStateImageBehavior = false;
-            this.bookListView.View = System.Windows.Forms.View.Details;
+            this.BookListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.BookListView.Location = new System.Drawing.Point(0, 0);
+            this.BookListView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.BookListView.Name = "BookListView";
+            this.BookListView.Size = new System.Drawing.Size(600, 495);
+            this.BookListView.TabIndex = 0;
+            this.BookListView.UseCompatibleStateImageBehavior = false;
+            this.BookListView.View = System.Windows.Forms.View.Details;
             // 
             // isbnColumnHeader
             // 
@@ -61,37 +63,65 @@
             // authorColumnHeader
             // 
             this.authorColumnHeader.Text = "Author";
-            this.authorColumnHeader.Width = 170;
+            this.authorColumnHeader.Width = 161;
             // 
             // titleColumnHeader
             // 
             this.titleColumnHeader.Text = "Title";
-            this.titleColumnHeader.Width = 190;
+            this.titleColumnHeader.Width = 192;
             // 
             // pDateColumnHeader
             // 
             this.pDateColumnHeader.Text = "Publication date";
             this.pDateColumnHeader.Width = 120;
             // 
-            // removeButton
+            // RemoveButton
             // 
-            this.removeButton.Location = new System.Drawing.Point(610, 0);
-            this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(82, 23);
-            this.removeButton.TabIndex = 1;
-            this.removeButton.Text = "Remove";
-            this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
+            this.RemoveButton.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RemoveButton.Location = new System.Drawing.Point(607, 82);
+            this.RemoveButton.Name = "RemoveButton";
+            this.RemoveButton.Size = new System.Drawing.Size(82, 44);
+            this.RemoveButton.TabIndex = 1;
+            this.RemoveButton.Text = "Remove";
+            this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.removeButton_Click);
+            // 
+            // ShowCopiesButton
+            // 
+            this.ShowCopiesButton.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShowCopiesButton.Location = new System.Drawing.Point(607, 12);
+            this.ShowCopiesButton.Name = "ShowCopiesButton";
+            this.ShowCopiesButton.Size = new System.Drawing.Size(82, 44);
+            this.ShowCopiesButton.TabIndex = 3;
+            this.ShowCopiesButton.Text = "Show copies";
+            this.ShowCopiesButton.UseVisualStyleBackColor = true;
+            this.ShowCopiesButton.Click += new System.EventHandler(this.ShowCopiesButton_Click);
+            // 
+            // BackButton
+            // 
+            this.BackButton.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackButton.Location = new System.Drawing.Point(607, 439);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(82, 44);
+            this.BackButton.TabIndex = 4;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // BooksListWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 495);
-            this.Controls.Add(this.removeButton);
-            this.Controls.Add(this.bookListView);
+            this.ClientSize = new System.Drawing.Size(700, 495);
+            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.ShowCopiesButton);
+            this.Controls.Add(this.RemoveButton);
+            this.Controls.Add(this.BookListView);
             this.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BooksListWindow";
             this.Text = "Books List ";
             this.ResumeLayout(false);
@@ -100,11 +130,13 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView bookListView;
+        private System.Windows.Forms.ListView BookListView;
         private System.Windows.Forms.ColumnHeader isbnColumnHeader;
         private System.Windows.Forms.ColumnHeader authorColumnHeader;
         private System.Windows.Forms.ColumnHeader titleColumnHeader;
         private System.Windows.Forms.ColumnHeader pDateColumnHeader;
-        private System.Windows.Forms.Button removeButton;
+        private System.Windows.Forms.Button RemoveButton;
+        private System.Windows.Forms.Button ShowCopiesButton;
+        private System.Windows.Forms.Button BackButton;
     }
 }

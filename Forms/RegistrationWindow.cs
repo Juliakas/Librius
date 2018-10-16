@@ -8,16 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLibrarian.Data;
+using MyLibrarian.Forms.Utils;
 
 namespace MyLibrarian.Forms
 {
     public partial class RegistrationWindow : Form
     {
+        AuthWindow previousWindow;
+        ControllerDB database;
+
         private string regex;
-        private int count;
-        public RegistrationWindow()
+
+        public RegistrationWindow(AuthWindow previousWindow)
         {
             InitializeComponent();
+
+            this.previousWindow = previousWindow;
+            database = ControllerDB.Instance;
 
             LastNamePlaceholderText();
             PasswordPlaceholderText();
@@ -205,8 +212,6 @@ namespace MyLibrarian.Forms
                 modifier = 1;
             }
 
-            count = PasswordBox.Text.Length + modifier;
-
             if (PasswordBox.Text.Length + modifier >= 6)
             {
                 ShortPasswordLabel.Hide();
@@ -216,7 +221,7 @@ namespace MyLibrarian.Forms
                 BadPasswordLabel.Hide();
                 ShortPasswordLabel.Show();
             }
-
+            
             if (!System.Text.RegularExpressions.Regex.IsMatch(PasswordBox.Text + e.KeyChar, regex)
                 || (e.KeyChar == (char)Keys.Back && !System.Text.RegularExpressions.Regex.IsMatch(PasswordBox.Text.Remove(PasswordBox.Text.Length - 1), regex)))
             {
@@ -285,13 +290,12 @@ namespace MyLibrarian.Forms
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            AuthWindow.Instance.Show();
-            this.Dispose();
+            this.Hide();
         }
 
         private void RegistrationWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            FormsUtils.ExitApplication();
         }
 
         private void CreateAccountButton_Click(object sender, EventArgs e)
@@ -300,17 +304,16 @@ namespace MyLibrarian.Forms
             string firstName = FirstNameBox.Text;
             string lastName = LastNameBox.Text;
             string passwordHash = new Hashing().GenerateHash(PasswordBox.Text);
-
-            ControllerDB database = AuthWindow.Instance.Database;
-            database.InsertToReader(new Reader(firstName, lastName, passwordHash));
-            DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
             
+            database.InsertToReader(new Reader(firstName, lastName, passwordHash));
+
+            DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
             DataRow row = table.Rows[table.Rows.Count - 1];
             id = (int)row["ID"];
-            
+
             MessageManager.ShowMessageBox(String.Format("{0:D7}",id.ToString()), "Your ID");
             this.Hide();
-            AuthWindow.Instance.Show();
+            previousWindow.Show();
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyLibrarian.Forms
+namespace MyLibrarian.Forms.Utils
 {
-    class MessageManager
+    internal static class MessageManager
     {
-        public static void ShowMessageBox (Exception e)
+        public static void ShowMessageBox(Exception e)
         {
             MessageBox.Show(e.Message);
         }
