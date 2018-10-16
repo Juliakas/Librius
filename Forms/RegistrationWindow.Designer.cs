@@ -36,6 +36,7 @@
             this.BackButton = new System.Windows.Forms.Button();
             this.ShortPasswordLabel = new System.Windows.Forms.Label();
             this.PasswordDoesNotMatchLabel = new System.Windows.Forms.Label();
+            this.BadPasswordLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // FirstNameBox
@@ -134,11 +135,24 @@
             this.PasswordDoesNotMatchLabel.Text = "Passwords don\'t match!";
             this.PasswordDoesNotMatchLabel.Visible = false;
             // 
+            // BadPasswordLabel
+            // 
+            this.BadPasswordLabel.AutoSize = true;
+            this.BadPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BadPasswordLabel.ForeColor = System.Drawing.Color.Red;
+            this.BadPasswordLabel.Location = new System.Drawing.Point(50, 191);
+            this.BadPasswordLabel.Name = "BadPasswordLabel";
+            this.BadPasswordLabel.Size = new System.Drawing.Size(269, 15);
+            this.BadPasswordLabel.TabIndex = 6;
+            this.BadPasswordLabel.Text = "Must contain one of each of these: (A-Z, a-z, 0-9)";
+            this.BadPasswordLabel.Visible = false;
+            // 
             // RegistrationWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 361);
+            this.Controls.Add(this.BadPasswordLabel);
             this.Controls.Add(this.PasswordDoesNotMatchLabel);
             this.Controls.Add(this.ShortPasswordLabel);
             this.Controls.Add(this.BackButton);
@@ -165,5 +179,6 @@
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label ShortPasswordLabel;
         private System.Windows.Forms.Label PasswordDoesNotMatchLabel;
+        private System.Windows.Forms.Label BadPasswordLabel;
     }
 }
