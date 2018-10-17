@@ -10,8 +10,6 @@ namespace MyLibrarian.Data
     public class LINQ <T>
     {
 
-        public delegate bool Predicate<in T, in U>(T obj1, U obj2);
-
         public IEnumerable<T> Collection { get; private set; }
         public int Count
         {

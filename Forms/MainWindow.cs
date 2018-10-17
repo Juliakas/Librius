@@ -17,18 +17,18 @@ namespace MyLibrarian.Forms
     {
         
         private readonly ControllerDB Database;
+        private readonly AuthWindow previousWindow;
 
         public MainWindow(AuthWindow previousWindow)
         {
             InitializeComponent();
             Database = ControllerDB.Instance;
+            this.previousWindow = previousWindow;
         }
 
         private void MainFormClosed(object sender, FormClosedEventArgs e)
         {
-
-            FormsUtils.ExitApplication();
-
+            BackButton_Click(new object(), new EventArgs());
         }
 
         private void addBookButton_Click(object sender, EventArgs e)
@@ -70,6 +70,12 @@ namespace MyLibrarian.Forms
             BooksListWindow booksListWindow = new BooksListWindow(this);
             booksListWindow.Show();
             this.Hide();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            previousWindow.Show();
         }
     }
 }

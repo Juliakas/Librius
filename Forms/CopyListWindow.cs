@@ -1,4 +1,5 @@
 ﻿using MyLibrarian.Data;
+using MyLibrarian.Forms.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,7 +63,6 @@ namespace MyLibrarian.Forms
             }
         }
 
-
         private void removeButton_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < CopyListView.SelectedItems.Count; i++)
@@ -83,7 +83,12 @@ namespace MyLibrarian.Forms
         private void BackButton_Click(object sender, EventArgs e)
         {
             previousForm.Show();
-            this.Dispose();
+            this.Hide();
+        }
+
+        private void CopyListWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            BackButton_Click(new object(), new EventArgs());
         }
     }
 }

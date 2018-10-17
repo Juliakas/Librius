@@ -25,6 +25,7 @@ namespace MyLibrarian.Forms
             database = ControllerDB.Instance;
         }
 
+
         private void AddButton_Click(object sender, EventArgs e)
         {
             Int64 id = Int64.Parse(CopyIDBox.Text);

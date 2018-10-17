@@ -27,6 +27,7 @@ namespace MyLibrarian.Forms
             PopulateTable();
         }
 
+
         private void PopulateTable()
         {
             BookListView.View = View.Details;
@@ -42,7 +43,6 @@ namespace MyLibrarian.Forms
                 BookListView.Items.Add(listitem);
             }
         }
-
 
         private void removeButton_Click(object sender, EventArgs e)
         {
@@ -76,7 +76,12 @@ namespace MyLibrarian.Forms
         private void BackButton_Click(object sender, EventArgs e)
         {
             previousForm.Show();
-            this.Dispose();
+            this.Hide();
+        }
+
+        private void BooksListWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            BackButton_Click(new object(), new EventArgs());
         }
     }
 }

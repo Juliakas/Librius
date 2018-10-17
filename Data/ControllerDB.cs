@@ -87,13 +87,18 @@ namespace MyLibrarian.Data
             return dt;
         }
 
-        public DataTable GetJoinedDataTable(Table tbl1, Table tbl2, params string[] columns)
+        public DataTable GetJoinedDataTable(Table tbl1, Table tbl2, string[] columns, string[] conditions)
+        {
+            return GetJoinedDataTable(tbl1, tbl2, columns, null, conditions);
+        }
+
+        public DataTable GetJoinedDataTable(Table tbl1, Table tbl2, string[] columns, string groupBy, string[] conditions)
         {
             string tableName1 = Enum.GetName(tbl1.GetType(), tbl1);
             string tableName2 = Enum.GetName(tbl2.GetType(), tbl2);
-            StringBuilder queryBuilder = new StringBuilder("SELECT ", 255);
+            StringBuilder queryBuilder = new StringBuilder("SELECT ", 500);
 
-            foreach(string col in columns)
+            foreach (string col in columns)
             {
                 queryBuilder.Append(col);
                 if (columns.Last() != col)
@@ -105,9 +110,14 @@ namespace MyLibrarian.Data
                     queryBuilder.Append(" ");
                 }
             }
-            queryBuilder.Append("FROM db_owner.");
-            queryBuilder.Append(tableName1);
-            queryBuilder.AppendFormat(", db_owner.{0}", tableName2);
+            queryBuilder.AppendFormat("FROM db_owner.{0}, db_owner.{1} WHERE {2}",
+                tableName1, tableName2, string.Join(" AND ", conditions));
+            if(!String.IsNullOrEmpty(groupBy))
+            {
+                queryBuilder.AppendFormat(" GROUP BY {0}", groupBy);
+            }
+
+
             string query = queryBuilder.ToString();
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
@@ -116,6 +126,29 @@ namespace MyLibrarian.Data
 
             return dt;
         }
+
+        public void UpdateTable(Table tbl, string[] columns, string[] values, string[] conditions)
+        {
+            string tableName = Enum.GetName(tbl.GetType(), tbl);
+            StringBuilder queryBuilder = new StringBuilder($"UPDATE db_owner.{tableName} SET ", 500);
+            for(int i = 0; i < columns.Length && i < values.Length; i++)
+            {
+                queryBuilder.AppendFormat("{0} = {1}", columns[i], values[i]);
+                if(i + 1 != columns.Length && i + 1 != values.Length)
+                {
+                    queryBuilder.Append(", ");
+                }
+            }
+            queryBuilder.AppendFormat(" WHERE {0}", string.Join(" AND ", conditions));
+            string query = queryBuilder.ToString();
+
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.ExecuteNonQuery();
+
+            command.Dispose();
+        }
+
 
         public void DeleteFromReader(int id)
         {
