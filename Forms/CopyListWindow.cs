@@ -47,12 +47,12 @@ namespace MyLibrarian.Forms
         {
             DataTable dt = database.GetDataTable(ControllerDB.Table.Copy);
             LINQ<DataRow> filter = new LINQ<DataRow>(dt.AsEnumerable());
-            filter.FilterByCondition(rows => rows["ISBN"].ToString() == isbn);
+            filter.Filter(rows => rows["ISBN"].ToString() == isbn);
             try
             {
                 dt = filter.Collection.CopyToDataTable();
             }
-            catch (ArgumentNullException ex)
+            catch (InvalidOperationException ex)
             {
                 dt.Clear();
             }

@@ -59,5 +59,15 @@ namespace MyLibrarian.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logout_button_png_svg_hi {
+            get {
+                object obj = ResourceManager.GetObject("logout-button-png.svg.hi", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

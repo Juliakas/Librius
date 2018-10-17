@@ -10,6 +10,8 @@ namespace MyLibrarian.Data
     public class LINQ <T>
     {
 
+        public delegate bool Predicate<in T, in U>(T obj1, U obj2);
+
         public IEnumerable<T> Collection { get; private set; }
         public int Count
         {
@@ -24,11 +26,11 @@ namespace MyLibrarian.Data
             Collection = collection;
         }
 
-        public void FilterByCondition(Predicate<T> condition)
+        public void Filter(Predicate<T> condition)
         {
-            Collection = from T in Collection
-                         where condition(T)
-                         select T;
+            Collection = from obj in Collection
+                         where condition(obj)
+                         select obj;
         }
 
     }
