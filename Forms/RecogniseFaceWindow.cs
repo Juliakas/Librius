@@ -106,7 +106,7 @@ namespace MyLibrarian.Forms
 
                     await faceServiceClient.CreatePersonGroupAsync(_groupId, groupNameTextBox.Text);
 
-                    MessageManager.ShowMessageBox("Group successfully created");
+                    MessageManager.ShowMessageBox("Group successfully created", "Success");
                 }
             }
 
@@ -161,7 +161,7 @@ namespace MyLibrarian.Forms
                             await faceServiceClient.AddPersonFaceAsync(_groupId, person.PersonId, s);
                         }
                     }
-                    MessageManager.ShowMessageBox("Person was successfully added");
+                    MessageManager.ShowMessageBox("Person was successfully added", "Success");
                 }
 
             }
@@ -197,13 +197,13 @@ namespace MyLibrarian.Forms
                         await Task.Delay(1000);
                     }
 
-                    MessageManager.ShowMessageBox("Training successfully completed");
+                    MessageManager.ShowMessageBox("Training successfully completed", "Success");
                 }
 
             }
             catch (Exception ex)
             {
-                MessageManager.ShowMessageBox(ex.Message);
+                MessageManager.ShowMessageBox(ex);
             }
         }
 
@@ -233,7 +233,7 @@ namespace MyLibrarian.Forms
 
                 }
 
-                MessageManager.ShowMessageBox("Identification successfully completed");
+                MessageManager.ShowMessageBox("Identification successfully completed", "Success");
 
             }
             catch (Exception ex)

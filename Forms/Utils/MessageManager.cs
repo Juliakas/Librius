@@ -9,18 +9,14 @@ namespace MyLibrarian.Forms.Utils
 {
     internal static class MessageManager
     {
-        public static void ShowMessageBox(Exception e)
+        public static void ShowMessageBox(Exception ex, string optionalCaption = "Exception")
         {
-            MessageBox.Show(e.Message);
+            MessageBox.Show(ex.Message, optionalCaption);
         }
 
-        public static void ShowMessageBox(string text, string caption)
+        public static void ShowMessageBox(string text, string optionalCaption = "Error")
         {
-            MessageBox.Show(text, caption);
-        }
-        public static void ShowMessageBox(string text)
-        {
-            MessageBox.Show(text);
+            MessageBox.Show(text, optionalCaption);
         }
     }
 }

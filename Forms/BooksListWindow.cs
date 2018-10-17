@@ -68,7 +68,7 @@ namespace MyLibrarian.Forms
             }
             catch(System.ArgumentOutOfRangeException ex)
             {
-                MessageManager.ShowMessageBox("Please select a book ISBN", "Error");
+                MessageManager.ShowMessageBox("Please select a book's ISBN");
             }
 
         }
