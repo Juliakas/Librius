@@ -109,6 +109,12 @@
     <Compile Include="Forms\AuthWindow.Designer.cs">
       <DependentUpon>AuthWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CheckoutListWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CheckoutListWindow.Designer.cs">
+      <DependentUpon>CheckoutListWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CopyListWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuthWindow.resx">
       <DependentUpon>AuthWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CheckoutListWindow.resx">
+      <DependentUpon>CheckoutListWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CopyListWindow.resx">
       <DependentUpon>CopyListWindow.cs</DependentUpon>
@@ -213,6 +222,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Forms\Images\logout-button-png.svg.hi.png" />
     <Content Include="LICENSE.txt" />
   </ItemGroup>
   <ItemGroup />

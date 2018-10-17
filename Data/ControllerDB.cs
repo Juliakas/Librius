@@ -18,7 +18,6 @@ namespace MyLibrarian.Data
             Reader, Book, Copy
         }
 
-
         private readonly SqlConnection connection;
         private static readonly object padlock = new object();
         private static ControllerDB instance = null;
@@ -80,6 +79,36 @@ namespace MyLibrarian.Data
         {
             string tableName = Enum.GetName(tbl.GetType(), tbl);
             string query = "SELECT * FROM db_owner." + tableName;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            return dt;
+        }
+
+        public DataTable GetJoinedDataTable(Table tbl1, Table tbl2, params string[] columns)
+        {
+            string tableName1 = Enum.GetName(tbl1.GetType(), tbl1);
+            string tableName2 = Enum.GetName(tbl2.GetType(), tbl2);
+            StringBuilder queryBuilder = new StringBuilder("SELECT ", 255);
+
+            foreach(string col in columns)
+            {
+                queryBuilder.Append(col);
+                if (columns.Last() != col)
+                {
+                    queryBuilder.Append(", ");
+                }
+                else
+                {
+                    queryBuilder.Append(" ");
+                }
+            }
+            queryBuilder.Append("FROM db_owner.");
+            queryBuilder.Append(tableName1);
+            queryBuilder.AppendFormat(", db_owner.{0}", tableName2);
+            string query = queryBuilder.ToString();
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
             DataTable dt = new DataTable();

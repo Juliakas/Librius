@@ -27,8 +27,7 @@ namespace MyLibrarian.Forms
         private void MainFormClosed(object sender, FormClosedEventArgs e)
         {
 
-            Database.Close();
-            Application.Exit();
+            FormsUtils.ExitApplication();
 
         }
 
