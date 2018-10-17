@@ -17,6 +17,8 @@ namespace MyLibrarian.Forms
         AuthWindow previousWindow;
         ControllerDB database;
 
+        private string regex;
+
         public RegistrationWindow(AuthWindow previousWindow)
         {
             InitializeComponent();
@@ -29,6 +31,7 @@ namespace MyLibrarian.Forms
             ConfirmPasswordPlaceholderText();
 
             LockCreateAccountButton();
+            regex = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$";
         }
 
         #region Placeholder text methods
@@ -95,7 +98,8 @@ namespace MyLibrarian.Forms
                 && (FirstNameBox.ForeColor == Color.Black)
                 && (LastNameBox.ForeColor == Color.Black)
                 && (FirstNameBox.Text.Length > 0)
-                && (LastNameBox.Text.Length > 0);
+                && (LastNameBox.Text.Length > 0)
+                && (System.Text.RegularExpressions.Regex.IsMatch(password1, regex));
         }
 
         private void LockCreateAccountButton()
@@ -192,6 +196,7 @@ namespace MyLibrarian.Forms
 
         private void PasswordBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            int modifier;
             if (e.KeyChar == (char)Keys.Back)
             {
                 if(PasswordBox.Text.Length == 0)
@@ -199,19 +204,33 @@ namespace MyLibrarian.Forms
                     return;
                 }
                 AnyTextBox_KeyPress(PasswordBox.Text.Remove(PasswordBox.Text.Length - 1), ConfirmPasswordBox.Text);
+                modifier = -1;
             }
             else
             {
                 AnyTextBox_KeyPress(PasswordBox.Text + e.KeyChar, ConfirmPasswordBox.Text);
+                modifier = 1;
             }
 
-            if (PasswordBox.Text.Length + 1 >= 6)
+            if (PasswordBox.Text.Length + modifier >= 6)
             {
                 ShortPasswordLabel.Hide();
             }
             else
             {
+                BadPasswordLabel.Hide();
                 ShortPasswordLabel.Show();
+            }
+            
+            if (!System.Text.RegularExpressions.Regex.IsMatch(PasswordBox.Text + e.KeyChar, regex)
+                || (e.KeyChar == (char)Keys.Back && !System.Text.RegularExpressions.Regex.IsMatch(PasswordBox.Text.Remove(PasswordBox.Text.Length - 1), regex)))
+            {
+                if(!ShortPasswordLabel.Visible)
+                    BadPasswordLabel.Show();
+            }
+            else
+            {
+                BadPasswordLabel.Hide();
             }
 
             if (ConfirmPasswordBox.Text == PasswordBox.Text + e.KeyChar
@@ -285,10 +304,10 @@ namespace MyLibrarian.Forms
             string firstName = FirstNameBox.Text;
             string lastName = LastNameBox.Text;
             string passwordHash = new Hashing().GenerateHash(PasswordBox.Text);
+            
+            database.InsertToReader(new Reader(firstName, lastName, passwordHash));
 
             DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
-
-            database.InsertToReader(new Reader(firstName, lastName, passwordHash));
             DataRow row = table.Rows[table.Rows.Count - 1];
             id = (int)row["ID"];
 
@@ -296,7 +315,5 @@ namespace MyLibrarian.Forms
             this.Hide();
             previousWindow.Show();
         }
-
-
     }
 }
