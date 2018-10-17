@@ -117,6 +117,7 @@
             this.MinimizeBox = false;
             this.Name = "CopyListWindow";
             this.Text = "Books List ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CopyListWindow_FormClosed);
             this.ResumeLayout(false);
 
         }

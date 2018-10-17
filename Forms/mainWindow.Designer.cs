@@ -38,6 +38,7 @@
             this.showBooksButton = new System.Windows.Forms.Button();
             this.addBookButton = new System.Windows.Forms.Button();
             this.pDateTextBox = new System.Windows.Forms.DateTimePicker();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // isbnLabel
@@ -55,7 +56,7 @@
             // 
             this.isbnTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.isbnTextBox.Location = new System.Drawing.Point(50, 58);
-            this.isbnTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.isbnTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.isbnTextBox.MaxLength = 13;
             this.isbnTextBox.Name = "isbnTextBox";
             this.isbnTextBox.Size = new System.Drawing.Size(111, 23);
@@ -76,7 +77,7 @@
             // 
             this.authorTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.authorTextBox.Location = new System.Drawing.Point(50, 105);
-            this.authorTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.authorTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.authorTextBox.Name = "authorTextBox";
             this.authorTextBox.Size = new System.Drawing.Size(111, 23);
             this.authorTextBox.TabIndex = 9;
@@ -96,7 +97,7 @@
             // 
             this.titleTextBox.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleTextBox.Location = new System.Drawing.Point(50, 151);
-            this.titleTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.titleTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(111, 23);
             this.titleTextBox.TabIndex = 11;
@@ -117,7 +118,7 @@
             this.showBooksButton.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.showBooksButton.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.showBooksButton.Location = new System.Drawing.Point(110, 235);
-            this.showBooksButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.showBooksButton.Margin = new System.Windows.Forms.Padding(2);
             this.showBooksButton.Name = "showBooksButton";
             this.showBooksButton.Size = new System.Drawing.Size(78, 45);
             this.showBooksButton.TabIndex = 18;
@@ -130,7 +131,7 @@
             this.addBookButton.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.addBookButton.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addBookButton.Location = new System.Drawing.Point(25, 235);
-            this.addBookButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addBookButton.Margin = new System.Windows.Forms.Padding(2);
             this.addBookButton.Name = "addBookButton";
             this.addBookButton.Size = new System.Drawing.Size(78, 44);
             this.addBookButton.TabIndex = 16;
@@ -146,12 +147,23 @@
             this.pDateTextBox.Size = new System.Drawing.Size(111, 20);
             this.pDateTextBox.TabIndex = 19;
             // 
+            // BackButton
+            // 
+            this.BackButton.Location = new System.Drawing.Point(9, 11);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(50, 23);
+            this.BackButton.TabIndex = 20;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ClientSize = new System.Drawing.Size(220, 299);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.pDateTextBox);
             this.Controls.Add(this.showBooksButton);
             this.Controls.Add(this.addBookButton);
@@ -184,5 +196,6 @@
         private System.Windows.Forms.Button showBooksButton;
         private System.Windows.Forms.Button addBookButton;
         private System.Windows.Forms.DateTimePicker pDateTextBox;
+        private System.Windows.Forms.Button BackButton;
     }
 }

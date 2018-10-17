@@ -124,6 +124,7 @@
             this.MinimizeBox = false;
             this.Name = "BooksListWindow";
             this.Text = "Books List ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BooksListWindow_FormClosed);
             this.ResumeLayout(false);
 
         }

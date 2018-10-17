@@ -35,10 +35,11 @@
             this.ReturnBookButton = new System.Windows.Forms.Button();
             this.CheckOutButton = new System.Windows.Forms.Button();
             this.CopyListView = new System.Windows.Forms.ListView();
-            this.ListLabel = new System.Windows.Forms.Label();
-            this.TitleColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.IDColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AuthorColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TitleColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ListLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -68,17 +69,17 @@
             this.panel2.Controls.Add(this.LogOutButton);
             this.panel2.Controls.Add(this.ReturnBookButton);
             this.panel2.Controls.Add(this.CheckOutButton);
-            this.panel2.Location = new System.Drawing.Point(367, 0);
+            this.panel2.Location = new System.Drawing.Point(499, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 353);
+            this.panel2.Size = new System.Drawing.Size(158, 353);
             this.panel2.TabIndex = 2;
             // 
             // LogOutButton
             // 
             this.LogOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogOutButton.Location = new System.Drawing.Point(11, 293);
+            this.LogOutButton.Location = new System.Drawing.Point(11, 297);
             this.LogOutButton.Name = "LogOutButton";
-            this.LogOutButton.Size = new System.Drawing.Size(178, 48);
+            this.LogOutButton.Size = new System.Drawing.Size(132, 44);
             this.LogOutButton.TabIndex = 2;
             this.LogOutButton.Text = "Log Out";
             this.LogOutButton.UseVisualStyleBackColor = true;
@@ -89,7 +90,7 @@
             this.ReturnBookButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReturnBookButton.Location = new System.Drawing.Point(11, 77);
             this.ReturnBookButton.Name = "ReturnBookButton";
-            this.ReturnBookButton.Size = new System.Drawing.Size(178, 48);
+            this.ReturnBookButton.Size = new System.Drawing.Size(132, 48);
             this.ReturnBookButton.TabIndex = 1;
             this.ReturnBookButton.Text = "Return book function";
             this.ReturnBookButton.UseVisualStyleBackColor = true;
@@ -100,7 +101,7 @@
             this.CheckOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckOutButton.Location = new System.Drawing.Point(11, 12);
             this.CheckOutButton.Name = "CheckOutButton";
-            this.CheckOutButton.Size = new System.Drawing.Size(178, 48);
+            this.CheckOutButton.Size = new System.Drawing.Size(132, 48);
             this.CheckOutButton.TabIndex = 0;
             this.CheckOutButton.Text = "Check out function";
             this.CheckOutButton.UseVisualStyleBackColor = true;
@@ -109,15 +110,36 @@
             // CopyListView
             // 
             this.CopyListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.IDColumn,
             this.AuthorColumn,
             this.TitleColumn,
             this.DateColumn});
             this.CopyListView.Location = new System.Drawing.Point(12, 100);
             this.CopyListView.Name = "CopyListView";
-            this.CopyListView.Size = new System.Drawing.Size(339, 241);
+            this.CopyListView.Size = new System.Drawing.Size(481, 241);
             this.CopyListView.TabIndex = 3;
             this.CopyListView.UseCompatibleStateImageBehavior = false;
             this.CopyListView.View = System.Windows.Forms.View.Details;
+            // 
+            // IDColumn
+            // 
+            this.IDColumn.Text = "ID";
+            this.IDColumn.Width = 80;
+            // 
+            // AuthorColumn
+            // 
+            this.AuthorColumn.Text = "Author";
+            this.AuthorColumn.Width = 110;
+            // 
+            // TitleColumn
+            // 
+            this.TitleColumn.Text = "Title";
+            this.TitleColumn.Width = 145;
+            // 
+            // DateColumn
+            // 
+            this.DateColumn.Text = "Borrowed At";
+            this.DateColumn.Width = 88;
             // 
             // ListLabel
             // 
@@ -129,29 +151,21 @@
             this.ListLabel.TabIndex = 1;
             this.ListLabel.Text = "Your books";
             // 
-            // TitleColumn
-            // 
-            this.TitleColumn.Text = "Title";
-            // 
-            // AuthorColumn
-            // 
-            this.AuthorColumn.Text = "Author";
-            // 
-            // DateColumn
-            // 
-            this.DateColumn.Text = "Due date";
-            // 
             // MainUserWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 353);
+            this.ClientSize = new System.Drawing.Size(654, 353);
             this.Controls.Add(this.ListLabel);
             this.Controls.Add(this.CopyListView);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainUserWindow";
-            this.Text = "Library system";
+            this.Text = "My Librarian";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainUserWindow_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -172,5 +186,6 @@
         private System.Windows.Forms.ColumnHeader TitleColumn;
         private System.Windows.Forms.ColumnHeader AuthorColumn;
         private System.Windows.Forms.ColumnHeader DateColumn;
+        private System.Windows.Forms.ColumnHeader IDColumn;
     }
 }

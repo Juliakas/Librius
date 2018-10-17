@@ -295,7 +295,7 @@ namespace MyLibrarian.Forms
 
         private void RegistrationWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormsUtils.ExitApplication();
+            BackButton_Click(new object(), new EventArgs());
         }
 
         private void CreateAccountButton_Click(object sender, EventArgs e)
