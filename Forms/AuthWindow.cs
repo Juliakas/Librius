@@ -66,6 +66,7 @@ namespace MyLibrarian.Forms
 
             if (Database.SearchReader(userId, password))
             {
+                PasswordBox.Clear();
                 new MainUserWindow(this, userId).Show();
                 this.Hide();
             }
