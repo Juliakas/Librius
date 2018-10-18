@@ -97,7 +97,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Data\BookComparer.cs" />
     <Compile Include="Data\Copy.cs" />
+    <Compile Include="Data\FaceRecognition.cs" />
     <Compile Include="Data\LINQ.cs" />
+    <Compile Include="Data\Webcam.cs" />
     <Compile Include="Forms\AddCopyWindow.cs">
       <SubType>Form</SubType>
     </Compile>
