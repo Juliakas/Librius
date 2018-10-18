@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrarian.Data
 {
-    public class Book
+    public class Book : IComparable<Book>
     {
         public string ISBN { get; private set;}
         public string Title { get; private set; }
@@ -19,6 +19,12 @@ namespace MyLibrarian.Data
             this.Title = title;
             this.Author = author;
             this.Date = date;
+        }
+
+        // default sorting
+        public int CompareTo(Book other)
+        {
+            return Author.CompareTo(other.Author);
         }
     }
 }

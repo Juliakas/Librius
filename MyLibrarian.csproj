@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="Data\Book.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Data\BookComparer.cs" />
     <Compile Include="Data\Copy.cs" />
     <Compile Include="Data\LINQ.cs" />
     <Compile Include="Forms\AddCopyWindow.cs">
