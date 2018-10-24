@@ -74,8 +74,8 @@
             this.PasswordBox.ShortcutsEnabled = false;
             this.PasswordBox.Size = new System.Drawing.Size(170, 29);
             this.PasswordBox.TabIndex = 2;
+            this.PasswordBox.TextChanged += new System.EventHandler(this.PasswordBox_TextChanged);
             this.PasswordBox.Enter += new System.EventHandler(this.PasswordBox_Enter);
-            this.PasswordBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PasswordBox_KeyPress);
             this.PasswordBox.Leave += new System.EventHandler(this.PasswordBox_Leave);
             // 
             // ConfirmPasswordBox
@@ -87,8 +87,8 @@
             this.ConfirmPasswordBox.ShortcutsEnabled = false;
             this.ConfirmPasswordBox.Size = new System.Drawing.Size(170, 29);
             this.ConfirmPasswordBox.TabIndex = 3;
+            this.ConfirmPasswordBox.TextChanged += new System.EventHandler(this.ConfirmPasswordBox_TextChanged);
             this.ConfirmPasswordBox.Enter += new System.EventHandler(this.ConfirmPasswordBox_Enter);
-            this.ConfirmPasswordBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfirmPasswordBox_KeyPress);
             this.ConfirmPasswordBox.Leave += new System.EventHandler(this.ConfirmPasswordBox_Leave);
             // 
             // CreateAccountButton

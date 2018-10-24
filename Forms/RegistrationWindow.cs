@@ -193,7 +193,7 @@ namespace MyLibrarian.Forms
             AnyTextBox_KeyPress();
             e.Handled = !(char.IsLetter(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
-
+        /*
         private void PasswordBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             int modifier;
@@ -243,7 +243,45 @@ namespace MyLibrarian.Forms
                 PasswordDoesNotMatchLabel.Show();
             }
         }
+        */
+        private void PasswordBox_TextChanged(object sender, EventArgs e)
+        {
+            if (PasswordBox.ForeColor != Color.Gray)
+            {
+                AnyTextBox_KeyPress(PasswordBox.Text, ConfirmPasswordBox.Text);
 
+                if (PasswordBox.Text.Length >= 6)
+                {
+                    ShortPasswordLabel.Hide();
+                }
+                else
+                {
+                    BadPasswordLabel.Hide();
+                    ShortPasswordLabel.Show();
+                }
+
+                if (!System.Text.RegularExpressions.Regex.IsMatch(PasswordBox.Text, regex))
+                {
+                    if (!ShortPasswordLabel.Visible)
+                        BadPasswordLabel.Show();
+                }
+                else
+                {
+                    BadPasswordLabel.Hide();
+                }
+
+                if (ConfirmPasswordBox.Text == PasswordBox.Text || (ConfirmPasswordBox.ForeColor == Color.Gray && PasswordBox.Text == ""))
+                {
+                    PasswordDoesNotMatchLabel.Hide();
+                }
+                else
+                {
+                    PasswordDoesNotMatchLabel.Show();
+                }
+            }
+
+        }
+        /*
         private void ConfirmPasswordBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Back)
@@ -267,6 +305,24 @@ namespace MyLibrarian.Forms
             else
             {
                 PasswordDoesNotMatchLabel.Show();
+            }
+        }
+        */
+
+        private void ConfirmPasswordBox_TextChanged(object sender, EventArgs e)
+        {
+            if (ConfirmPasswordBox.ForeColor != Color.Gray)
+            {
+                AnyTextBox_KeyPress(PasswordBox.Text, ConfirmPasswordBox.Text);
+
+                if (PasswordBox.Text == ConfirmPasswordBox.Text || (PasswordBox.ForeColor == Color.Gray && ConfirmPasswordBox.Text == ""))
+                {
+                    PasswordDoesNotMatchLabel.Hide();
+                }
+                else
+                {
+                    PasswordDoesNotMatchLabel.Show();
+                }
             }
         }
 
