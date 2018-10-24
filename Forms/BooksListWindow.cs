@@ -41,7 +41,8 @@ namespace MyLibrarian.Forms
             {
                 DataRow dr = dt.Rows[i];
 
-                Book book = new Book(dr["ISBN"].ToString(), dr["Title"].ToString(), dr["Author"].ToString(), DateTime.Parse(dr["Date"].ToString()));
+                Book book = new Book(dr["ISBN"].ToString(), dr["Title"].ToString(), 
+                    dr["Author"].ToString(), DateTime.Parse(dr["Date"].ToString()));
                 books.Add(book);
             }
 

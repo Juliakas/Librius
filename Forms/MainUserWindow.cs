@@ -28,7 +28,7 @@ namespace MyLibrarian.Forms
             this.previousWindow = previousWindow;
             database = ControllerDB.Instance;
 
-            FillSessionLabel();
+            //FillSessionLabel();
 
             PopulateTable();
         }
@@ -36,8 +36,9 @@ namespace MyLibrarian.Forms
         private void FillSessionLabel()
         {
             DataTable dt = database.GetDataTable(ControllerDB.Table.Reader);
-            LINQ<DataRow> filter = new LINQ<DataRow>(dt.AsEnumerable());
-            filter.Filter(row => Int32.Parse(row["ID"].ToString()) == userId);
+            var collection = from obj in Collection
+                             where condition(obj)
+                             select obj;
             try
             {
                 dt = filter.Collection.CopyToDataTable();

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyLibrarian.Data
 {
-    public class DataItem
+    public abstract class DataItem
     {
+        public abstract List<DataItem> GetAll();
     }
 }
