@@ -36,6 +36,8 @@
             this.RemoveButton = new System.Windows.Forms.Button();
             this.ShowCopiesButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
+            this.sortLabel = new System.Windows.Forms.Label();
+            this.sortingTypeComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // BookListView
@@ -108,11 +110,38 @@
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // sortLabel
+            // 
+            this.sortLabel.AutoSize = true;
+            this.sortLabel.Location = new System.Drawing.Point(608, 163);
+            this.sortLabel.Name = "sortLabel";
+            this.sortLabel.Size = new System.Drawing.Size(67, 22);
+            this.sortLabel.TabIndex = 5;
+            this.sortLabel.Text = "Sort by";
+            // 
+            // sortingTypeComboBox
+            // 
+            this.sortingTypeComboBox.FormattingEnabled = true;
+            this.sortingTypeComboBox.Items.AddRange(new object[] {
+            "Author asc",
+            "Author desc",
+            "Title asc",
+            "Title desc",
+            "Date ase",
+            "Date desc"});
+            this.sortingTypeComboBox.Location = new System.Drawing.Point(607, 197);
+            this.sortingTypeComboBox.Name = "sortingTypeComboBox";
+            this.sortingTypeComboBox.Size = new System.Drawing.Size(91, 30);
+            this.sortingTypeComboBox.TabIndex = 6;
+            this.sortingTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.sortingTypeComboBox_SelectedIndexChanged);
+            // 
             // BooksListWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 495);
+            this.Controls.Add(this.sortingTypeComboBox);
+            this.Controls.Add(this.sortLabel);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.ShowCopiesButton);
             this.Controls.Add(this.RemoveButton);
@@ -126,6 +155,7 @@
             this.Text = "Books List ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BooksListWindow_FormClosed);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -139,5 +169,7 @@
         private System.Windows.Forms.Button RemoveButton;
         private System.Windows.Forms.Button ShowCopiesButton;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Label sortLabel;
+        private System.Windows.Forms.ComboBox sortingTypeComboBox;
     }
 }

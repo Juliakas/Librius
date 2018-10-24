@@ -16,74 +16,28 @@ using AForge.Video;
 using AForge.Video.DirectShow;
 using System.Drawing.Imaging;
 using MyLibrarian.Forms.Utils;
+using MyLibrarian.Data;
 
 namespace MyLibrarian.Forms
 {
     public partial class RecogniseFaceWindow : Form
     {
-        FilterInfoCollection device;
-        VideoCaptureDevice finalFrame;
 
-        bool cameraIsRunning = true;
+        string imagePath = "";
+        string groupId = "";
 
-        private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("api_key", "endpoint");
-
-        string _imagePath = "";
-        string _groupId = "";
+        FaceRecognition faceRecognition;
+        Webcam webcam;
 
         public RecogniseFaceWindow()
         {
             InitializeComponent();
-            camera_start();
-        }
-
-        private void camera_start ()
-        {
-            device = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            finalFrame = new VideoCaptureDevice(device[0].MonikerString);
-            finalFrame.Start();
-            finalFrame.NewFrame += new AForge.Video.NewFrameEventHandler(newFrame_event);
-        }
-
-        private void newFrame_event(object send, NewFrameEventArgs e)
-        {
-            try
-            {
-                facePictureBox.Image = (Image)e.Frame.Clone();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            webcam = new Webcam(facePictureBox);
+            webcam.cameraStart();
+            faceRecognition = new FaceRecognition();
 
         }
 
-        // read image as a stream and analize it by custom DetectAsync method
-        private async Task<Face[]> UploadAndDetectFaces(string imageFilePath)
-        {
-            try
-            {
-                using (Stream imageFileStream = File.OpenRead(imageFilePath))
-                {
-                    var faces = await faceServiceClient.DetectAsync(imageFileStream,
-                        true,
-                        true,
-                        new FaceAttributeType[] {
-                            FaceAttributeType.Gender,
-                            FaceAttributeType.Age,
-                            FaceAttributeType.Emotion,
-                            FaceAttributeType.FacialHair,
-                            FaceAttributeType.Glasses
-                        });
-                    return faces.ToArray();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageManager.ShowMessageBox(ex);
-                return new Face[0];
-            }
-        }
 
         // Create a new PersonGroup in which new users will be added
         private async void createGroupButton_ClickAsync(object sender, EventArgs e)
@@ -96,17 +50,18 @@ namespace MyLibrarian.Forms
                 }
                 else
                 {
-                    _groupId = groupNameTextBox.Text.ToLower().Replace(" ", "");
+                    groupId = groupNameTextBox.Text.ToLower().Replace(" ", "");
 
                     try
                     {
-                        await faceServiceClient.DeletePersonGroupAsync(_groupId);
+                        faceRecognition.createNewGroup(groupId, groupNameTextBox.Text);
+                        MessageManager.ShowMessageBox("Group successfully created");
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        MessageManager.ShowMessageBox(ex);
+                    }
 
-                    await faceServiceClient.CreatePersonGroupAsync(_groupId, groupNameTextBox.Text);
-
-                    MessageManager.ShowMessageBox("Group successfully created", "Success");
                 }
             }
 
@@ -138,7 +93,7 @@ namespace MyLibrarian.Forms
         {
             try
             {
-                if (_groupId == "")
+                if (groupId == "")
                 {
                     MessageManager.ShowMessageBox("No groups found");
                 }
@@ -152,16 +107,8 @@ namespace MyLibrarian.Forms
                 }
                 else
                 {
-                    CreatePersonResult person = await faceServiceClient.CreatePersonAsync(_groupId, newUserTextBox.Text.ToString());
-
-                    foreach (string imagePath in Directory.GetFiles(imageFolderTextBox.Text))
-                    {
-                        using (Stream s = File.OpenRead(imagePath))
-                        {
-                            await faceServiceClient.AddPersonFaceAsync(_groupId, person.PersonId, s);
-                        }
-                    }
-                    MessageManager.ShowMessageBox("Person was successfully added", "Success");
+                    faceRecognition.addNewUser(newUserTextBox.Text.ToString(), imageFolderTextBox.Text, groupId);
+                    MessageManager.ShowMessageBox("Person was successfully added");
                 }
 
             }
@@ -176,34 +123,20 @@ namespace MyLibrarian.Forms
         {
             try
             {
-                if (_groupId == "")
+                if (groupId == "")
                 {
                     MessageManager.ShowMessageBox("Group was not created");
                 }
                 else
                 {
-                    await faceServiceClient.TrainPersonGroupAsync(_groupId);
+                    faceRecognition.trainGroup(groupId);
 
-                    TrainingStatus trainingStatus = null;
-                    while (true)
-                    {
-                        trainingStatus = await faceServiceClient.GetPersonGroupTrainingStatusAsync(_groupId);
-
-                        if (trainingStatus.Status != Status.Running)
-                        {
-                            break;
-                        }
-
-                        await Task.Delay(1000);
-                    }
-
-                    MessageManager.ShowMessageBox("Training successfully completed", "Success");
+                    MessageManager.ShowMessageBox("Training successfully completed");
                 }
-
             }
             catch (Exception ex)
             {
-                MessageManager.ShowMessageBox(ex);
+                MessageManager.ShowMessageBox(ex.Message);
             }
         }
 
@@ -212,28 +145,16 @@ namespace MyLibrarian.Forms
         {
             try
             {
-                Face[] faces = await UploadAndDetectFaces(_imagePath);
-                var faceIds = faces.Select(face => face.FaceId).ToArray();
 
-                identifiedUserListBox.Items.Clear();
-
-                foreach (var identifyResult in await faceServiceClient.IdentifyAsync(_groupId, faceIds))
+                if (File.Exists(imagePath))
                 {
-                    if (identifyResult.Candidates.Length != 0)
-                    {
-                        var candidateId = identifyResult.Candidates[0].PersonId;
-                        var person = await faceServiceClient.GetPersonAsync(_groupId, candidateId);
-
-                        identifiedUserListBox.Items.Add(person.Name);
-                    }
-                    else
-                    {
-                        identifiedUserListBox.Items.Add("< Unknown person >");
-                    }
-
+                    faceRecognition.identifyUser(identifiedUserListBox, imagePath, groupId);
+                    MessageManager.ShowMessageBox("Identification successfully completed");
                 }
-
-                MessageManager.ShowMessageBox("Identification successfully completed", "Success");
+                else
+                {
+                    MessageManager.ShowMessageBox("Save your picture first");
+                }
 
             }
             catch (Exception ex)
@@ -244,17 +165,8 @@ namespace MyLibrarian.Forms
 
         private void takePictureButton_Click(object sender, EventArgs e)
         {
-            if (cameraIsRunning)
-            {
-                finalFrame.Stop();
-                cameraIsRunning = false;
-            }
-            else
-            {
-                camera_start();
-                cameraIsRunning = true;
-            }
-                
+            webcam.takePicture();
+
         }
 
         private void browseSaveButton_Click(object sender, EventArgs e)
@@ -266,9 +178,10 @@ namespace MyLibrarian.Forms
         {
             if ((fileNameTextBox.Text) != "" && (folderSaveTextBox.Text != ""))
             {
-                if (!cameraIsRunning)
+                if (!webcam.isCameraRunning())
                 {
-                    facePictureBox.Image.Save(folderSaveTextBox.Text+ "//" +fileNameTextBox.Text+".jpg", ImageFormat.Jpeg);
+                    facePictureBox.Image.Save(folderSaveTextBox.Text + "//" + fileNameTextBox.Text + ".jpg", ImageFormat.Jpeg);
+                    imagePath = folderSaveTextBox.Text + "//" + fileNameTextBox.Text + ".jpg";
                 }
                 else
                 {
@@ -280,12 +193,12 @@ namespace MyLibrarian.Forms
             {
                 MessageBox.Show("File name and folder fields must be filled");
             }
-            
+
         }
 
         private void RecogniseFaceWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            finalFrame.Stop();
+            webcam.cameraStop();
         }
     }
 }
