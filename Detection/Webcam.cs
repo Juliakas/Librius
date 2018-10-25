@@ -38,14 +38,8 @@ namespace MyLibrarian.Data
 
         public void newFrame_event(object send, NewFrameEventArgs e)
         {
-            try
-            {
-                pictureBox.Image = (Image)e.Frame.Clone();
-            }
-            catch (Exception ex)
-            {
 
-            }
+             pictureBox.Image = (Image)e.Frame.Clone();
 
         }
 

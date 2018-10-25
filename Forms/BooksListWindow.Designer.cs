@@ -38,6 +38,11 @@
             this.BackButton = new System.Windows.Forms.Button();
             this.sortLabel = new System.Windows.Forms.Label();
             this.sortingTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.TitleLabel = new System.Windows.Forms.Label();
+            this.TitleTextBox = new System.Windows.Forms.TextBox();
+            this.AuthorLabel = new System.Windows.Forms.Label();
+            this.AuthorTextBox = new System.Windows.Forms.TextBox();
+            this.SearchButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BookListView
@@ -115,7 +120,7 @@
             this.sortLabel.AutoSize = true;
             this.sortLabel.Location = new System.Drawing.Point(608, 163);
             this.sortLabel.Name = "sortLabel";
-            this.sortLabel.Size = new System.Drawing.Size(50, 16);
+            this.sortLabel.Size = new System.Drawing.Size(67, 22);
             this.sortLabel.TabIndex = 5;
             this.sortLabel.Text = "Sort by";
             // 
@@ -129,17 +134,64 @@
             "Title desc",
             "Date ase",
             "Date desc"});
-            this.sortingTypeComboBox.Location = new System.Drawing.Point(607, 197);
+            this.sortingTypeComboBox.Location = new System.Drawing.Point(607, 188);
             this.sortingTypeComboBox.Name = "sortingTypeComboBox";
-            this.sortingTypeComboBox.Size = new System.Drawing.Size(91, 23);
+            this.sortingTypeComboBox.Size = new System.Drawing.Size(121, 30);
             this.sortingTypeComboBox.TabIndex = 6;
             this.sortingTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.sortingTypeComboBox_SelectedIndexChanged);
             // 
+            // TitleLabel
+            // 
+            this.TitleLabel.AutoSize = true;
+            this.TitleLabel.Location = new System.Drawing.Point(608, 266);
+            this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Size = new System.Drawing.Size(47, 22);
+            this.TitleLabel.TabIndex = 7;
+            this.TitleLabel.Text = "Title";
+            // 
+            // TitleTextBox
+            // 
+            this.TitleTextBox.Location = new System.Drawing.Point(607, 291);
+            this.TitleTextBox.Name = "TitleTextBox";
+            this.TitleTextBox.Size = new System.Drawing.Size(121, 30);
+            this.TitleTextBox.TabIndex = 8;
+            // 
+            // AuthorLabel
+            // 
+            this.AuthorLabel.AutoSize = true;
+            this.AuthorLabel.Location = new System.Drawing.Point(608, 324);
+            this.AuthorLabel.Name = "AuthorLabel";
+            this.AuthorLabel.Size = new System.Drawing.Size(64, 22);
+            this.AuthorLabel.TabIndex = 9;
+            this.AuthorLabel.Text = "Author";
+            // 
+            // AuthorTextBox
+            // 
+            this.AuthorTextBox.Location = new System.Drawing.Point(607, 349);
+            this.AuthorTextBox.Name = "AuthorTextBox";
+            this.AuthorTextBox.Size = new System.Drawing.Size(121, 30);
+            this.AuthorTextBox.TabIndex = 10;
+            // 
+            // SearchButton
+            // 
+            this.SearchButton.Location = new System.Drawing.Point(612, 394);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(109, 28);
+            this.SearchButton.TabIndex = 11;
+            this.SearchButton.Text = "Search";
+            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
+            // 
             // BooksListWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 495);
+            this.ClientSize = new System.Drawing.Size(740, 495);
+            this.Controls.Add(this.SearchButton);
+            this.Controls.Add(this.AuthorTextBox);
+            this.Controls.Add(this.AuthorLabel);
+            this.Controls.Add(this.TitleTextBox);
+            this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.sortingTypeComboBox);
             this.Controls.Add(this.sortLabel);
             this.Controls.Add(this.BackButton);
@@ -171,5 +223,10 @@
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label sortLabel;
         private System.Windows.Forms.ComboBox sortingTypeComboBox;
+        private System.Windows.Forms.Label TitleLabel;
+        private System.Windows.Forms.TextBox TitleTextBox;
+        private System.Windows.Forms.Label AuthorLabel;
+        private System.Windows.Forms.TextBox AuthorTextBox;
+        private System.Windows.Forms.Button SearchButton;
     }
 }
