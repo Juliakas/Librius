@@ -49,6 +49,10 @@ namespace MyLibrarian.Forms
                 ControllerDB.Table.Book, new string[] { "Copy.ISBN", "Title", "Author", SUM },
                 "Copy.ISBN, Title, Author", new string[] { "db_owner.Book.ISBN = db_owner.Copy.ISBN" });
 
+
+
+
+
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];

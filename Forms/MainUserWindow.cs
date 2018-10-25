@@ -52,10 +52,6 @@ namespace MyLibrarian.Forms
             CopyListView.View = View.Details;
             CopyListView.Items.Clear();
 
-            //DataTable dt = database.GetJoinedDataTable(ControllerDB.Table.Copy,
-            //    ControllerDB.Table.Book, new string[] { "ID", "Author", "Title", "Borrowed" },
-            //    new string[] { "db_owner.Book.ISBN = db_owner.Copy.ISBN ", "db_owner.Copy.Reader = " + userId });
-
             List<Copy> copies = Copy.GetAll();
             List<Book> books = Book.GetAll();
 
@@ -73,38 +69,6 @@ namespace MyLibrarian.Forms
                 listitem.SubItems.Add(item.Copy.Borrowed.ToString());
                 CopyListView.Items.Add(listitem);
             }
-
-            //LINQ<DataRow> filter = new LINQ<DataRow>(dt.AsEnumerable());
-            //filter.Filter(row =>
-            //{
-            //    if (row["Reader"].GetType() == Type.GetType("System.DBNull"))
-            //    {
-            //        return false;
-            //    }
-            //    else
-            //    {
-            //        return Int32.Parse(row["Reader"].ToString()) == userId
-            //            && row["ISBN"].ToString() == row["ISBN1"].ToString();
-            //    }
-            //});
-            //try
-            //{
-            //    dt = filter.Collection.CopyToDataTable();
-            //}
-            //catch (InvalidOperationException ex)
-            //{
-            //    dt.Clear();
-            //}
-
-            //for (int i = 0; i < dt.Rows.Count; i++)
-            //{
-            //    DataRow dr = dt.Rows[i];
-            //    ListViewItem listitem = new ListViewItem(dr["ID"].ToString());
-            //    listitem.SubItems.Add(dr["Author"].ToString());
-            //    listitem.SubItems.Add(dr["Title"].ToString());
-            //    listitem.SubItems.Add(dr["Borrowed"].ToString());
-            //    CopyListView.Items.Add(listitem);
-            //}
         }
 
         private void LogOutButton_Click(object sender, EventArgs e)
