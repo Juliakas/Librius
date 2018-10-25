@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrarian.Data
 {
-    public class Book : DataItem, IComparable<Book>
+    public class Book : DataItem, IComparable<Book>, IEquatable<Book>
     {
         public string ISBN { get; private set;}
         public string Title { get; private set; }
@@ -32,6 +32,12 @@ namespace MyLibrarian.Data
         public int CompareTo(Book other)
         {
             return Author.CompareTo(other.Author);
+        }
+
+        public bool Equals(Book other)
+        {
+            return ((Title == other.Title) &&
+                (Author == other.Author));
         }
 
         public static List<Book> GetAll()
