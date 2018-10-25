@@ -60,18 +60,32 @@ namespace MyLibrarian.Data
 
 
         //Skaitytojas
-        public void InsertToReader(Reader reader)
+        public void InsertRow(DataItem item)
         {
-            string query = "INSERT INTO db_owner.Reader (Name, Surname, Password) VALUES (@name, @surname, @hash)";
+            StringBuilder queryBuilder = new StringBuilder($"INSERT INTO db_owner.{item.GetTableName()} (", 500);
+            for(int i = 0; i < item.ColumnCount; i++)
+            {
+                queryBuilder.Append(item.GetColumnNames()[i]);
+                if(item.GetColumnNames().Count() != i + 1)
+                {
+                    queryBuilder.Append(", ");
+                }
+            }
+            queryBuilder.Append(") VALUES (");
+            for (int i = 0; i < item.ColumnCount; i++)
+            {
+                queryBuilder.Append(item.GetStringValues()[i]);
+                if (item.GetColumnNames().Count() != i + 1)
+                {
+                    queryBuilder.Append(", ");
+                }
+            }
+            queryBuilder.Append(')');
 
+            string query = queryBuilder.ToString();
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.Add("@name", reader.Name);
-            command.Parameters.Add("@surname", reader.Surname);
-            command.Parameters.Add("@hash", reader.PasswordHash);
-
             command.ExecuteNonQuery();
-
             command.Dispose();
         }
 
@@ -79,46 +93,6 @@ namespace MyLibrarian.Data
         {
             string tableName = Enum.GetName(tbl.GetType(), tbl);
             string query = "SELECT * FROM db_owner." + tableName;
-
-            SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            return dt;
-        }
-
-        public DataTable GetJoinedDataTable(Table tbl1, Table tbl2, string[] columns, string[] conditions)
-        {
-            return GetJoinedDataTable(tbl1, tbl2, columns, null, conditions);
-        }
-
-        public DataTable GetJoinedDataTable(Table tbl1, Table tbl2, string[] columns, string groupBy, string[] conditions)
-        {
-            string tableName1 = Enum.GetName(tbl1.GetType(), tbl1);
-            string tableName2 = Enum.GetName(tbl2.GetType(), tbl2);
-            StringBuilder queryBuilder = new StringBuilder("SELECT ", 500);
-
-            foreach (string col in columns)
-            {
-                queryBuilder.Append(col);
-                if (columns.Last() != col)
-                {
-                    queryBuilder.Append(", ");
-                }
-                else
-                {
-                    queryBuilder.Append(" ");
-                }
-            }
-            queryBuilder.AppendFormat("FROM db_owner.{0}, db_owner.{1} WHERE {2}",
-                tableName1, tableName2, string.Join(" AND ", conditions));
-            if(!String.IsNullOrEmpty(groupBy))
-            {
-                queryBuilder.AppendFormat(" GROUP BY {0}", groupBy);
-            }
-
-
-            string query = queryBuilder.ToString();
 
             SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
             DataTable dt = new DataTable();
@@ -145,19 +119,15 @@ namespace MyLibrarian.Data
 
             SqlCommand command = new SqlCommand(query, connection);
             command.ExecuteNonQuery();
-
             command.Dispose();
         }
 
-
-        public void DeleteFromReader(int id)
+        public void DeleteRow(DataItem item)
         {
-            string query = "DELETE FROM db_owner.Reader WHERE ID = @id";
+            string query = $"DELETE FROM db_owner.{item.GetTableName()} WHERE {item.PrimaryKey} = {item.PrimaryKeyValue}";
 
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.Add("@id", id);
             command.ExecuteNonQuery();
-
             command.Dispose();
         }
 
@@ -187,63 +157,6 @@ namespace MyLibrarian.Data
             command.Dispose();
             return false;
         }
-
-        //Knyga
-        internal void InsertToBook(Book book)
-        {
-            string query = "INSERT INTO db_owner.Book (ISBN, Title, Author, Date) " +
-                "VALUES (@isbn, @title, @author, @date)";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.Add("@isbn", book.ISBN);
-            command.Parameters.Add("@title", book.Title);
-            command.Parameters.Add("@author", book.Author);
-            command.Parameters.Add("@date", book.Date);
-
-
-            command.ExecuteNonQuery();
-
-            command.Dispose();
-        }
-
-        internal void DeleteFromBook(string isbn)
-        {
-            string query = "DELETE FROM db_owner.Book WHERE ISBN = @isbn";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.Add("@isbn", isbn);
-            command.ExecuteNonQuery();
-
-            command.Dispose();
-        }
-
-        public void InsertToCopy(Copy copy)
-        {
-            string query = "INSERT INTO db_owner.Copy (ID, Reader, ISBN, Borrowed) VALUES (@id, null, @isbn, null)";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.Add("@id", copy.ID);
-            command.Parameters.Add("@isbn", copy.ISBN);
-
-            command.ExecuteNonQuery();
-
-            command.Dispose();
-        }
-
-        public void DeleteFromCopy(Int64 id)
-        {
-            string query = "DELETE FROM db_owner.Copy WHERE ID = @id";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.Add("@id", id);
-            command.ExecuteNonQuery();
-
-            command.Dispose();
-        }
-
-
 
         //Close
         public void Close()

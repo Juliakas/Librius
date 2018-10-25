@@ -14,7 +14,11 @@ namespace MyLibrarian.Data
         public string ISBN { get; private set; }
         public DateTime Borrowed { get; private set; }
 
-        public Copy() { }
+        public override int ColumnCount { get => 2; }
+        public override string PrimaryKey { get => "ID"; }
+        public override string PrimaryKeyValue { get => ID.ToString(); }
+
+        public Copy(Int64 id) : this(id, default(int), default(string), default(DateTime)) { }
 
         public Copy(Int64 id, string isbn) : this(id, default(int), isbn, default(DateTime)) { }
 
@@ -44,5 +48,19 @@ namespace MyLibrarian.Data
             return list;
         }
 
+        public override string[] GetColumnNames()
+        {
+            return new string[] { "ID", "ISBN" };
+        }
+
+        public override string GetTableName()
+        {
+            return "Copy";
+        }
+
+        public override string[] GetStringValues()
+        {
+            return new string[] { ID.ToString(), ISBN};
+        }
     }
 }

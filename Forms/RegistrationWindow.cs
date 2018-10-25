@@ -361,7 +361,7 @@ namespace MyLibrarian.Forms
             string lastName = LastNameBox.Text;
             string passwordHash = new Hashing().GenerateHash(PasswordBox.Text);
             
-            database.InsertToReader(new Reader(firstName, lastName, passwordHash));
+            database.InsertRow(new Reader(firstName, lastName, passwordHash));
 
             DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
             DataRow row = table.Rows[table.Rows.Count - 1];

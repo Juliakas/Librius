@@ -16,8 +16,6 @@ namespace MyLibrarian.Forms
     {
         private readonly ControllerDB database;
         private readonly MainWindow previousForm;
-
-        private List<Book> books = Book.GetAll();
         
 
         public BooksListWindow(MainWindow previousForm)
@@ -32,6 +30,8 @@ namespace MyLibrarian.Forms
 
         private void PopulateTable()
         {
+            List<Book> books = Book.GetAll();
+
             BookListView.View = View.Details;
             BookListView.Items.Clear();
             foreach (Book book in books)
@@ -51,8 +51,24 @@ namespace MyLibrarian.Forms
                 ListViewItem item = BookListView.SelectedItems[i];
                 string isbn = item.SubItems[0].Text;
 
-                database.DeleteFromBook(isbn);
+                DeleteCopies(isbn);
+                database.DeleteRow(new Book(isbn));
+
                 PopulateTable();
+            }
+        }
+
+        private void DeleteCopies(string isbn)
+        {
+            List<Copy> copies = Copy.GetAll();
+
+            var filteredList = from copy in copies
+                               where copy.ISBN == isbn
+                               select copy;
+
+            foreach(var item in filteredList)
+            {
+                database.DeleteRow(new Copy(item.ID));
             }
         }
 
@@ -87,6 +103,7 @@ namespace MyLibrarian.Forms
         private void sortingTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             BookComparer bookComparer = new BookComparer();
+            List<Book> books = Book.GetAll();
 
             string selectedSortingType = sortingTypeComboBox.GetItemText(sortingTypeComboBox.SelectedItem);
 

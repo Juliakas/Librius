@@ -17,7 +17,6 @@ namespace MyLibrarian.Forms
         MainUserWindow previousWindow;
         ControllerDB database;
 
-
         public CheckoutListWindow(MainUserWindow previousWindow)
         {
             this.previousWindow = previousWindow;

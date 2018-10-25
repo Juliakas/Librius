@@ -29,7 +29,7 @@ namespace MyLibrarian.Forms
         private void AddButton_Click(object sender, EventArgs e)
         {
             Int64 id = Int64.Parse(CopyIDBox.Text);
-            database.InsertToCopy(new Copy(id, isbn));
+            database.InsertRow(new Copy(id, isbn));
 
             previousWindow.Show();
             previousWindow.PopulateTable();

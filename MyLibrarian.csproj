@@ -99,7 +99,6 @@
     <Compile Include="Data\DataItem.cs" />
     <Compile Include="Data\Copy.cs" />
     <Compile Include="Detection\FaceRecognition.cs" />
-    <Compile Include="DataProcessing\LINQ.cs" />
     <Compile Include="Detection\Webcam.cs" />
     <Compile Include="Forms\AddCopyWindow.cs">
       <SubType>Form</SubType>
