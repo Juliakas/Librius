@@ -57,11 +57,9 @@ namespace MyLibrarian.Data
         // Create a new PersonGroup in which new users will be added
         public async void createNewGroup(String groupId, String groupName)
         {
-            try
-            {
-                await faceServiceClient.DeletePersonGroupAsync(groupId);
-            }
-            catch { }
+
+            await faceServiceClient.DeletePersonGroupAsync(groupId);
+           
 
             await faceServiceClient.CreatePersonGroupAsync(groupId, groupName);
 

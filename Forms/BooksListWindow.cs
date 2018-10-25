@@ -16,7 +16,9 @@ namespace MyLibrarian.Forms
     {
         private readonly ControllerDB database;
         private readonly MainWindow previousForm;
-        
+        List<Book> books;
+
+
 
         public BooksListWindow(MainWindow previousForm)
         {
@@ -30,7 +32,7 @@ namespace MyLibrarian.Forms
 
         private void PopulateTable()
         {
-            List<Book> books = Book.GetAll();
+            books = Book.GetAll();
 
             BookListView.View = View.Details;
             BookListView.Items.Clear();
@@ -137,6 +139,27 @@ namespace MyLibrarian.Forms
             BookListView.Items.Clear();
             PopulateTable();
             
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            if (TitleTextBox.Text == "" || AuthorTextBox.Text == "")
+            {
+                MessageManager.ShowMessageBox("Some fields are empty");
+            }
+            else
+            {
+                Book book = new Book("", TitleTextBox.Text.ToString(), AuthorTextBox.Text.ToString(), DateTime.Now);
+                if (books.Contains(book))
+                {
+                    MessageManager.ShowMessageBox("Book is in the list");
+
+                }
+                else
+                {
+                    MessageManager.ShowMessageBox("Nothing found");
+                }
+            }
         }
     }
 }
