@@ -26,9 +26,9 @@ namespace MyLibrarian.Data
             this.Borrowed = borrowed;
         }
 
-        public override List<DataItem> GetAll()
+        public static List<Copy> GetAll()
         {
-            List<DataItem> list = new List<DataItem>();
+            List<Copy> list = new List<Copy>();
 
             DataTable dt = ControllerDB.Instance.GetDataTable(ControllerDB.Table.Copy);
             foreach (DataRow dtRow in dt.AsEnumerable())

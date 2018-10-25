@@ -30,16 +30,16 @@ namespace MyLibrarian.Data
             return Author.CompareTo(other.Author);
         }
 
-        public override List<DataItem> GetAll()
+        public static List<Book> GetAll()
         {
-            List<DataItem> list = new List<DataItem>();
+            List<Book> list = new List<Book>();
 
             DataTable dt = ControllerDB.Instance.GetDataTable(ControllerDB.Table.Book);
             foreach(DataRow dtRow in dt.AsEnumerable())
             {
                 list.Add(new Book(dtRow["ISBN"].ToString(), 
-                    dtRow["Title"].ToString(), 
-                    dtRow["Author"].ToString(), 
+                    dtRow["Title"].ToString().TrimEnd(' '), 
+                    dtRow["Author"].ToString().TrimEnd(' '), 
                     DateTime.Parse(dtRow["Date"].ToString())));
             }
 

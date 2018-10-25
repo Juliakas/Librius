@@ -8,6 +8,5 @@ namespace MyLibrarian.Data
 {
     public abstract class DataItem
     {
-        public abstract List<DataItem> GetAll();
     }
 }

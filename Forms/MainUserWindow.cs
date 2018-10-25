@@ -28,28 +28,21 @@ namespace MyLibrarian.Forms
             this.previousWindow = previousWindow;
             database = ControllerDB.Instance;
 
-            //FillSessionLabel();
+            FillSessionLabel();
 
             PopulateTable();
         }
 
         private void FillSessionLabel()
         {
-            DataTable dt = database.GetDataTable(ControllerDB.Table.Reader);
-            var collection = from obj in Collection
-                             where condition(obj)
-                             select obj;
-            try
-            {
-                dt = filter.Collection.CopyToDataTable();
-            }
-            catch (ArgumentNullException ex)
-            {
-                dt.Clear();
-            }
+            List<Reader> readers = Reader.GetAll();
 
-            firstName = dt.Rows[0]["Name"].ToString().Trim(new char[] { ' ' });
-            lastName = dt.Rows[0]["Surname"].ToString().Trim(new char[] { ' ' });
+            var currentReader = from reader in readers
+                                where reader.ID == userId
+                                select reader;
+
+            firstName = currentReader.First().Name;
+            lastName = currentReader.First().Surname;
 
             SessionLabel.Text += String.Format("{0:D7}\n{1} {2}", userId, firstName, lastName);
         }
@@ -59,9 +52,27 @@ namespace MyLibrarian.Forms
             CopyListView.View = View.Details;
             CopyListView.Items.Clear();
 
-            DataTable dt = database.GetJoinedDataTable(ControllerDB.Table.Copy,
-                ControllerDB.Table.Book, new string[] { "ID", "Author", "Title", "Borrowed" },
-                new string[] { "db_owner.Book.ISBN = db_owner.Copy.ISBN ", "db_owner.Copy.Reader = " + userId });
+            //DataTable dt = database.GetJoinedDataTable(ControllerDB.Table.Copy,
+            //    ControllerDB.Table.Book, new string[] { "ID", "Author", "Title", "Borrowed" },
+            //    new string[] { "db_owner.Book.ISBN = db_owner.Copy.ISBN ", "db_owner.Copy.Reader = " + userId });
+
+            List<Copy> copies = Copy.GetAll();
+            List<Book> books = Book.GetAll();
+
+            var table = from copy in copies
+                        join book in books
+                        on copy.ISBN equals book.ISBN
+                        where copy.Reader == userId
+                        select new { Copy = copy, Book = book };
+
+            foreach(var item in table)
+            {
+                ListViewItem listitem = new ListViewItem(item.Copy.ID.ToString());
+                listitem.SubItems.Add(item.Book.Author.ToString());
+                listitem.SubItems.Add(item.Book.Title.ToString());
+                listitem.SubItems.Add(item.Copy.Borrowed.ToString());
+                CopyListView.Items.Add(listitem);
+            }
 
             //LINQ<DataRow> filter = new LINQ<DataRow>(dt.AsEnumerable());
             //filter.Filter(row =>
@@ -85,15 +96,15 @@ namespace MyLibrarian.Forms
             //    dt.Clear();
             //}
 
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                DataRow dr = dt.Rows[i];
-                ListViewItem listitem = new ListViewItem(dr["ID"].ToString());
-                listitem.SubItems.Add(dr["Author"].ToString());
-                listitem.SubItems.Add(dr["Title"].ToString());
-                listitem.SubItems.Add(dr["Borrowed"].ToString());
-                CopyListView.Items.Add(listitem);
-            }
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            //    DataRow dr = dt.Rows[i];
+            //    ListViewItem listitem = new ListViewItem(dr["ID"].ToString());
+            //    listitem.SubItems.Add(dr["Author"].ToString());
+            //    listitem.SubItems.Add(dr["Title"].ToString());
+            //    listitem.SubItems.Add(dr["Borrowed"].ToString());
+            //    CopyListView.Items.Add(listitem);
+            //}
         }
 
         private void LogOutButton_Click(object sender, EventArgs e)

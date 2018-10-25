@@ -26,16 +26,16 @@ namespace MyLibrarian.Data
 
         public Reader(string name, string surname, string passwordHash) : this(0, name, surname, passwordHash) { }
 
-        public override List<DataItem> GetAll()
+        public static List<Reader> GetAll()
         {
-            List<DataItem> list = new List<DataItem>();
+            List<Reader> list = new List<Reader>();
 
             DataTable dt = ControllerDB.Instance.GetDataTable(ControllerDB.Table.Reader);
             foreach (DataRow dtRow in dt.AsEnumerable())
             {
-                list.Add(new Reader(Int32.Parse(dtRow["ID"].ToString()), 
-                    dtRow["Name"].ToString(),
-                    dtRow["Surname"].ToString(), 
+                list.Add(new Reader(Int32.Parse(dtRow["ID"].ToString()),
+                    dtRow["Name"].ToString().TrimEnd(' '),
+                    dtRow["Surname"].ToString().TrimEnd(' '), 
                     dtRow["Password"].ToString()));
             }
 
