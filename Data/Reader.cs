@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExtensionMethods;
 
 namespace MyLibrarian.Data
 {
@@ -14,7 +15,7 @@ namespace MyLibrarian.Data
         public string Surname { get; private set; }
         public string Password { get; private set; }
 
-        public override int ColumnCount { get => 4; }
+        public override int ColumnCount { get => 3; }
         public override string PrimaryKey { get => "ID"; }
         public override string PrimaryKeyValue { get => ID.ToString(); }
 
@@ -46,7 +47,7 @@ namespace MyLibrarian.Data
 
         public override string[] GetColumnNames()
         {
-            return new string[] { "ID", "Name", "Surname", "Password" };
+            return new string[] { "Name", "Surname", "Password" };
         }
 
         public override string GetTableName()
@@ -56,7 +57,7 @@ namespace MyLibrarian.Data
 
         public override string[] GetStringValues()
         {
-            return new string[] { ID.ToString(), Name, Surname, Password };
+            return new string[] { Name.SurroundWithQuotes(), Surname.SurroundWithQuotes(), Password.SurroundWithQuotes() };
         }
     }
 }

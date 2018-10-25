@@ -62,7 +62,7 @@ namespace MyLibrarian.Data
 
         public override string[] GetStringValues()
         {
-            return new string[] { ISBN, Title, Author, "'" + Date.ToString("'yyyyMMdd'") + "'" };
+            return new string[] { "'" + ISBN + "'", "'" + Title + "'", "'" + Author + "'", "'" + Date.ToString("yyyyMMdd") + "'" };
         }
     }
 }

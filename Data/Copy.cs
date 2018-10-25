@@ -60,7 +60,7 @@ namespace MyLibrarian.Data
 
         public override string[] GetStringValues()
         {
-            return new string[] { ID.ToString(), ISBN};
+            return new string[] { ID.ToString(), "'" + ISBN + "'" };
         }
     }
 }
