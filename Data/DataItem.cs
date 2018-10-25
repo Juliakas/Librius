@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrarian.Data
 {
-    public class DataItem
+    public abstract class DataItem
     {
     }
 }

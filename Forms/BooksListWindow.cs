@@ -17,43 +17,25 @@ namespace MyLibrarian.Forms
         private readonly ControllerDB database;
         private readonly MainWindow previousForm;
 
-        List<Book> books = new List<Book>();
+        private List<Book> books = Book.GetAll();
         
 
         public BooksListWindow(MainWindow previousForm)
         {
             InitializeComponent();
+
             database = ControllerDB.Instance;
             this.previousForm = previousForm;
+
             sortingTypeComboBox.SelectedIndex = 0;
-            defaultDataSorting();
         }
 
-        private void defaultDataSorting()
+        private void PopulateTable()
         {
             BookListView.View = View.Details;
             BookListView.Items.Clear();
-
-            DataTable dt = database.GetDataTable(ControllerDB.Table.Book);
-
-            // convert DataTable to List<Book>
-            for (int i = 0; i < dt.Rows.Count; i++)
+            foreach (Book book in books)
             {
-                DataRow dr = dt.Rows[i];
-
-                Book book = new Book(dr["ISBN"].ToString(), dr["Title"].ToString(), dr["Author"].ToString(), DateTime.Parse(dr["Date"].ToString()));
-                books.Add(book);
-            }
-
-            books.Sort();
-            populateTable();
-        }
-
-        private void populateTable()
-        {
-            for (int i = 0; i < books.Count; i++)
-            {
-                Book book = books[i];
                 ListViewItem listitem = new ListViewItem(book.ISBN);
                 listitem.SubItems.Add(book.Author);
                 listitem.SubItems.Add(book.Title);
@@ -70,7 +52,7 @@ namespace MyLibrarian.Forms
                 string isbn = item.SubItems[0].Text;
 
                 database.DeleteFromBook(isbn);
-                defaultDataSorting();
+                PopulateTable();
             }
         }
 
@@ -136,7 +118,7 @@ namespace MyLibrarian.Forms
             books.Sort(bookComparer);
 
             BookListView.Items.Clear();
-            populateTable();
+            PopulateTable();
             
         }
     }

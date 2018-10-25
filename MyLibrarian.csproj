@@ -96,10 +96,11 @@
     <Compile Include="Data\Book.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Data\BookComparer.cs" />
+    <Compile Include="Data\DataItem.cs" />
     <Compile Include="Data\Copy.cs" />
-    <Compile Include="Data\FaceRecognition.cs" />
-    <Compile Include="Data\LINQ.cs" />
-    <Compile Include="Data\Webcam.cs" />
+    <Compile Include="Detection\FaceRecognition.cs" />
+    <Compile Include="DataProcessing\LINQ.cs" />
+    <Compile Include="Detection\Webcam.cs" />
     <Compile Include="Forms\AddCopyWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,7 +131,7 @@
     <Compile Include="Forms\BooksListWindow.Designer.cs">
       <DependentUpon>BooksListWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\ControllerDB.cs" />
+    <Compile Include="DataProcessing\ControllerDB.cs" />
     <Compile Include="Forms\MainUserWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,7 +157,7 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Utils\FormsUtils.cs" />
-    <Compile Include="Hashing.cs" />
+    <Compile Include="DataProcessing\Hashing.cs" />
     <Compile Include="Data\Reader.cs" />
     <Compile Include="Forms\Utils\MessageManager.cs" />
     <Compile Include="Program.cs" />

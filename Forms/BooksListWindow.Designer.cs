@@ -115,7 +115,7 @@
             this.sortLabel.AutoSize = true;
             this.sortLabel.Location = new System.Drawing.Point(608, 163);
             this.sortLabel.Name = "sortLabel";
-            this.sortLabel.Size = new System.Drawing.Size(67, 22);
+            this.sortLabel.Size = new System.Drawing.Size(50, 16);
             this.sortLabel.TabIndex = 5;
             this.sortLabel.Text = "Sort by";
             // 
@@ -131,13 +131,13 @@
             "Date desc"});
             this.sortingTypeComboBox.Location = new System.Drawing.Point(607, 197);
             this.sortingTypeComboBox.Name = "sortingTypeComboBox";
-            this.sortingTypeComboBox.Size = new System.Drawing.Size(91, 30);
+            this.sortingTypeComboBox.Size = new System.Drawing.Size(91, 23);
             this.sortingTypeComboBox.TabIndex = 6;
             this.sortingTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.sortingTypeComboBox_SelectedIndexChanged);
             // 
             // BooksListWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 495);
             this.Controls.Add(this.sortingTypeComboBox);

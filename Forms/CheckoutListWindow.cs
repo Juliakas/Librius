@@ -31,32 +31,28 @@ namespace MyLibrarian.Forms
 
         private void PopulateTable()
         {
-            //SELECT Book.ISBN, Title, Author, SUM(
-            //    CASE
-            //        WHEN db_owner.Copy.Reader IS NULL THEN 1
-            //        ELSE 0
-            //    END) AS Available
-            //FROM db_owner.Book, db_owner.Copy
-            //WHERE db_owner.Book.ISBN = db_owner.Copy.ISBN
-            //GROUP BY Book.ISBN, Title, Author
+            List<Copy> copies = Copy.GetAll();
+            List<Book> books = Book.GetAll();
+
+            var groupedList = from book in books
+                              join copy in copies
+                              on book.ISBN equals copy.ISBN into groupedCopies
+                              select new { Book = book, Available = 
+                                (
+                                    from copy in groupedCopies
+                                    where copy.Reader == default(int)
+                                    select copy
+                                )
+                                .Count() };
 
             CopyListView.View = View.Details;
             CopyListView.Items.Clear();
-
-            string SUM = "SUM(CASE WHEN db_owner.Copy.Reader IS NULL THEN 1 ELSE 0 END) AS Available";
-
-            DataTable dt = database.GetJoinedDataTable(ControllerDB.Table.Copy,
-                ControllerDB.Table.Book, new string[] { "Copy.ISBN", "Title", "Author", SUM },
-                "Copy.ISBN, Title, Author", new string[] { "db_owner.Book.ISBN = db_owner.Copy.ISBN" });
-
-            for (int i = 0; i < dt.Rows.Count; i++)
+            foreach (var item in groupedList)
             {
-                DataRow dr = dt.Rows[i];
-                string isbnstr = dr["ISBN"].ToString();
-                ListViewItem listitem = new ListViewItem(isbnstr);
-                listitem.SubItems.Add(dr["Author"].ToString());
-                listitem.SubItems.Add(dr["Title"].ToString());
-                listitem.SubItems.Add(dr["Available"].ToString());
+                ListViewItem listitem = new ListViewItem(item.Book.ISBN.ToString());
+                listitem.SubItems.Add(item.Book.Author.ToString());
+                listitem.SubItems.Add(item.Book.Title.ToString());
+                listitem.SubItems.Add(item.Available.ToString());
                 CopyListView.Items.Add(listitem);
             }
 
