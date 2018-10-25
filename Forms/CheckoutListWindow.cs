@@ -49,18 +49,26 @@ namespace MyLibrarian.Forms
                 ControllerDB.Table.Book, new string[] { "Copy.ISBN", "Title", "Author", SUM },
                 "Copy.ISBN, Title, Author", new string[] { "db_owner.Book.ISBN = db_owner.Copy.ISBN" });
 
+            List<Copy> copies = Copy.GetAll();
+            List<Book> books = Book.GetAll();
 
+            var groupedList = from book in books
+                              join copy in copies
+                              on book.ISBN equals copy.ISBN into groupedCopies
+                              select new { Book = book, Available = 
+                                (
+                                    from copy in groupedCopies
+                                    where copy.Reader == default(int)
+                                    select copy
+                                )
+                                .Count() };
 
-
-
-            for (int i = 0; i < dt.Rows.Count; i++)
+            foreach(var item in groupedList)
             {
-                DataRow dr = dt.Rows[i];
-                string isbnstr = dr["ISBN"].ToString();
-                ListViewItem listitem = new ListViewItem(isbnstr);
-                listitem.SubItems.Add(dr["Author"].ToString());
-                listitem.SubItems.Add(dr["Title"].ToString());
-                listitem.SubItems.Add(dr["Available"].ToString());
+                ListViewItem listitem = new ListViewItem(item.Book.ISBN.ToString());
+                listitem.SubItems.Add(item.Book.Author.ToString());
+                listitem.SubItems.Add(item.Book.Title.ToString());
+                listitem.SubItems.Add(item.Available.ToString());
                 CopyListView.Items.Add(listitem);
             }
 
