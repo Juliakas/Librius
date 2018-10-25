@@ -46,7 +46,7 @@ namespace MyLibrarian.Forms
                     string author = authorTextBox.Text;
                     string isbn = isbnTextBox.Text;
 
-                    Database.InsertToBook(new Book(isbn, title, author, date));
+                    Database.InsertRow(new Book(isbn, title, author, date));
                 }
                 else
                 {

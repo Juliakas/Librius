@@ -12,16 +12,18 @@ namespace MyLibrarian.Data
         public int ID { get; private set; }
         public string Name { get; private set; }
         public string Surname { get; private set; }
-        public string PasswordHash { get; private set; }
+        public string Password { get; private set; }
 
-        public Reader() { }
+        public override int ColumnCount { get => 4; }
+        public override string PrimaryKey { get => "ID"; }
+        public override string PrimaryKeyValue { get => ID.ToString(); }
 
         public Reader(int id, string name, string surname, string passwordHash)
         {
             this.ID = id;
             this.Name = name;
             this.Surname = surname;
-            this.PasswordHash = passwordHash;
+            this.Password = passwordHash;
         }
 
         public Reader(string name, string surname, string passwordHash) : this(0, name, surname, passwordHash) { }
@@ -40,6 +42,21 @@ namespace MyLibrarian.Data
             }
 
             return list;
+        }
+
+        public override string[] GetColumnNames()
+        {
+            return new string[] { "ID", "Name", "Surname", "Password" };
+        }
+
+        public override string GetTableName()
+        {
+            return "Reader";
+        }
+
+        public override string[] GetStringValues()
+        {
+            return new string[] { ID.ToString(), Name, Surname, Password };
         }
     }
 }

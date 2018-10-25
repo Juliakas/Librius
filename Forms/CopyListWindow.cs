@@ -46,20 +46,27 @@ namespace MyLibrarian.Forms
 
         internal void PopulateTable()
         {
-            DataTable dt = database.GetDataTable(ControllerDB.Table.Copy);
-            LINQ<DataRow> filter = new LINQ<DataRow>(dt.AsEnumerable());
-            filter.Filter(rows => rows["ISBN"].ToString() == isbn);
-            try
+            List<Copy> copies = Copy.GetAll();
+
+            var filteredList = from copy in copies
+                               where copy.ISBN == isbn
+                               select copy;
+
+            CopyListView.View = View.Details;
+            CopyListView.Items.Clear();
+            foreach(var item in filteredList)
             {
-                dt = filter.Collection.CopyToDataTable();
-            }
-            catch (InvalidOperationException ex)
-            {
-                dt.Clear();
-            }
-            finally
-            {
-                PopulateTable(dt);
+                ListViewItem listitem = new ListViewItem(item.ID.ToString());
+                listitem.SubItems.Add(item.Reader.ToString());
+                if (item.Borrowed != default(DateTime))
+                {
+                    listitem.SubItems.Add(item.Borrowed.ToShortDateString());
+                }
+                else
+                {
+                    listitem.SubItems.Add("-");
+                }
+                CopyListView.Items.Add(listitem);
             }
         }
 
@@ -70,7 +77,7 @@ namespace MyLibrarian.Forms
                 ListViewItem item = CopyListView.SelectedItems[i];
                 Int64 id = Int64.Parse(item.SubItems[0].Text);
 
-                database.DeleteFromCopy(id);
+                database.DeleteRow(new Copy(id));
                 PopulateTable();
             }
         }

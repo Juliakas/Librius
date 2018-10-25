@@ -14,7 +14,11 @@ namespace MyLibrarian.Data
         public string Author { get; private set; }
         public DateTime Date { get; private set; }
 
-        public Book() { }
+        public override int ColumnCount { get => 4; }
+        public override string PrimaryKey { get => "ISBN"; }
+        public override string PrimaryKeyValue { get => ISBN; }
+
+        public Book(string isbn) : this(isbn, default(string), default(string), default(DateTime)) { }
 
         public Book(string isbn, string title, string author, DateTime date)
         {
@@ -44,6 +48,21 @@ namespace MyLibrarian.Data
             }
 
             return list;
+        }
+
+        public override string[] GetColumnNames()
+        {
+            return new string[]{ "ISBN", "Title", "Author", "Date"};
+        }
+
+        public override string GetTableName()
+        {
+            return "Book";
+        }
+
+        public override string[] GetStringValues()
+        {
+            return new string[] { ISBN, Title, Author, "'" + Date.ToString("'yyyyMMdd'") + "'" };
         }
     }
 }
