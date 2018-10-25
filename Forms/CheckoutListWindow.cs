@@ -31,24 +31,6 @@ namespace MyLibrarian.Forms
 
         private void PopulateTable()
         {
-            //SELECT Book.ISBN, Title, Author, SUM(
-            //    CASE
-            //        WHEN db_owner.Copy.Reader IS NULL THEN 1
-            //        ELSE 0
-            //    END) AS Available
-            //FROM db_owner.Book, db_owner.Copy
-            //WHERE db_owner.Book.ISBN = db_owner.Copy.ISBN
-            //GROUP BY Book.ISBN, Title, Author
-
-            CopyListView.View = View.Details;
-            CopyListView.Items.Clear();
-
-            string SUM = "SUM(CASE WHEN db_owner.Copy.Reader IS NULL THEN 1 ELSE 0 END) AS Available";
-
-            DataTable dt = database.GetJoinedDataTable(ControllerDB.Table.Copy,
-                ControllerDB.Table.Book, new string[] { "Copy.ISBN", "Title", "Author", SUM },
-                "Copy.ISBN, Title, Author", new string[] { "db_owner.Book.ISBN = db_owner.Copy.ISBN" });
-
             List<Copy> copies = Copy.GetAll();
             List<Book> books = Book.GetAll();
 
@@ -63,7 +45,9 @@ namespace MyLibrarian.Forms
                                 )
                                 .Count() };
 
-            foreach(var item in groupedList)
+            CopyListView.View = View.Details;
+            CopyListView.Items.Clear();
+            foreach (var item in groupedList)
             {
                 ListViewItem listitem = new ListViewItem(item.Book.ISBN.ToString());
                 listitem.SubItems.Add(item.Book.Author.ToString());
