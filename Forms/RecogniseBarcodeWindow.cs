@@ -28,7 +28,6 @@ namespace MyLibrarian.Forms
             webcam.takePicture();
             BarcodeScanning.Scan(pictureBox1.Image);
             webcam.takePicture();
-
         }
     }
 }

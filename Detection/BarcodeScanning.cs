@@ -14,7 +14,10 @@ namespace MyLibrarian.Detection
         public static string Scan(Image image)
         {
             Bitmap bitmap = new Bitmap(image);
-            Result result = new BarcodeReader().Decode(bitmap);
+            //Bitmap bitmap = new Bitmap("images.jpg");
+            BarcodeReader reader = new BarcodeReader { AutoRotate = true };
+            Result result = reader.Decode(bitmap);
+            bitmap.Dispose();
 
             try
             {
@@ -26,5 +29,20 @@ namespace MyLibrarian.Detection
             }
             
         }
+
+        private static Bitmap ToGrayscale(Bitmap bitmap)
+        {
+            for (int x = 0; x < bitmap.Width; x++)
+            {
+                for (int y = 0; y < bitmap.Height; y++)
+                {
+                    Color color = bitmap.GetPixel(x, y);
+                    Color newColor = Color.FromArgb(color.R, 0, 0);
+                    bitmap.SetPixel(x, y, newColor);
+                }
+            }
+            return bitmap;
+        }
+
     }
 }
