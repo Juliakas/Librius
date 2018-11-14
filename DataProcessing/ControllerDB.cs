@@ -42,7 +42,7 @@ namespace MyLibrarian.Data
         {   
             try
             {
-                connection = new SqlConnection(GetConnectionString());
+                //connection = new SqlConnection(GetConnectionString());
                 connection.Open();
             }
             catch (Exception ex)
@@ -51,11 +51,12 @@ namespace MyLibrarian.Data
             }
         }
 
+        /*
         private string GetConnectionString()
         {
             return Constants.connectionString;
         }
-
+        */
 
 
 

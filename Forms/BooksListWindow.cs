@@ -18,8 +18,6 @@ namespace MyLibrarian.Forms
         private readonly MainWindow previousForm;
         List<Book> books;
 
-
-
         public BooksListWindow(MainWindow previousForm)
         {
             InitializeComponent();

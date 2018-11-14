@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLibrarian.Data;
+using MyLibrarian.DataProcessing;
 using MyLibrarian.Forms.Utils;
 
 namespace MyLibrarian.Forms
@@ -16,6 +17,7 @@ namespace MyLibrarian.Forms
     {
         AuthWindow previousWindow;
         ControllerDB database;
+        HttpManager manager;
 
         private string regex;
 
@@ -26,12 +28,14 @@ namespace MyLibrarian.Forms
             this.previousWindow = previousWindow;
             database = ControllerDB.Instance;
 
+            manager = HttpManager.Instance;
+
             LastNamePlaceholderText();
             PasswordPlaceholderText();
             ConfirmPasswordPlaceholderText();
 
             LockCreateAccountButton();
-            regex = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$";
+            regex = Constants.Regex;
         }
 
         #region Placeholder text methods
@@ -354,20 +358,25 @@ namespace MyLibrarian.Forms
             BackButton_Click(new object(), new EventArgs());
         }
 
-        private void CreateAccountButton_Click(object sender, EventArgs e)
+        private async void CreateAccountButton_Click(object sender, EventArgs e)
         {
             int id;
             string firstName = FirstNameBox.Text;
             string lastName = LastNameBox.Text;
             string passwordHash = new Hashing().GenerateHash(PasswordBox.Text);
             
-            database.InsertRow(new Reader(firstName, lastName, passwordHash));
+            manager.PostItemAsync(new Reader(firstName, lastName, passwordHash));
 
+
+
+            /*
             DataTable table = database.GetDataTable(ControllerDB.Table.Reader);
             DataRow row = table.Rows[table.Rows.Count - 1];
             id = (int)row["ID"];
 
             MessageManager.ShowMessageBox(String.Format("{0:D7}",id.ToString()), "Your ID");
+            */
+
             this.Hide();
             previousWindow.Show();
         }

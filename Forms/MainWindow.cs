@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyLibrarian.Data;
 using MyLibrarian.Forms.Utils;
+using MyLibrarian.DataProcessing;
 
 namespace MyLibrarian.Forms
 {
@@ -17,12 +18,14 @@ namespace MyLibrarian.Forms
     {
         
         private readonly ControllerDB Database;
+        private readonly HttpManager Manager;
         private readonly AuthWindow previousWindow;
 
         public MainWindow(AuthWindow previousWindow)
         {
             InitializeComponent();
             Database = ControllerDB.Instance;
+            Manager = HttpManager.Instance;
             this.previousWindow = previousWindow;
         }
 
@@ -46,7 +49,7 @@ namespace MyLibrarian.Forms
                     string author = authorTextBox.Text;
                     string isbn = isbnTextBox.Text;
 
-                    Database.InsertRow(new Book(isbn, title, author, date));
+                    Manager.PostItemAsync(new Book(isbn, title, author, date));
                 }
                 else
                 {

@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProcessing\HttpManager.cs" />
     <Compile Include="Data\Book.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Data\BookComparer.cs" />

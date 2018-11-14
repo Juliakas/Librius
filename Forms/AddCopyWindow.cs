@@ -1,4 +1,5 @@
 ﻿using MyLibrarian.Data;
+using MyLibrarian.DataProcessing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace MyLibrarian.Forms
     {
         private CopyListWindow previousWindow;
         private ControllerDB database;
+        private HttpManager manager;
         private readonly string isbn;
 
         public AddCopyWindow(CopyListWindow previousWindow, string isbn)
@@ -23,13 +25,14 @@ namespace MyLibrarian.Forms
             this.previousWindow = previousWindow;
             this.isbn = isbn;
             database = ControllerDB.Instance;
+            manager = HttpManager.Instance;
         }
 
 
         private void AddButton_Click(object sender, EventArgs e)
         {
             Int64 id = Int64.Parse(CopyIDBox.Text);
-            database.InsertRow(new Copy(id, isbn));
+            manager.PostItemAsync(new Copy(id, isbn));
 
             previousWindow.Show();
             previousWindow.PopulateTable();
