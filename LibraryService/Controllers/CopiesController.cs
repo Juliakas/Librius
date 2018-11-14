@@ -40,11 +40,6 @@ namespace LibraryService.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutCopy(int id, Copy copy)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             if (id != copy.Id)
             {
                 return BadRequest();
@@ -75,11 +70,6 @@ namespace LibraryService.Controllers
         [ResponseType(typeof(Copy))]
         public async Task<IHttpActionResult> PostCopy(Copy copy)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             db.Copies.Add(copy);
             await db.SaveChangesAsync();
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyLibrarian.DataProcessing;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -20,6 +22,7 @@ namespace MyLibrarian.Data
 
         public Book(string isbn) : this(isbn, default(string), default(string), default(DateTime)) { }
 
+        [JsonConstructor]
         public Book(string isbn, string title, string author, DateTime date)
         {
             this.ISBN = isbn;
@@ -40,19 +43,10 @@ namespace MyLibrarian.Data
                 (Author == other.Author));
         }
 
-        public static List<Book> GetAll()
+        public async static Task<List<Book>> GetAll()
         {
-            List<Book> list = new List<Book>();
-
-            DataTable dt = ControllerDB.Instance.GetDataTable(ControllerDB.Table.Book);
-            foreach(DataRow dtRow in dt.AsEnumerable())
-            {
-                list.Add(new Book(dtRow["ISBN"].ToString(), 
-                    dtRow["Title"].ToString().TrimEnd(' '), 
-                    dtRow["Author"].ToString().TrimEnd(' '), 
-                    DateTime.Parse(dtRow["Date"].ToString())));
-            }
-
+            var list = await HttpManager.Instance.GetAllItemsAsync<Book>("Books");
+            
             return list;
         }
 

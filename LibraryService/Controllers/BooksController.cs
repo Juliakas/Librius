@@ -42,11 +42,6 @@ namespace LibraryService.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutBook(string id, Book book)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             if (id != book.Isbn)
             {
                 return BadRequest();
@@ -77,11 +72,6 @@ namespace LibraryService.Controllers
         [ResponseType(typeof(Book))]
         public async Task<IHttpActionResult> PostBook(Book book)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             db.Books.Add(book);
 
             try

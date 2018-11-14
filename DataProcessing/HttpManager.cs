@@ -3,9 +3,11 @@ using MyLibrarian.Forms.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,19 +68,42 @@ namespace MyLibrarian.DataProcessing
             }
         }
 
-        public async Task<List<DataItem>> GetAllItemsAsync(string tableName)
+        public async Task<List<T>> GetAllItemsAsync<T>(string tableName) where T: DataItem
         {
             HttpResponseMessage message = await client.GetAsync(GetUri() + tableName);
 
-            List<DataItem> items = null;
+            List<T> items = null;
 
             if (message.IsSuccessStatusCode)
             {
                 MessageManager.ShowMessageBox("Success");
                 string data = await message.Content.ReadAsStringAsync();
-                items = JsonConvert.DeserializeObject<List<DataItem>>(data);
+                items = JsonConvert.DeserializeObject<List<T>>(data);
             }
+            //return GetDataTable<DataItem>(items);
             return items;
+        }
+
+        private DataTable GetDataTable<T>(List<T> list)
+        {
+            DataTable dt = new DataTable(typeof(T).Name);
+            PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach(PropertyInfo info in properties)
+            {
+                dt.Columns.Add(info.Name);
+            }
+
+            foreach(T item in list)
+            {
+                var values = new object[properties.Length];
+                for(int i = 0; i < properties.Length; i++)
+                {
+                    values[i] = properties[i].GetValue(item, null);
+                }
+                dt.Rows.Add(values);
+            }
+            return dt;
         }
 
     }

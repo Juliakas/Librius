@@ -18,5 +18,8 @@ namespace LibraryService.Models
         public string Author { get; set; }
         [Required]
         public DateTime Date { get; set; }
+
+
+
     }
 }

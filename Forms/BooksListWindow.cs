@@ -28,9 +28,9 @@ namespace MyLibrarian.Forms
             sortingTypeComboBox.SelectedIndex = 0;
         }
 
-        private void PopulateTable()
+        private async void PopulateTable()
         {
-            books = Book.GetAll();
+            books = await Book.GetAll();
 
             BookListView.View = View.Details;
             BookListView.Items.Clear();
@@ -100,10 +100,10 @@ namespace MyLibrarian.Forms
             BackButton_Click(new object(), new EventArgs());
         }
 
-        private void sortingTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void sortingTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             BookComparer bookComparer = new BookComparer();
-            List<Book> books = Book.GetAll();
+            List<Book> books = await Book.GetAll();
 
             string selectedSortingType = sortingTypeComboBox.GetItemText(sortingTypeComboBox.SelectedItem);
 

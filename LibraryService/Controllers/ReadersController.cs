@@ -36,70 +36,14 @@ namespace LibraryService.Controllers
             return Ok(reader);
         }
 
-        //PUT
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutReader(int id, Reader reader)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != reader.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(reader).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReaderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Readers
+        //POST
         [ResponseType(typeof(Reader))]
         public async Task<IHttpActionResult> PostReader(Reader reader)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             db.Readers.Add(reader);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = reader.Id }, reader);
-        }
-
-        // DELETE: api/Readers/5
-        [ResponseType(typeof(Reader))]
-        public async Task<IHttpActionResult> DeleteReader(int id)
-        {
-            Reader reader = await db.Readers.FindAsync(id);
-            if (reader == null)
-            {
-                return NotFound();
-            }
-
-            db.Readers.Remove(reader);
-            await db.SaveChangesAsync();
-
-            return Ok(reader);
         }
 
         protected override void Dispose(bool disposing)
