@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExtensionMethods;
+using Newtonsoft.Json;
 
 namespace MyLibrarian.Data
 {
@@ -19,6 +20,7 @@ namespace MyLibrarian.Data
         public override string PrimaryKey { get => "ID"; }
         public override string PrimaryKeyValue { get => ID.ToString(); }
 
+        [JsonConstructor]
         public Reader(int id, string name, string surname, string passwordHash)
         {
             this.ID = id;
@@ -26,6 +28,8 @@ namespace MyLibrarian.Data
             this.Surname = surname;
             this.Password = passwordHash;
         }
+
+        
 
         public Reader(string name, string surname, string passwordHash) : this(0, name, surname, passwordHash) { }
 

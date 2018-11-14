@@ -47,13 +47,13 @@ namespace MyLibrarian.Forms
             SessionLabel.Text += String.Format("{0:D7}\n{1} {2}", userId, firstName, lastName);
         }
 
-        private void PopulateTable()
+        private async void PopulateTable()
         {
             CopyListView.View = View.Details;
             CopyListView.Items.Clear();
 
             List<Copy> copies = Copy.GetAll();
-            List<Book> books = Book.GetAll();
+            List<Book> books = await Book.GetAll();
 
             var table = from copy in copies
                         join book in books
