@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MyLibrarianFrontend.Items;
 
 namespace MyLibrarianFrontend
 {
@@ -17,9 +18,9 @@ namespace MyLibrarianFrontend
 
         private List<Book> books;
         private Activity activity;
-        String type;
+        string type;
 
-        public BookAdapter(Activity activity, List<Book> items, String type)
+        public BookAdapter(Activity activity, List<Book> items, string type)
         {
             this.books = items;
             this.activity = activity;
@@ -55,7 +56,7 @@ namespace MyLibrarianFrontend
 
                 titleField.Text = books[position].Title;
                 authorField.Text = books[position].Author;
-                publicationField.Text = books[position].Date.Date.ToShortDateString();
+                publicationField.Text = books[position].Date.ToShortDateString();
                 amountField.Text = "0";
 
                 return view;
@@ -71,7 +72,7 @@ namespace MyLibrarianFrontend
 
                 titleField.Text = books[position].Title;
                 authorField.Text = books[position].Author;
-                publicationField.Text = books[position].Date.Date.ToShortDateString();
+                publicationField.Text = books[position].Date.ToShortDateString();
                 returnField.Text ="2018-12-01";
 
 

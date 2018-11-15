@@ -18,6 +18,7 @@ namespace LibraryService.Controllers
         private LibraryServiceContext db = new LibraryServiceContext();
 
         //GET
+        [HttpGet]
         public IQueryable<Book> GetBooks()
         {
             return db.Books;

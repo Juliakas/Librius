@@ -22,7 +22,6 @@ namespace MyLibrarianFrontend
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
             SetContentView(Resource.Layout.registrationWindow);
             registerButton = FindViewById<Button>(Resource.Id.registerButton);
             relativeLayout = FindViewById<RelativeLayout>(Resource.Id.relativeLayout);
@@ -39,7 +38,7 @@ namespace MyLibrarianFrontend
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this, typeof(AllBooks));
+            Intent intent = new Intent(this, typeof(AllBooksListActivity));
             this.StartActivity(intent);
         }
     }
