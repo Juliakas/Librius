@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace MyLibrarianFrontend
+namespace MyLibrarianFrontend.Items
 {
     public class Book
     {

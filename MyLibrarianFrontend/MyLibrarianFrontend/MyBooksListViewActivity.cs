@@ -9,19 +9,17 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MyLibrarianFrontend.Items;
 
 namespace MyLibrarianFrontend
 {
     [Activity(Label = "MyBooksListViewActivity")]
     public class MyBooksListViewActivity : Activity
     {
-        private List<Book> books;
-        private ListView bookListView;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
             SetContentView(Resource.Layout.booksList);
 
             ListView bookListView = FindViewById<ListView>(Resource.Id.bookListView);

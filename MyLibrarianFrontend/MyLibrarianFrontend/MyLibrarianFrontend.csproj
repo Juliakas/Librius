@@ -56,10 +56,12 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
+    <Compile Include="Items\Reader.cs" />
+    <Compile Include="Items\Copy.cs" />
+    <Compile Include="Items\Book.cs" />
     <Compile Include="BookAdapter.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="AllBooks.cs" />
+    <Compile Include="AllBooksListActivity.cs" />
     <Compile Include="MainUserWindowActivity.cs" />
     <Compile Include="MyBooksListViewActivity.cs" />
     <Compile Include="RegistrationActivity.cs" />
@@ -98,6 +100,12 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Net.Http">
+      <Version>2.2.29</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
   </ItemGroup>
   <ItemGroup>
