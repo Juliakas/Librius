@@ -90,7 +90,7 @@ namespace LibraryService.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = book.Isbn }, book);
+            return CreatedAtRoute("DefaultApi", new { id = book.Isbn }, book.Isbn);
         }
 
         //DELETE

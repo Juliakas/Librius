@@ -52,7 +52,7 @@ namespace MyLibrarian.Forms
             CopyListView.View = View.Details;
             CopyListView.Items.Clear();
 
-            List<Copy> copies = Copy.GetAll();
+            List<Copy> copies = await Copy.GetAll();
             List<Book> books = await Book.GetAll();
 
             var table = from copy in copies

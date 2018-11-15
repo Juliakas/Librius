@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <TextView
+    android:text="Title"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/titleTextView"
+    android:background="#ff3663b9"
+    android:paddingStart="15dp"
+    android:paddingLeft="15dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginBottom="0dp"/>
+  <TextView
+    android:text="Author"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/authorTextView"
+    android:paddingLeft="15dp"/>
+  <TextView
+    android:text="Publication"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/publishedTextView"
+    android:paddingLeft="15dp"/>
+  <RelativeLayout
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="47.5dp"
+    android:id="@+id/relativeLayout1"
+    android:paddingLeft="15dp"
+    android:layout_marginBottom="0.0dp">
+    <TextView
+      android:text="Available"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:layout_width="65.5dp"
+      android:layout_height="21.5dp"
+      android:id="@+id/availableTextView" />
+    <Button
+      android:text="Checkout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/checkoutButton"
+      android:layout_toRightOf="@id/availableTextView" />
+    <TextView
+      android:text="Number"
+      android:textAppearance="?android:attr/textAppearanceSmall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/availableTextView"
+      android:id="@+id/amountTextView" />
+  </RelativeLayout>
+</LinearLayout>

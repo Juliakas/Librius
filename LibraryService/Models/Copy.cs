@@ -11,14 +11,9 @@ namespace LibraryService.Models
     public class Copy
     {
         public int Id { get; set; }
-        [Required]
-        [ForeignKey("Book")]
-        public string Isbn;
-        [ForeignKey("Reader")]
-        public int ReaderId { get; set; }
+        public int Reader { get; set; }
         public DateTime Borrowed { get; set; }
-
-        public Book Book { get; set; }
-        public Reader Reader { get; set; }
+        [Required]
+        public string Isbn { get; set; }
     }
 }

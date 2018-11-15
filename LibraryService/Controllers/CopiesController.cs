@@ -73,7 +73,7 @@ namespace LibraryService.Controllers
             db.Copies.Add(copy);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = copy.Id }, copy);
+            return CreatedAtRoute("DefaultApi", new { id = copy.Id }, copy.Id);
         }
 
         //DELETE

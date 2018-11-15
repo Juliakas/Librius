@@ -364,10 +364,19 @@ namespace MyLibrarian.Forms
             string firstName = FirstNameBox.Text;
             string lastName = LastNameBox.Text;
             string passwordHash = new Hashing().GenerateHash(PasswordBox.Text);
-            
-            manager.PostItemAsync(new Reader(firstName, lastName, passwordHash));
 
+            CreateAccountButton.Enabled = false;
+            BackButton.Enabled = false;
 
+            id = Convert.ToInt32(await HttpManager.Instance.PostItemAsync(new Reader(firstName, lastName, passwordHash)));
+
+            if (id != null)
+                MessageManager.ShowMessageBox(optionalCaption: "Success", text: "Account creation successful. Your ID: " + id);
+            else
+                MessageManager.ShowMessageBox("Something went wrong");
+
+            CreateAccountButton.Enabled = true;
+            BackButton.Enabled = true;
 
             /*
             DataTable table = database.GetDataTable(ControllerDB.Table.Reader);

@@ -21,7 +21,7 @@ namespace MyLibrarian.Forms
         public CopyListWindow(BooksListWindow previousForm, string isbn)
         {
             InitializeComponent();
-
+            
             this.isbn = isbn;
             this.previousForm = previousForm;
             database = ControllerDB.Instance;
@@ -44,9 +44,9 @@ namespace MyLibrarian.Forms
             }
         }
 
-        internal void PopulateTable()
+        internal async void PopulateTable()
         {
-            List<Copy> copies = Copy.GetAll();
+            List<Copy> copies = await Copy.GetAll();
 
             var filteredList = from copy in copies
                                where copy.ISBN == isbn

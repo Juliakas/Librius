@@ -30,20 +30,9 @@ namespace MyLibrarian.Data
             this.Borrowed = borrowed;
         }
 
-        public static List<Copy> GetAll()
+        public async static Task<List<Copy>> GetAll()
         {
-            List<Copy> list = new List<Copy>();
-
-            DataTable dt = ControllerDB.Instance.GetDataTable(ControllerDB.Table.Copy);
-            foreach (DataRow dtRow in dt.AsEnumerable())
-            {
-                list.Add(new Copy(Int64.Parse(dtRow["ID"].ToString()),
-                    String.IsNullOrEmpty(dtRow["Reader"].ToString()) 
-                    ? default(int) : Int32.Parse(dtRow["Reader"].ToString()),
-                    dtRow["ISBN"].ToString(),
-                    String.IsNullOrEmpty(dtRow["Borrowed"].ToString()) 
-                    ? default(DateTime) : DateTime.Parse(dtRow["Borrowed"].ToString())));
-            }
+            var list = await DataProcessing.HttpManager.Instance.GetAllItemsAsync<Copy>("Copies");
 
             return list;
         }

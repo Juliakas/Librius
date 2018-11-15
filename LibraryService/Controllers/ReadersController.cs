@@ -43,7 +43,9 @@ namespace LibraryService.Controllers
             db.Readers.Add(reader);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = reader.Id }, reader);
+            int id = reader.Id;
+
+            return CreatedAtRoute("DefaultApi", new { id = reader.Id }, reader.Id);
         }
 
         protected override void Dispose(bool disposing)

@@ -55,17 +55,34 @@ namespace MyLibrarian.DataProcessing
             return Constants.Uri;
         }
 
-        public async void PostItemAsync(DataItem item)
+        public async Task<String> PostItemAsync(DataItem item)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "s", content);
+            string primaryKey = null;
 
-            MessageManager.ShowMessageBox(message.StatusCode.ToString());
-            MessageManager.ShowMessageBox(GetUri() + item.GetTableName() + "s");
             if (message.IsSuccessStatusCode)
             {
-                MessageManager.ShowMessageBox("Success");
+                string data = await message.Content.ReadAsStringAsync();
+                primaryKey = JsonConvert.DeserializeObject<String>(data);
             }
+
+            return primaryKey;
+        }
+
+        public async Task<T> GetItemAsync<T>(string id, string tableName) where T: DataItem
+        {
+            HttpResponseMessage message = await client.GetAsync(GetUri() + tableName + "/" + id);
+
+            T item = null;
+
+            if (message.IsSuccessStatusCode)
+            {
+                string data = await message.Content.ReadAsStringAsync();
+                item = JsonConvert.DeserializeObject<T>(data);
+            }
+
+            return item;
         }
 
         public async Task<List<T>> GetAllItemsAsync<T>(string tableName) where T: DataItem
@@ -73,10 +90,9 @@ namespace MyLibrarian.DataProcessing
             HttpResponseMessage message = await client.GetAsync(GetUri() + tableName);
 
             List<T> items = null;
-
+            
             if (message.IsSuccessStatusCode)
-            {
-                MessageManager.ShowMessageBox("Success");
+            { 
                 string data = await message.Content.ReadAsStringAsync();
                 items = JsonConvert.DeserializeObject<List<T>>(data);
             }

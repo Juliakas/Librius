@@ -30,7 +30,7 @@ namespace MyLibrarian.Forms
 
         private async void PopulateTable()
         {
-            List<Copy> copies = Copy.GetAll();
+            List<Copy> copies = await Copy.GetAll();
             List<Book> books = await Book.GetAll();
 
             var groupedList = from book in books
