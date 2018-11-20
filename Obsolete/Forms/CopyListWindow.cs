@@ -21,7 +21,7 @@ namespace MyLibrarian.Forms
         public CopyListWindow(BooksListWindow previousForm, string isbn)
         {
             InitializeComponent();
-
+            
             this.isbn = isbn;
             this.previousForm = previousForm;
             database = ControllerDB.Instance;
@@ -44,9 +44,9 @@ namespace MyLibrarian.Forms
             }
         }
 
-        internal void PopulateTable()
+        internal async void PopulateTable()
         {
-            List<Copy> copies = Copy.GetAll();
+            List<Copy> copies = await Copy.GetAll();
 
             var filteredList = from copy in copies
                                where copy.ISBN == isbn
@@ -57,8 +57,12 @@ namespace MyLibrarian.Forms
             foreach(var item in filteredList)
             {
                 ListViewItem listitem = new ListViewItem(item.ID.ToString());
-                listitem.SubItems.Add(item.Reader.ToString());
-                if (item.Borrowed != default(DateTime))
+                if (item.Reader != 0)
+                    listitem.SubItems.Add(item.Reader.ToString());
+                else
+                    listitem.SubItems.Add("");
+
+                if (item.Borrowed != Convert.ToDateTime("1900-01-01"))
                 {
                     listitem.SubItems.Add(item.Borrowed.ToShortDateString());
                 }
@@ -70,14 +74,14 @@ namespace MyLibrarian.Forms
             }
         }
 
-        private void removeButton_Click(object sender, EventArgs e)
+        private async void removeButton_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < CopyListView.SelectedItems.Count; i++)
             {
                 ListViewItem item = CopyListView.SelectedItems[i];
-                Int64 id = Int64.Parse(item.SubItems[0].Text);
+                int id = int.Parse(item.SubItems[0].Text);
 
-                database.DeleteRow(new Copy(id));
+                DataProcessing.HttpManager.Instance.DeleteItemAsync(Convert.ToString(id), "Copies");
                 PopulateTable();
             }
         }

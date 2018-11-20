@@ -18,14 +18,15 @@ namespace LibraryService.Controllers
         private LibraryServiceContext db = new LibraryServiceContext();
 
         //GET
+        [Route("api/books")]
         [HttpGet]
         public IQueryable<Book> GetBooks()
         {
             return db.Books;
         }
 
-        
-        [ResponseType(typeof(Book))]
+        [Route("api/Books/{id}")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetBook(string id)
         {
             Book book = await db.Books.FindAsync(id);
@@ -40,7 +41,8 @@ namespace LibraryService.Controllers
 
 
         //PUT
-        [ResponseType(typeof(void))]
+        [Route("api/books/{id}")]
+        [HttpPut]
         public async Task<IHttpActionResult> PutBook(string id, Book book)
         {
             if (id != book.Isbn)
@@ -70,7 +72,8 @@ namespace LibraryService.Controllers
         }
 
         //POST
-        [ResponseType(typeof(Book))]
+        [Route("api/books")]
+        [HttpPost]
         public async Task<IHttpActionResult> PostBook(Book book)
         {
             db.Books.Add(book);
@@ -91,11 +94,12 @@ namespace LibraryService.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = book.Isbn }, book);
+            return CreatedAtRoute("DefaultApi", new { id = book.Isbn }, book.Isbn);
         }
 
         //DELETE
-        [ResponseType(typeof(Book))]
+        [Route("api/books/{id}")]
+        [HttpDelete]
         public async Task<IHttpActionResult> DeleteBook(string id)
         {
             Book book = await db.Books.FindAsync(id);

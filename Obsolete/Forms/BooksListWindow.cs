@@ -58,9 +58,9 @@ namespace MyLibrarian.Forms
             }
         }
 
-        private void DeleteCopies(string isbn)
+        private async void DeleteCopies(string isbn)
         {
-            List<Copy> copies = Copy.GetAll();
+            List<Copy> copies = await Copy.GetAll();
 
             var filteredList = from copy in copies
                                where copy.ISBN == isbn
@@ -77,6 +77,7 @@ namespace MyLibrarian.Forms
             try
             {
                 string isbn = BookListView.SelectedItems[0].SubItems[0].Text;
+                MessageManager.ShowMessageBox(isbn);
 
                 this.Hide();
 

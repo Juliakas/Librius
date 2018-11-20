@@ -57,7 +57,7 @@ namespace MyLibrarian.Data
 
         public override string GetTableName()
         {
-            return "Book";
+            return "Books";
         }
 
         public override string[] GetStringValues()

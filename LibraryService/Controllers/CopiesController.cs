@@ -19,12 +19,15 @@ namespace LibraryService.Controllers
         private LibraryServiceContext db = new LibraryServiceContext();
 
         //GET
+        [Route("api/copies", Name = "GetCopies")]
+        [HttpGet]
         public IQueryable<Copy> GetCopies()
         {
             return db.Copies;
         }
 
-        [ResponseType(typeof(Copy))]
+        [Route("api/copies/{id}", Name = "GetCopy")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetCopy(int id)
         {
             Copy copy = await db.Copies.FindAsync(id);
@@ -37,7 +40,8 @@ namespace LibraryService.Controllers
         }
 
         //PUT
-        [ResponseType(typeof(void))]
+        [Route("api/copies/{id}")]
+        [HttpPut]
         public async Task<IHttpActionResult> PutCopy(int id, Copy copy)
         {
             if (id != copy.Id)
@@ -67,17 +71,27 @@ namespace LibraryService.Controllers
         }
 
         //POST
-        [ResponseType(typeof(Copy))]
+        [Route("api/copies")]
+        [HttpPost]
         public async Task<IHttpActionResult> PostCopy(Copy copy)
         {
             db.Copies.Add(copy);
-            await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = copy.Id }, copy);
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return Conflict();
+            }
+
+            return CreatedAtRoute("GetCopy", new { id = copy.Id }, copy.Id);
         }
 
         //DELETE
-        [ResponseType(typeof(Copy))]
+        [Route("api/copies/{id}")]
+        [HttpDelete]
         public async Task<IHttpActionResult> DeleteCopy(int id)
         {
             Copy copy = await db.Copies.FindAsync(id);
