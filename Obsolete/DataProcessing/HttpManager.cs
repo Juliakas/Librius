@@ -58,9 +58,28 @@ namespace MyLibrarian.DataProcessing
         public async Task<String> PostItemAsync(DataItem item)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
-            HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "s", content);
+            HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName(), content);
+
+            MessageManager.ShowMessageBox(JsonConvert.SerializeObject(item));
+
             string primaryKey = null;
 
+            if (message.IsSuccessStatusCode)
+            {
+                string data = await message.Content.ReadAsStringAsync();
+                primaryKey = JsonConvert.DeserializeObject<String>(data);
+            }
+
+            return primaryKey;
+        }
+
+        public async Task<String> PostItemAsync(DataItem item, string route)
+        {
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
+            HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "/" + route, content);
+
+            string primaryKey = null;
+            
             if (message.IsSuccessStatusCode)
             {
                 string data = await message.Content.ReadAsStringAsync();
@@ -73,7 +92,7 @@ namespace MyLibrarian.DataProcessing
         public async Task<T> GetItemAsync<T>(string id, string tableName) where T: DataItem
         {
             HttpResponseMessage message = await client.GetAsync(GetUri() + tableName + "/" + id);
-
+            
             T item = null;
 
             if (message.IsSuccessStatusCode)
@@ -98,6 +117,17 @@ namespace MyLibrarian.DataProcessing
             }
             //return GetDataTable<DataItem>(items);
             return items;
+        }
+
+        public async void PutItemAsync(DataItem item)
+        {
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
+            HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "/" + "{item.Id}", content);
+        }
+
+        public async void DeleteItemAsync(string id, string tableName)
+        {
+            HttpResponseMessage message = await client.DeleteAsync(GetUri() + tableName + "/" + id);
         }
 
         private DataTable GetDataTable<T>(List<T> list)

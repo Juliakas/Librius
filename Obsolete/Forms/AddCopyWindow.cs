@@ -29,13 +29,14 @@ namespace MyLibrarian.Forms
         }
 
 
-        private void AddButton_Click(object sender, EventArgs e)
+        private async void AddButton_Click(object sender, EventArgs e)
         {
-            Int64 id = Int64.Parse(CopyIDBox.Text);
-            manager.PostItemAsync(new Copy(id, isbn));
+            int id = int.Parse(CopyIDBox.Text);
+            await manager.PostItemAsync(new Copy(id, isbn));
 
-            previousWindow.Show();
             previousWindow.PopulateTable();
+            previousWindow.Show();
+            
 
             this.Dispose();
         }

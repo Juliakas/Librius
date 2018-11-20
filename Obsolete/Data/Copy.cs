@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MyLibrarian.Data
 {
     public class Copy : DataItem
     {
-        public Int64 ID { get; private set; }
+        public int ID { get; private set; }
         public int Reader { get; set; }
         public string ISBN { get; private set; }
         public DateTime Borrowed { get; private set; }
@@ -18,16 +19,18 @@ namespace MyLibrarian.Data
         public override string PrimaryKey { get => "ID"; }
         public override string PrimaryKeyValue { get => ID.ToString(); }
 
-        public Copy(Int64 id) : this(id, default(int), default(string), default(DateTime)) { }
+        public Copy(int id) : this(id, default(int), default(string), default(DateTime)) { }
 
-        public Copy(Int64 id, string isbn) : this(id, default(int), isbn, default(DateTime)) { }
+        public Copy(int id, string isbn) : this(id, default(int), isbn, Convert.ToDateTime("1900-01-01")) { }
 
-        public Copy(Int64 id, int reader, string isbn, DateTime borrowed)
+        [JsonConstructor]
+        public Copy(int id, int reader, string isbn, DateTime borrowed)
         {
+            this.Borrowed = borrowed;
             this.ID = id;
             this.Reader = reader;
             this.ISBN = isbn;
-            this.Borrowed = borrowed;
+            
         }
 
         public async static Task<List<Copy>> GetAll()
@@ -44,7 +47,7 @@ namespace MyLibrarian.Data
 
         public override string GetTableName()
         {
-            return "Copy";
+            return "Copies";
         }
 
         public override string[] GetStringValues()

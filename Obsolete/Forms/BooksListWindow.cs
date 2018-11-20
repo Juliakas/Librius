@@ -77,6 +77,7 @@ namespace MyLibrarian.Forms
             try
             {
                 string isbn = BookListView.SelectedItems[0].SubItems[0].Text;
+                MessageManager.ShowMessageBox(isbn);
 
                 this.Hide();
 

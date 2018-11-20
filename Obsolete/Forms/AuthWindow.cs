@@ -1,5 +1,6 @@
 ﻿using MyLibrarian.Data;
 using MyLibrarian.Forms.Utils;
+using MyLibrarian.DataProcessing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,12 +60,14 @@ namespace MyLibrarian.Forms
 
         #endregion Non event handler methods
 
-        private void LogInButton_Click(object sender, EventArgs e)
+        private async void LogInButton_Click(object sender, EventArgs e)
         {
             userId = int.Parse(UserIdBox.Text.ToString());
             password = PasswordBox.Text.ToString();
+            
+            string id = await HttpManager.Instance.PostItemAsync(new Reader(userId, "", "", password), "signin");
 
-            if (Database.SearchReader(userId, password))
+            if (id != null)
             {
                 PasswordBox.Clear();
                 new MainUserWindow(this, userId).Show();
@@ -74,6 +77,7 @@ namespace MyLibrarian.Forms
             {
                 MessageManager.ShowMessageBox("Incorrect User ID and / or Password");
             }
+            
         }
 
         private void AdminButton_Click(object sender, EventArgs e)

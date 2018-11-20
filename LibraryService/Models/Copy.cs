@@ -10,10 +10,12 @@ namespace LibraryService.Models
     [Table("Copies", Schema = "dbo")]
     public class Copy
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public int Reader { get; set; }
-        public DateTime Borrowed { get; set; }
         [Required]
         public string Isbn { get; set; }
+        public DateTime Borrowed { get; set; }
     }
 }

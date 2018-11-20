@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
+      <HintPath>..\Obsolete\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -161,11 +164,44 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\CopiesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReadersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Hashing.cs" />
+    <Compile Include="Migrations\201811191308049_initial.cs" />
+    <Compile Include="Migrations\201811191308049_initial.Designer.cs">
+      <DependentUpon>201811191308049_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811192128346_initial2.cs" />
+    <Compile Include="Migrations\201811192128346_initial2.Designer.cs">
+      <DependentUpon>201811192128346_initial2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811192135098_initial3.cs" />
+    <Compile Include="Migrations\201811192135098_initial3.Designer.cs">
+      <DependentUpon>201811192135098_initial3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811192236066_initial4.cs" />
+    <Compile Include="Migrations\201811192236066_initial4.Designer.cs">
+      <DependentUpon>201811192236066_initial4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811192238399_initial5.cs" />
+    <Compile Include="Migrations\201811192238399_initial5.Designer.cs">
+      <DependentUpon>201811192238399_initial5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811192245519_initial6.cs" />
+    <Compile Include="Migrations\201811192245519_initial6.Designer.cs">
+      <DependentUpon>201811192245519_initial6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811192318147_initial7.cs" />
+    <Compile Include="Migrations\201811192318147_initial7.Designer.cs">
+      <DependentUpon>201811192318147_initial7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811200010227_initial8.cs" />
+    <Compile Include="Migrations\201811200010227_initial8.Designer.cs">
+      <DependentUpon>201811200010227_initial8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Copy.cs" />
     <Compile Include="Models\LibraryServiceContext.cs" />
@@ -192,9 +228,38 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811191308049_initial.resx">
+      <DependentUpon>201811191308049_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811192128346_initial2.resx">
+      <DependentUpon>201811192128346_initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811192135098_initial3.resx">
+      <DependentUpon>201811192135098_initial3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811192236066_initial4.resx">
+      <DependentUpon>201811192236066_initial4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811192238399_initial5.resx">
+      <DependentUpon>201811192238399_initial5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811192245519_initial6.resx">
+      <DependentUpon>201811192245519_initial6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811192318147_initial7.resx">
+      <DependentUpon>201811192318147_initial7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811200010227_initial8.resx">
+      <DependentUpon>201811200010227_initial8.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -216,6 +281,9 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:59536/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
