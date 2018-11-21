@@ -93,11 +93,10 @@ namespace MyLibrarianFrontend
         private void SignInFailed_InvalidId(object sender, EventArgs e)
         {
             progressBar.Visibility = ViewStates.Invisible;
-            redlabel.Visibility = ViewStates.Visible;
             signInAttempts++;
             passwordField.Text = "";
-            userIdField.ClearFocus();
             passwordField.ClearFocus();
+            redlabel.Visibility = ViewStates.Visible;
         }
 
         private void SignInFailed_Exit(object sender, EventArgs e)
