@@ -3,13 +3,14 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:focusable="true"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:minWidth="25px"
 	android:minHeight="25px"
-	android:weightSum="100" 
+	android:weightSum="100"
 	android:id="@+id/relativeLayout"
-	android:layout_marginTop="70dp">
+	android:layout_marginTop="2dp">
 	<TextView
 		android:text="MyLibrarian"
 		android:textAppearance="?android:attr/textAppearanceLarge"
@@ -27,7 +28,7 @@
 		android:layout_marginRight="0.0dp"
 		android:layout_centerHorizontal="true"
 		android:layout_centerVertical="false"
-		android:layout_centerInParent="true" 
+		android:layout_centerInParent="true"
 		android:hint="User id"/>
 	<EditText
 		android:layout_width="188.0dp"
@@ -36,13 +37,14 @@
 		android:id="@+id/passwordEditText"
 		android:layout_centerHorizontal="true"
 		android:layout_centerInParent="false"
-		android:layout_centerVertical="false" 
+		android:layout_centerVertical="false"
 		android:hint="Password"
 		android:inputType="textPassword"/>
 	<Button
 		android:text="Log in"
 		android:layout_width="111.0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="30.0dp"
 		android:layout_below="@id/passwordEditText"
 		android:id="@+id/loginButton"
 		android:layout_centerHorizontal="true"
@@ -55,5 +57,25 @@
 		android:layout_below="@id/loginButton"
 		android:id="@+id/registerButton"
 		android:layout_centerHorizontal="true" />
+	<ProgressBar
+		android:layout_width="100.0dp"
+		android:layout_marginTop="30.0dp"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerInParent="false"
+		android:layout_centerVertical="false"
+		android:layout_below="@id/registerButton"
+		android:id="@+id/progressBar"
+		android:visibility="invisible" />
+	<TextView
+		android:text="Invalid Id and/or password"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="@android:color/holo_red_dark"
+		android:layout_centerHorizontal="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/passwordEditText"
+		android:id="@+id/redLabel"
+		android:visibility="invisible" />
 
 </RelativeLayout>
