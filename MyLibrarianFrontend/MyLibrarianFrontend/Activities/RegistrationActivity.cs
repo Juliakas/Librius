@@ -48,7 +48,7 @@ namespace MyLibrarianFrontend
 
             registerButton.Click += RegisterButton_Click;
             relativeLayout.Click += RelativeLayout_Click;
-            confirmField.Click += (sender, e) => { redLabel.Visibility = ViewStates.Invisible; };
+            confirmField.FocusChange += (sender, e) => { redLabel.Visibility = ViewStates.Invisible; };
             Registered += User_RegisteredAsync;
         }
 
