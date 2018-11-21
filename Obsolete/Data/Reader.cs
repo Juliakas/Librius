@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExtensionMethods;
+using MyLibrarian.DataProcessing;
 using Newtonsoft.Json;
 
 namespace MyLibrarian.Data
@@ -33,18 +34,9 @@ namespace MyLibrarian.Data
 
         public Reader(string name, string surname, string passwordHash) : this(0, name, surname, passwordHash) { }
 
-        public static List<Reader> GetAll()
+        public async static Task<List<Reader>> GetAll()
         {
-            List<Reader> list = new List<Reader>();
-
-            DataTable dt = ControllerDB.Instance.GetDataTable(ControllerDB.Table.Reader);
-            foreach (DataRow dtRow in dt.AsEnumerable())
-            {
-                list.Add(new Reader(Int32.Parse(dtRow["ID"].ToString()),
-                    dtRow["Name"].ToString().TrimEnd(' '),
-                    dtRow["Surname"].ToString().TrimEnd(' '), 
-                    dtRow["Password"].ToString()));
-            }
+            var list = await HttpManager.Instance.GetAllItemsAsync<Reader>("Readers");
 
             return list;
         }
