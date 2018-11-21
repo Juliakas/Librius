@@ -15,6 +15,7 @@ using MyLibrarianFrontend.Items;
 using Newtonsoft.Json;
 using System.Web;
 using System.Security.Policy;
+using MyLibrarianFrontend.WebClient;
 
 namespace MyLibrarianFrontend
 {
@@ -27,33 +28,16 @@ namespace MyLibrarianFrontend
 
             SetContentView(Resource.Layout.booksList);
 
+            PopulateList();
+        }
+
+        private async void PopulateList()
+        {
             ListView bookListView = FindViewById<ListView>(Resource.Id.bookListView);
-
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:59536/");
-
-            List<Book> books = GetBooks(client).Result;
+            List<Book> books = await Book.GetAll();
 
             var adapter = new BookAdapter(this, books, "allBooks");
             bookListView.Adapter = adapter;
-
         }
-
-        private async Task<List<Book>> GetBooks(HttpClient client)
-        {
-            HttpResponseMessage response = await client.GetAsync("api/books");
-
-            if (response.IsSuccessStatusCode)
-            {
-                string data = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(data);
-                return JsonConvert.DeserializeObject<List<Book>>(data);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
     }
 }

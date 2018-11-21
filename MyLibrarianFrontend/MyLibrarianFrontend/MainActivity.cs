@@ -35,14 +35,12 @@ namespace MyLibrarianFrontend
         {
             Intent intent = new Intent(this, typeof(RegistrationActivity));
             this.StartActivity(intent);
-            this.Finish();
         }
 
         private void LoginButton_Click(object sender, System.EventArgs e)
         {
             Intent intent = new Intent(this, typeof(MainUserWindowActivity));
             this.StartActivity(intent);
-            this.Finish();
         }
 
         private void RelativeLayout_Click(object sender, System.EventArgs e)
