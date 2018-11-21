@@ -2618,14 +2618,14 @@ namespace MyLibrarianFrontend
 			// aapt resource value: 0x7f0800a6
 			public const int loginButton = 2131230886;
 			
-			// aapt resource value: 0x7f0800c5
-			public const int masked = 2131230917;
+			// aapt resource value: 0x7f0800c7
+			public const int masked = 2131230919;
 			
 			// aapt resource value: 0x7f0800b3
 			public const int media_actions = 2131230899;
 			
-			// aapt resource value: 0x7f0800c3
-			public const int message = 2131230915;
+			// aapt resource value: 0x7f0800c5
+			public const int message = 2131230917;
 			
 			// aapt resource value: 0x7f080031
 			public const int middle = 2131230769;
@@ -2678,6 +2678,9 @@ namespace MyLibrarianFrontend
 			// aapt resource value: 0x7f08004d
 			public const int pin = 2131230797;
 			
+			// aapt resource value: 0x7f0800c3
+			public const int progressBar = 2131230915;
+			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
 			
@@ -2689,6 +2692,9 @@ namespace MyLibrarianFrontend
 			
 			// aapt resource value: 0x7f080075
 			public const int radio = 2131230837;
+			
+			// aapt resource value: 0x7f0800c4
+			public const int redLabel = 2131230916;
 			
 			// aapt resource value: 0x7f0800a7
 			public const int registerButton = 2131230887;
@@ -2909,8 +2915,8 @@ namespace MyLibrarianFrontend
 			// aapt resource value: 0x7f080016
 			public const int view_offset_helper = 2131230742;
 			
-			// aapt resource value: 0x7f0800c4
-			public const int visible = 2131230916;
+			// aapt resource value: 0x7f0800c6
+			public const int visible = 2131230918;
 			
 			// aapt resource value: 0x7f08003c
 			public const int withText = 2131230780;
