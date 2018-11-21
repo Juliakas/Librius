@@ -81,7 +81,7 @@ namespace MyLibrarian.Forms
                 ListViewItem item = CopyListView.SelectedItems[i];
                 int id = int.Parse(item.SubItems[0].Text);
 
-                DataProcessing.HttpManager.Instance.DeleteItemAsync(Convert.ToString(id), "Copies");
+                await DataProcessing.HttpManager.Instance.DeleteItemAsync(Convert.ToString(id), "Copies");
                 PopulateTable();
             }
         }

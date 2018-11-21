@@ -44,15 +44,14 @@ namespace MyLibrarian.Forms
             }
         }
 
-        private void removeButton_Click(object sender, EventArgs e)
+        private async void removeButton_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < BookListView.SelectedItems.Count; i++)
             {
                 ListViewItem item = BookListView.SelectedItems[i];
                 string isbn = item.SubItems[0].Text;
 
-                DeleteCopies(isbn);
-                database.DeleteRow(new Book(isbn));
+                await DataProcessing.HttpManager.Instance.DeleteItemAsync(isbn, "Books");
 
                 PopulateTable();
             }
@@ -77,8 +76,7 @@ namespace MyLibrarian.Forms
             try
             {
                 string isbn = BookListView.SelectedItems[0].SubItems[0].Text;
-                MessageManager.ShowMessageBox(isbn);
-
+                
                 this.Hide();
 
                 new CopyListWindow(this, isbn).Show();

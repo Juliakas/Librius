@@ -60,8 +60,6 @@ namespace MyLibrarian.DataProcessing
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName(), content);
 
-            MessageManager.ShowMessageBox(JsonConvert.SerializeObject(item));
-
             string primaryKey = null;
 
             if (message.IsSuccessStatusCode)
@@ -125,9 +123,11 @@ namespace MyLibrarian.DataProcessing
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "/" + "{item.Id}", content);
         }
 
-        public async void DeleteItemAsync(string id, string tableName)
+        public async Task<HttpResponseMessage> DeleteItemAsync(string id, string tableName)
         {
             HttpResponseMessage message = await client.DeleteAsync(GetUri() + tableName + "/" + id);
+
+            return message;
         }
 
         private DataTable GetDataTable<T>(List<T> list)
