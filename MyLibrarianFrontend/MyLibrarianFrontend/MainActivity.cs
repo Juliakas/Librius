@@ -60,23 +60,21 @@ namespace MyLibrarianFrontend
         private void LoginButton_Click(object sender, EventArgs e)
         {
             progressBar.Visibility = ViewStates.Visible;
-            AuthenticateUserAsync();
-        }
-
-        private async void AuthenticateUserAsync()
-        {
-            int id;
-
-            if(signInAttempts >= 5)
+            if (signInAttempts >= 5)
             {
                 SignInFailed += SignInFailed_Exit;
             }
 
-            if(!int.TryParse(userIdField.Text, out id))
+            if (!int.TryParse(userIdField.Text, out int id))
             {
-                SignInFailed.Invoke(this, null);
+                SignInFailed.Invoke(this, new EventArgs());
                 return;
             }
+            AuthenticateUserAsync(id);
+        }
+
+        private async void AuthenticateUserAsync(int id)
+        {
 
             Reader user = new Reader(id, "name", "name", passwordField.Text);
 
@@ -88,7 +86,7 @@ namespace MyLibrarianFrontend
             {
                 if (ex.StatusCode == HttpStatusCode.NotFound)
                 {
-                    SignInFailed.Invoke(this, null);
+                    SignInFailed.Invoke(this, new EventArgs());
                     return;
                 }
                 else return;
