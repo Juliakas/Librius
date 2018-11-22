@@ -33,9 +33,9 @@ namespace MyLibrarian.Forms
             PopulateTable();
         }
 
-        private void FillSessionLabel()
+        private async void FillSessionLabel()
         {
-            List<Reader> readers = Reader.GetAll();
+            List<Reader> readers = await Reader.GetAll();
 
             var currentReader = from reader in readers
                                 where reader.ID == userId

@@ -28,9 +28,9 @@ namespace LibraryService.Controllers
 
         [Route("api/copies/{id}", Name = "GetCopy")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetCopy(int id)
+        public IHttpActionResult GetCopy(int id)
         {
-            Copy copy = await db.Copies.FindAsync(id);
+            var copy = db.Copies.FirstOrDefault(i => i.Id == id);
             if (copy == null)
             {
                 return NotFound();
@@ -42,18 +42,19 @@ namespace LibraryService.Controllers
         //PUT
         [Route("api/copies/{id}")]
         [HttpPut]
-        public async Task<IHttpActionResult> PutCopy(int id, Copy copy)
+        public IHttpActionResult PutCopy(int id, Copy copy)
         {
             if (id != copy.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(copy).State = EntityState.Modified;
+            var oldCopy = db.Copies.FirstOrDefault(i => i.Id == id);
+            oldCopy = copy;
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -73,15 +74,15 @@ namespace LibraryService.Controllers
         //POST
         [Route("api/copies")]
         [HttpPost]
-        public async Task<IHttpActionResult> PostCopy(Copy copy)
+        public IHttpActionResult PostCopy(Copy copy)
         {
             db.Copies.Add(copy);
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
                 return Conflict();
             }
@@ -92,16 +93,17 @@ namespace LibraryService.Controllers
         //DELETE
         [Route("api/copies/{id}")]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteCopy(int id)
+        public IHttpActionResult DeleteCopy(int id)
         {
-            Copy copy = await db.Copies.FindAsync(id);
+            Copy copy = db.Copies.FirstOrDefault(i => i.Id == id);
+
             if (copy == null)
             {
                 return NotFound();
             }
 
             db.Copies.Remove(copy);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
             return Ok(copy);
         }
