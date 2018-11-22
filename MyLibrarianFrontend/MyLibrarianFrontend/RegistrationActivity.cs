@@ -38,7 +38,7 @@ namespace MyLibrarianFrontend
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this, typeof(AllBooksListActivity));
+            Intent intent = new Intent(this, typeof(AllBooksActivity));
             this.StartActivity(intent);
         }
     }

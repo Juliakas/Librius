@@ -59,15 +59,17 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AllBooksAdapter.cs" />
+    <Compile Include="Adapters\MyBooksAdapter.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Items\IRequestItem.cs" />
     <Compile Include="Items\Reader.cs" />
     <Compile Include="Items\Copy.cs" />
     <Compile Include="Items\Book.cs" />
-    <Compile Include="BookAdapter.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="AllBooksListActivity.cs" />
+    <Compile Include="AllBooksActivity.cs" />
     <Compile Include="MainUserWindowActivity.cs" />
+    <Compile Include="MyBooksActivity.cs" />
     <Compile Include="MyBooksListViewActivity.cs" />
     <Compile Include="RegistrationActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -144,6 +146,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.

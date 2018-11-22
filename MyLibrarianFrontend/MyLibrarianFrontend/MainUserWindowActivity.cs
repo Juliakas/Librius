@@ -32,13 +32,13 @@ namespace MyLibrarianFrontend
 
         private void AllBooksButton_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this, typeof(AllBooksListActivity));
+            Intent intent = new Intent(this, typeof(AllBooksActivity));
             this.StartActivity(intent);
         }
 
         private void MyBooksButton_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this, typeof(MyBooksListViewActivity));
+            Intent intent = new Intent(this, typeof(MyBooksActivity));
             this.StartActivity(intent);
         }
     }
