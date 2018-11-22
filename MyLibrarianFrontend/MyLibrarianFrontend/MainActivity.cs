@@ -11,6 +11,7 @@ using Android.Views;
 using MyLibrarianFrontend.WebClient;
 using MyLibrarianFrontend.Items;
 using System;
+using System.Net;
 
 namespace MyLibrarianFrontend
 {
@@ -78,10 +79,19 @@ namespace MyLibrarianFrontend
             }
 
             Reader user = new Reader(id, "name", "name", passwordField.Text);
-            if(await RequestClient.Instance.PostItemAsync(user, "signin") == null)
+
+            try
             {
-                SignInFailed.Invoke(this, null);
-                return;
+                await RequestClient.Instance.PostItemAsync(user, "signin");
+            }
+            catch(BadHttpStatusCodeException ex)
+            {
+                if (ex.StatusCode == HttpStatusCode.NotFound)
+                {
+                    SignInFailed.Invoke(this, null);
+                    return;
+                }
+                else return;
             }
 
             signInAttempts = 0;
