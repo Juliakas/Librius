@@ -26,8 +26,11 @@ namespace MyLibrarian.Forms
             InitializeComponent();
 
             Database = ControllerDB.Instance;
+            if(Properties.Settings.Default.PreviousID == 0)
+                UserIdPlaceholderText();
+            else
+                UserIdBox.Text = Convert.ToString(Properties.Settings.Default.PreviousID);
 
-            UserIdPlaceholderText();
             PasswordPlaceholderText();
         }
 
@@ -71,6 +74,8 @@ namespace MyLibrarian.Forms
             {
                 PasswordBox.Clear();
                 new MainUserWindow(this, userId).Show();
+                Properties.Settings.Default.PreviousID = userId;
+                Properties.Settings.Default.Save();
                 this.Hide();
             }
             else

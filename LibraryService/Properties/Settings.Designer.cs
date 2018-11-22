@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyLibrarian.Properties {
+namespace LibraryService.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,31 +25,13 @@ namespace MyLibrarian.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://mylibrarianservice.azurewebsites.net/api/")]
-        public string URL {
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:mylibrarian.database.windows.net,1433;Initial Catalog=LibraryDatabase1" +
+            ";Persist Security Info=False;User ID=mylibrarian;Password=Kvrt1879;MultipleActiv" +
+            "eResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=3" +
+            "0;")]
+        public string LibraryServiceConnectionString {
             get {
-                return ((string)(this["URL"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:59536/api/")]
-        public string URL2 {
-            get {
-                return ((string)(this["URL2"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PreviousID {
-            get {
-                return ((int)(this["PreviousID"]));
-            }
-            set {
-                this["PreviousID"] = value;
+                return ((string)(this["LibraryServiceConnectionString"]));
             }
         }
     }

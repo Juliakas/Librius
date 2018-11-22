@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -54,7 +55,7 @@ namespace MyLibrarianFrontend.WebClient
             return "https://mylibrarianservice.azurewebsites.net/api/";
         }
 
-        public async Task<String> PostItemAsync(IRequestItem item)
+        public async Task<string> PostItemAsync(IRequestItem item)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName(), content);
@@ -64,24 +65,26 @@ namespace MyLibrarianFrontend.WebClient
             if (message.IsSuccessStatusCode)
             {
                 string data = await message.Content.ReadAsStringAsync();
-                primaryKey = JsonConvert.DeserializeObject<String>(data);
+                primaryKey = JsonConvert.DeserializeObject<string>(data);
             }
 
             return primaryKey;
         }
 
-        public async Task<String> PostItemAsync(IRequestItem item, string route)
+        public async Task<string> PostItemAsync(IRequestItem item, string route)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "/" + route, content);
 
             string primaryKey = null;
 
-            if (message.IsSuccessStatusCode)
+            if (!message.IsSuccessStatusCode)
             {
-                string data = await message.Content.ReadAsStringAsync();
-                primaryKey = JsonConvert.DeserializeObject<String>(data);
+                HttpStatusCode statusCode = message.StatusCode;
+                throw new BadHttpStatusCodeException($"Bad status code: {statusCode}", message);
             }
+            string data = await message.Content.ReadAsStringAsync();
+            primaryKey = JsonConvert.DeserializeObject<string>(data);
 
             return primaryKey;
         }

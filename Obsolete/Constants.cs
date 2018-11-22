@@ -8,8 +8,7 @@ namespace MyLibrarian
 {
     public static class Constants
     {
-        //public static string connectionString = "server=localhost\\LIBRARYDATA;database=LibraryDatabase;Trusted_connection=yes";
-        public static string Uri = "https://mylibrarianservice.azurewebsites.net/api/";
+        public static string Uri = Properties.Settings.Default.URL;
         public static string Regex = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$";
     }
 }
