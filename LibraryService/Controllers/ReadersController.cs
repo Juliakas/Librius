@@ -29,9 +29,10 @@ namespace LibraryService.Controllers
         //GET
         [Route("api/readers/{id}", Name = "GetReader")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetReader(int id)
+        public IHttpActionResult GetReader(int id)
         {
-            Reader reader = await db.Readers.FindAsync(id);
+            var reader = db.Readers.FirstOrDefault(i => i.Id == id);
+
             if (reader == null)
             {
                 return NotFound();
@@ -43,14 +44,14 @@ namespace LibraryService.Controllers
         //POST
         [Route("api/readers/signup")]
         [HttpPost]
-        public async Task<IHttpActionResult> PostReader(Reader reader)
+        public IHttpActionResult PostReader(Reader reader)
         {
             Hashing hashing = new Hashing();
 
             reader.Password = hashing.GenerateHash(reader.Password);
             
             db.Readers.Add(reader);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
             int id = reader.Id;
 
@@ -59,9 +60,9 @@ namespace LibraryService.Controllers
         
         [Route("api/readers/signin")]
         [HttpPost]
-        public async Task<IHttpActionResult> VerifyReader(Reader reader)
+        public IHttpActionResult VerifyReader(Reader reader)
         {
-            Reader readerInDb = await db.Readers.FindAsync(reader.Id);
+            var readerInDb = db.Readers.FirstOrDefault(i => i.Id == reader.Id);
 
             if (readerInDb == null)
             {

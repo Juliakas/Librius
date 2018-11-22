@@ -27,9 +27,10 @@ namespace LibraryService.Controllers
 
         [Route("api/Books/{id}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetBook(string id)
+        public IHttpActionResult GetBook(string id)
         {
-            Book book = await db.Books.FindAsync(id);
+            var book = db.Books.FirstOrDefault(i => i.Isbn == id);
+
             if (book == null)
             {
                 return NotFound();
@@ -43,18 +44,20 @@ namespace LibraryService.Controllers
         //PUT
         [Route("api/books/{id}")]
         [HttpPut]
-        public async Task<IHttpActionResult> PutBook(string id, Book book)
+        public IHttpActionResult PutBook(string id, Book book)
         {
             if (id != book.Isbn)
             {
                 return BadRequest();
             }
 
-            db.Entry(book).State = EntityState.Modified;
+            var oldBook = db.Books.FirstOrDefault(i => i.Isbn == id);
+
+            oldBook = book;
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -74,13 +77,13 @@ namespace LibraryService.Controllers
         //POST
         [Route("api/books")]
         [HttpPost]
-        public async Task<IHttpActionResult> PostBook(Book book)
+        public IHttpActionResult PostBook(Book book)
         {
             db.Books.Add(book);
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateException)
             {
@@ -100,16 +103,17 @@ namespace LibraryService.Controllers
         //DELETE
         [Route("api/books/{id}")]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteBook(string id)
+        public IHttpActionResult DeleteBook(string id)
         {
-            Book book = await db.Books.FindAsync(id);
+            var book = db.Books.FirstOrDefault(i => i.Isbn == id);
+
             if (book == null)
             {
                 return NotFound();
             }
 
             db.Books.Remove(book);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
             return Ok(book);
         }

@@ -1,4 +1,5 @@
 ﻿using MyLibrarian.Data;
+using MyLibrarian.DataProcessing;
 using MyLibrarian.Forms.Utils;
 using System;
 using System.Collections.Generic;
@@ -67,7 +68,6 @@ namespace MyLibrarian.Forms
                     MessageManager.ShowMessageBox("There are no copies left", "Error");
                     return;
                 }
-
 
                 string[] columns = {"Reader", "Borrowed"};
                 string[] values = {String.Format("{0:D7}", previousWindow.userId), "GETDATE()"};
