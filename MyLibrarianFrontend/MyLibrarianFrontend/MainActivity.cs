@@ -11,6 +11,7 @@ using Android.Views;
 using MyLibrarianFrontend.WebClient;
 using MyLibrarianFrontend.Items;
 using System;
+using System.Net;
 
 namespace MyLibrarianFrontend
 {
@@ -59,29 +60,36 @@ namespace MyLibrarianFrontend
         private void LoginButton_Click(object sender, EventArgs e)
         {
             progressBar.Visibility = ViewStates.Visible;
-            AuthenticateUserAsync();
-        }
-
-        private async void AuthenticateUserAsync()
-        {
-            int id;
-
-            if(signInAttempts >= 5)
+            if (signInAttempts >= 5)
             {
                 SignInFailed += SignInFailed_Exit;
             }
 
-            if(!int.TryParse(userIdField.Text, out id))
+            if (!int.TryParse(userIdField.Text, out int id))
             {
-                SignInFailed.Invoke(this, null);
+                SignInFailed.Invoke(this, new EventArgs());
                 return;
             }
+            AuthenticateUserAsync(id);
+        }
+
+        private async void AuthenticateUserAsync(int id)
+        {
 
             Reader user = new Reader(id, "name", "name", passwordField.Text);
-            if(await RequestClient.Instance.PostItemAsync(user, "signin") == null)
+
+            try
             {
-                SignInFailed.Invoke(this, null);
-                return;
+                await RequestClient.Instance.PostItemAsync(user, "signin");
+            }
+            catch(BadHttpStatusCodeException ex)
+            {
+                if (ex.StatusCode == HttpStatusCode.NotFound)
+                {
+                    SignInFailed.Invoke(this, new EventArgs());
+                    return;
+                }
+                else return;
             }
 
             signInAttempts = 0;
