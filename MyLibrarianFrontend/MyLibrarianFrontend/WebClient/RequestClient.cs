@@ -54,7 +54,7 @@ namespace MyLibrarianFrontend.WebClient
             return "https://mylibrarianservice.azurewebsites.net/api/";
         }
 
-        public async Task<String> PostItemAsync(IRequestItem item)
+        public async Task<string> PostItemAsync(IRequestItem item)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName(), content);
@@ -64,13 +64,13 @@ namespace MyLibrarianFrontend.WebClient
             if (message.IsSuccessStatusCode)
             {
                 string data = await message.Content.ReadAsStringAsync();
-                primaryKey = JsonConvert.DeserializeObject<String>(data);
+                primaryKey = JsonConvert.DeserializeObject<string>(data);
             }
 
             return primaryKey;
         }
 
-        public async Task<String> PostItemAsync(IRequestItem item, string route)
+        public async Task<string> PostItemAsync(IRequestItem item, string route)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "/" + route, content);
@@ -80,7 +80,7 @@ namespace MyLibrarianFrontend.WebClient
             if (message.IsSuccessStatusCode)
             {
                 string data = await message.Content.ReadAsStringAsync();
-                primaryKey = JsonConvert.DeserializeObject<String>(data);
+                primaryKey = JsonConvert.DeserializeObject<string>(data);
             }
 
             return primaryKey;
