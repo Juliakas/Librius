@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -77,11 +78,13 @@ namespace MyLibrarianFrontend.WebClient
 
             string primaryKey = null;
 
-            if (message.IsSuccessStatusCode)
+            if (!message.IsSuccessStatusCode)
             {
-                string data = await message.Content.ReadAsStringAsync();
-                primaryKey = JsonConvert.DeserializeObject<string>(data);
+                HttpStatusCode statusCode = message.StatusCode;
+                throw new BadHttpStatusCodeException($"Bad status code: {statusCode}", message);
             }
+            string data = await message.Content.ReadAsStringAsync();
+            primaryKey = JsonConvert.DeserializeObject<string>(data);
 
             return primaryKey;
         }
