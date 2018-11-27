@@ -13,14 +13,15 @@ namespace LibraryService.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-        [ForeignKey("_reader")]
+        
         public int Reader { get; set; }
         [Required]
-        [ForeignKey("Book")]
         public string Isbn { get; set; }
         public DateTime Borrowed { get; set; }
 
+        [ForeignKey("Isbn")]
         public Book Book { get; set; }
+        [ForeignKey("Reader")]
         public Reader _reader { get; set; }
     }
 }

@@ -26,9 +26,8 @@ namespace LibraryService.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:mylibrarian.database.windows.net,1433;Initial Catalog=LibraryDatabase1" +
-            ";Persist Security Info=False;User ID=mylibrarian;Password=Kvrt1879;MultipleActiv" +
-            "eResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=3" +
-            "0;")]
+            ";Persist Security Info=False;User ID=mylibrarian;Password=;MultipleActiveResultS" +
+            "ets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")]
         public string LibraryServiceConnectionString {
             get {
                 return ((string)(this["LibraryServiceConnectionString"]));
