@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using LibraryService.Helpers;
 using LibraryService.Models;
 using Newtonsoft.Json.Linq;
 
@@ -88,6 +90,30 @@ namespace LibraryService.Controllers
             }
 
             return CreatedAtRoute("GetCopy", new { id = copy.Id }, copy.Id);
+        }
+
+        [Route("api/copies/by-barcode/{reader}")]
+        [HttpPost]
+        public IHttpActionResult PostCopy(byte[] image, int reader)
+        {
+            string result = BarcodeScanner.Scan(image);
+
+            if (result.Equals(""))
+            {
+                return NotFound();
+            }
+
+            int id = Convert.ToInt32(result);
+            Copy copy = db.Copies.FirstOrDefault(c => c.Id == id);
+
+            if (copy._reader != null)
+            {
+                return Conflict();
+            }
+
+            copy._reader = db.Readers.FirstOrDefault(r => r.Id == reader);
+            db.SaveChanges();
+            return Ok(result);
         }
 
         //DELETE

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -74,6 +75,7 @@ namespace MyLibrarian.DataProcessing
         public async Task<String> PostItemAsync(DataItem item, string route)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
+            
             HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "/" + route, content);
 
             string primaryKey = null;
@@ -130,6 +132,20 @@ namespace MyLibrarian.DataProcessing
             return message;
         }
 
+        public async Task<String> PostImageAsync(Image image, string tableName, string route)
+        {
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(ToByteArray(image)), Encoding.UTF8, "application/json");
+            HttpResponseMessage message = await client.PostAsync(GetUri() + tableName + "/" + route + "/1500000", content);
+            string result = "";
+
+            if (message.IsSuccessStatusCode)
+            {
+                string data = await message.Content.ReadAsStringAsync();
+                result = JsonConvert.DeserializeObject<string>(data);
+            }
+            return result;
+        }
+
         private DataTable GetDataTable<T>(List<T> list)
         {
             DataTable dt = new DataTable(typeof(T).Name);
@@ -150,6 +166,13 @@ namespace MyLibrarian.DataProcessing
                 dt.Rows.Add(values);
             }
             return dt;
+        }
+
+        private static byte[] ToByteArray(Image image)
+        {
+            ImageConverter _imageConverter = new ImageConverter();
+            byte[] imageBytes = (byte[])_imageConverter.ConvertTo(image, typeof(byte[]));
+            return imageBytes;
         }
 
     }

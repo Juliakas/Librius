@@ -17,6 +17,7 @@ namespace LibraryService.Controllers
     public class ReadersController : ApiController
     {
         private LibraryServiceContext db = new LibraryServiceContext();
+        //private FaceRecognition faceRecognition = new FaceRecognition();
 
         //GET
         [Route("api/readers")]
@@ -81,7 +82,7 @@ namespace LibraryService.Controllers
 
             return CreatedAtRoute("GetReader", new { id = reader.Id }, reader.Id);
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
