@@ -21,9 +21,11 @@ namespace LibraryService.Controllers
         //GET
         [Route("api/readers")]
         [HttpGet]
-        public IQueryable<Reader> GetReaders()
+        public IQueryable<ReaderDTO> GetReaders()
         {
-            return db.Readers;
+            var readers = db.Readers.Select(r => new ReaderDTO { Id = r.Id, Name = r.Name, Surname = r.Surname});
+
+            return readers;
         }
 
         //GET
@@ -31,7 +33,8 @@ namespace LibraryService.Controllers
         [HttpGet]
         public IHttpActionResult GetReader(int id)
         {
-            var reader = db.Readers.FirstOrDefault(i => i.Id == id);
+            var reader = db.Readers.Select(r => new ReaderDTO { Id = r.Id, Name = r.Name, Surname = r.Surname })
+                .FirstOrDefault(r => r.Id == id);
 
             if (reader == null)
             {

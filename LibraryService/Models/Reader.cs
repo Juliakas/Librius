@@ -17,5 +17,9 @@ namespace LibraryService.Models
         public string Surname { get; set; }
         [Required]
         public string Password { get; set; }
+        [Required]
+        [StringLength(450)]
+        [Index(IsUnique = true)]
+        public string Email { get; set; }
     }
 }
