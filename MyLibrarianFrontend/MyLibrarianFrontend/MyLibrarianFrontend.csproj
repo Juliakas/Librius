@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\ExtensionMethods.cs" />
+    <Compile Include="Items\ImageManager.cs" />
     <Compile Include="Items\IRequestItem.cs" />
     <Compile Include="Items\Reader.cs" />
     <Compile Include="Items\Copy.cs" />
@@ -112,6 +113,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="WindowsAzure.Storage">
+      <Version>9.3.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
   </ItemGroup>
