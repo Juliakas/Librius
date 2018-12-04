@@ -8,7 +8,7 @@ namespace MyLibrarian
 {
     public static class Constants
     {
-        public static string Uri = Properties.Settings.Default.URL;
+        public static string Uri = Properties.Settings.Default.URL2;
         public static string Regex = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$";
     }
 }
