@@ -54,12 +54,29 @@
 		android:layout_centerVertical="false"
 		android:hint="Confirm password"
 		android:inputType="textPassword"/>
+	<TextView
+		android:text="Passwords do not match!"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="@android:color/holo_red_dark"
+		android:layout_centerHorizontal="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/confirmPasswordEditText"
+		android:id="@+id/redLabel"
+		android:visibility="invisible" />
+	<ImageView
+		android:src="@android:drawable/ic_menu_gallery"
+		android:layout_width="155.0dp"
+		android:layout_height="142.5dp"
+		android:id="@+id/userPhotoImageView"
+		android:layout_below="@id/redLabel"
+		android:layout_centerHorizontal="true" />
 	<Button
 		android:text="Register"
 		android:layout_marginTop = "20.0dp"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/confirmPasswordEditText"
+		android:layout_below="@id/userPhotoImageView"
 		android:id="@+id/registerButton"
 		android:layout_centerHorizontal="true"/>
 	<ProgressBar
@@ -72,14 +89,5 @@
 		android:layout_below="@id/registerButton"
 		android:id="@+id/progressBar"
 		android:visibility="invisible" />
-	<TextView
-		android:text="Passwords do not match!"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:textColor="@android:color/holo_red_dark"
-		android:layout_centerHorizontal="true"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/confirmPasswordEditText"
-		android:id="@+id/redLabel"
-		android:visibility="invisible" />
+
 </RelativeLayout>
