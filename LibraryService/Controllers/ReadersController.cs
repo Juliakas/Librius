@@ -17,7 +17,6 @@ namespace LibraryService.Controllers
     public class ReadersController : ApiController
     {
         private LibraryServiceContext db = new LibraryServiceContext();
-        //private FaceRecognition faceRecognition = new FaceRecognition();
 
         //GET
         [Route("api/readers")]
@@ -53,7 +52,11 @@ namespace LibraryService.Controllers
             Hashing hashing = new Hashing();
 
             reader.Password = hashing.GenerateHash(reader.Password);
+
+            Random random = new Random();
             
+            reader.Email = Convert.ToString(random.Next(50));
+
             db.Readers.Add(reader);
             db.SaveChanges();
 
@@ -61,7 +64,18 @@ namespace LibraryService.Controllers
 
             return CreatedAtRoute("GetReader", new { id = reader.Id }, reader.Id);
         }
-        
+
+        [Route("api/readers/signup/face/{reader}")]
+        [HttpPost]
+        public async Task<IHttpActionResult> PostReader(byte[] image, int reader)
+        {
+            FaceScanner scanner = new FaceScanner();
+            string result = await scanner.CreatePersonAsync(Convert.ToString(reader), image);
+
+            return Ok(result);
+        }
+
+
         [Route("api/readers/signin")]
         [HttpPost]
         public IHttpActionResult VerifyReader(Reader reader)
@@ -82,7 +96,30 @@ namespace LibraryService.Controllers
 
             return CreatedAtRoute("GetReader", new { id = reader.Id }, reader.Id);
         }
-        
+
+        [Route("api/readers/signin/face")]
+        [HttpPost]
+        public async Task<IHttpActionResult> VerifyReader(byte[] image) {
+            FaceScanner scanner = new FaceScanner();
+            string name = await scanner.Identify(image);
+
+            if (name.Equals(""))
+            {
+                return NotFound();
+            }
+
+            int readerId = Convert.ToInt32(name);
+
+            Reader readerInDb = db.Readers.FirstOrDefault(r => r.Id == readerId);
+
+            if(readerInDb == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

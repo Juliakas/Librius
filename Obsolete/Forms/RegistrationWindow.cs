@@ -369,7 +369,9 @@ namespace MyLibrarian.Forms
             BackButton.Enabled = false;
 
             id = Convert.ToInt32(await HttpManager.Instance.PostItemAsync(new Reader(firstName, lastName, password), "signup"));
-            
+            await HttpManager.Instance.PostImageAsync(new Bitmap("3.jpg"), "readers", "signup/face/" + id);
+
+
             if (id != 0)
                 MessageManager.ShowMessageBox(optionalCaption: "Success", text: "Account creation successful. Your ID: " + id);
             else
