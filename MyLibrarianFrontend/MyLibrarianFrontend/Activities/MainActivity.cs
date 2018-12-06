@@ -12,6 +12,7 @@ using MyLibrarianFrontend.WebClient;
 using MyLibrarianFrontend.Items;
 using System;
 using System.Net;
+using MyLibrarianFrontend.Activities;
 
 namespace MyLibrarianFrontend
 {
@@ -94,7 +95,7 @@ namespace MyLibrarianFrontend
 
             signInAttempts = 0;
             progressBar.Visibility = ViewStates.Invisible;
-            Intent intent = new Intent(this, typeof(MainUserWindowActivity));
+            Intent intent = new Intent(this, typeof(TabbedPagesActivity));
             this.StartActivity(intent);
         }
 
