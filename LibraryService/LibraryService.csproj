@@ -229,6 +229,7 @@
     </Compile>
     <Compile Include="Helpers\BarcodeScanner.cs" />
     <Compile Include="Helpers\FaceRecognition.cs" />
+    <Compile Include="Helpers\FaceScanner.cs" />
     <Compile Include="Helpers\Hashing.cs" />
     <Compile Include="Migrations\201811191308049_initial.cs" />
     <Compile Include="Migrations\201811191308049_initial.Designer.cs">
@@ -331,6 +332,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\mylibrarian - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

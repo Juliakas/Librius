@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -92,9 +93,9 @@ namespace LibraryService.Controllers
             return CreatedAtRoute("GetCopy", new { id = copy.Id }, copy.Id);
         }
 
-        [Route("api/copies/by-barcode/{reader}")]
+        [Route("api/copies/by-barcode")]
         [HttpPost]
-        public IHttpActionResult PostCopy(byte[] image, int reader)
+        public IHttpActionResult PostCopy(byte[] image)
         {
             string result = BarcodeScanner.Scan(image);
 
@@ -106,13 +107,11 @@ namespace LibraryService.Controllers
             int id = Convert.ToInt32(result);
             Copy copy = db.Copies.FirstOrDefault(c => c.Id == id);
 
-            if (copy._reader != null)
+            if(copy == null)
             {
-                return Conflict();
+                return NotFound();
             }
 
-            copy._reader = db.Readers.FirstOrDefault(r => r.Id == reader);
-            db.SaveChanges();
             return Ok(result);
         }
 

@@ -135,14 +135,16 @@ namespace MyLibrarian.DataProcessing
         public async Task<String> PostImageAsync(Image image, string tableName, string route)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(ToByteArray(image)), Encoding.UTF8, "application/json");
-            HttpResponseMessage message = await client.PostAsync(GetUri() + tableName + "/" + route + "/1500000", content);
+            HttpResponseMessage message = await client.PostAsync(GetUri() + tableName + "/" + route, content);
             string result = "";
 
             if (message.IsSuccessStatusCode)
             {
                 string data = await message.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<string>(data);
+                result = JsonConvert.DeserializeObject<string>(data) + "1";
+                Console.WriteLine();
             }
+            
             return result;
         }
 

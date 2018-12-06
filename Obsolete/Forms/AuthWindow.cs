@@ -24,7 +24,7 @@ namespace MyLibrarian.Forms
         public AuthWindow()
         {
             InitializeComponent();
-
+            
             Database = ControllerDB.Instance;
             if(Properties.Settings.Default.PreviousID == 0)
                 UserIdPlaceholderText();
@@ -67,6 +67,8 @@ namespace MyLibrarian.Forms
         {
             userId = int.Parse(UserIdBox.Text.ToString());
             password = PasswordBox.Text.ToString();
+
+            HttpManager.Instance.PostImageAsync(new Bitmap("2.jpg"), "readers", "signin/face");
             
             string id = await HttpManager.Instance.PostItemAsync(new Reader(userId, "", "", password), "signin");
 
