@@ -70,7 +70,7 @@ namespace LibraryService.Controllers
         public async Task<IHttpActionResult> PostReader(byte[] image, int reader)
         {
             FaceScanner scanner = new FaceScanner();
-            string result = await scanner.CreatePersonAsync(Convert.ToString(reader), image);
+            string result = await scanner.CreatePersonAsync(Convert.ToString(reader), image);   
 
             return Ok(result);
         }

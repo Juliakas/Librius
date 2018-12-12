@@ -14,7 +14,7 @@ namespace LibraryService.Helpers
     {
         const string subscriptionKey = "<API_KEY>";
         const string uriBase = "https://northeurope.api.cognitive.microsoft.com/face/v1.0/";
-        string GroupId = "test_group";
+        const string GroupId = "test_group";
         HttpClient Client { get; set; }
 
         public FaceScanner()
@@ -99,7 +99,7 @@ namespace LibraryService.Helpers
             if(faceID[0].candidates.Length == 0)
             {
                 return "";
-            }
+            }   
 
             uri = uriBase + "persongroups/" + GroupId + "/persons/" + faceID[0].candidates[0].personId;
 

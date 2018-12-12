@@ -119,10 +119,10 @@ namespace MyLibrarian.DataProcessing
             return items;
         }
 
-        public async void PutItemAsync(DataItem item)
+        public async void PutItemAsync(Copy item)
         {
             HttpContent content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
-            HttpResponseMessage message = await client.PostAsync(GetUri() + item.GetTableName() + "/" + "{item.Id}", content);
+            HttpResponseMessage message = await client.PutAsync(GetUri() + item.GetTableName() + "/" + item.ID, content);
         }
 
         public async Task<HttpResponseMessage> DeleteItemAsync(string id, string tableName)
@@ -141,8 +141,7 @@ namespace MyLibrarian.DataProcessing
             if (message.IsSuccessStatusCode)
             {
                 string data = await message.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<string>(data) + "1";
-                Console.WriteLine();
+                result = JsonConvert.DeserializeObject<string>(data);
             }
             
             return result;
