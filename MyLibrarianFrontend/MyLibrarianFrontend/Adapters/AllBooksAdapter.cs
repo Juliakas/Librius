@@ -7,53 +7,85 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MyLibrarianFrontend.Activities;
 using MyLibrarianFrontend.Items;
 
 namespace MyLibrarianFrontend.Adapters
 {
-    class AllBooksAdapter : BaseAdapter<Book>
+    class AllBooksAdapter : RecyclerView.Adapter
     {
-
         private List<Book> books;
-        private Activity activity;
+        private Context context;
+        RecyclerView recyclerView;
 
-        public AllBooksAdapter(Activity activity, List<Book> items)
+        public AllBooksAdapter(Context context, List<Book> books, RecyclerView recyclerView)
         {
-            this.books = items;
-            this.activity = activity;
+            this.books = books;
+            this.context = context;
+            this.recyclerView = recyclerView;
         }
 
-        public override int Count
+        public override int ItemCount
         {
             get { return books.Count; }
         }
 
-        public override Book this[int position]
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            get { return books[position]; }
+            BookViewHolder viewHolder = holder as BookViewHolder;
+
+            viewHolder.titleField.Text = books[position].Title;
+            viewHolder.authorField.Text = books[position].Author;
+            viewHolder.publicationField.Text = books[position].Date.ToShortDateString();
+            viewHolder.amountField.Text = "0";
+
+
+            ((BookViewHolder)holder).Item.Click += Item_Click; 
+
+
         }
 
-        public override long GetItemId(int position)
+        private void Item_Click(object sender, EventArgs e)
         {
-            return position;
+            int position = recyclerView.GetChildAdapterPosition((View)sender);
+            Book book = books[position];
+            AllBooksDialog bookDialog = new AllBooksDialog(book.Author, book.Title, book.Date, 1);
+            bookDialog.Show(((TabbedPagesActivity)context).SupportFragmentManager, "Book");
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.bookView, parent, false);
-            var titleField = view.FindViewById<TextView>(Resource.Id.titleTextView);
-            var authorField = view.FindViewById<TextView>(Resource.Id.authorTextView);
-            var publicationField = view.FindViewById<TextView>(Resource.Id.publishedTextView);
-            var amountField = view.FindViewById<TextView>(Resource.Id.amountTextView);
-
-            titleField.Text = books[position].Title;
-            authorField.Text = books[position].Author;
-            publicationField.Text = books[position].Date.ToShortDateString();
-            amountField.Text = "0";
-
-            return view;
+            View itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.bookView, parent, false);
+            BookViewHolder viewHolder = new BookViewHolder(itemView);
+            return viewHolder;
         }
+
+        class BookViewHolder : RecyclerView.ViewHolder
+        {
+
+            public TextView titleField { get; private set; }
+            public TextView authorField { get; private set; }
+            public TextView publicationField { get; private set; }
+            public TextView amountField { get; private set; }
+            public View Item { get; private set; }
+
+      
+            public BookViewHolder(View itemView) : base(itemView)
+            {
+
+                titleField = itemView.FindViewById<TextView>(Resource.Id.titleTextView);
+                authorField = itemView.FindViewById<TextView>(Resource.Id.authorTextView);
+                publicationField = itemView.FindViewById<TextView>(Resource.Id.publishedTextView);
+                amountField = itemView.FindViewById<TextView>(Resource.Id.amountTextView);
+                Item = itemView;
+            }
+
+
+        }
+
+
     }
 }

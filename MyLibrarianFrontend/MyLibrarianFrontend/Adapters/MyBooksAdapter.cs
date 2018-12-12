@@ -7,54 +7,91 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using MyLibrarianFrontend.Activities;
 using MyLibrarianFrontend.Items;
 
 namespace MyLibrarianFrontend.Adapters
 {
-    class MyBooksAdapter : BaseAdapter<Book>
+    class MyBooksAdapter : RecyclerView.Adapter
     {
-
         private List<Book> books;
-        private Activity activity;
+        private Context context;
+        RecyclerView recyclerView;
 
-        public MyBooksAdapter(Activity activity, List<Book> items)
+        public MyBooksAdapter(Context context, List<Book> books, RecyclerView recyclerView)
         {
-            this.books = items;
-            this.activity = activity;
+            this.books = books;
+            this.context = context;
+            this.recyclerView = recyclerView;
         }
 
-        public override int Count
+        public override int ItemCount
         {
             get { return books.Count; }
         }
 
-        public override Book this[int position]
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            get { return books[position]; }
+            BookViewHolder viewHolder = holder as BookViewHolder;
+
+            viewHolder.titleField.Text = books[position].Title;
+            viewHolder.authorField.Text = books[position].Author;
+            viewHolder.publicationField.Text = books[position].Date.ToShortDateString();
+            viewHolder.dueDateField.Text = "2018-12-15";
+
+
+            ((BookViewHolder)holder).Item.Click += Item_Click; 
         }
 
-
-        public override long GetItemId(int position)
+        private void Item_Click(object sender, EventArgs e)
         {
-            return position;
+            int position = recyclerView.GetChildAdapterPosition((View)sender);
+            Book book = books[position];
+            MyBooksDialog bookDialog = new MyBooksDialog(book.Author, book.Title, book.Date, "2018-12-15");
+            bookDialog.Show(((TabbedPagesActivity)context).SupportFragmentManager, "Book");
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.myBookView, parent, false);
-            var titleField = view.FindViewById<TextView>(Resource.Id.titleTextView);
-            var authorField = view.FindViewById<TextView>(Resource.Id.authorTextView);
-            var publicationField = view.FindViewById<TextView>(Resource.Id.publishedTextView);
-            var returnField = view.FindViewById<TextView>(Resource.Id.returnDateTextView);
-
-            titleField.Text = books[position].Title;
-            authorField.Text = books[position].Author;
-            publicationField.Text = books[position].Date.ToShortDateString();
-            returnField.Text = "2018-12-01";
-
-            return view;
+            View itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.myBookView, parent, false);
+            BookViewHolder viewHolder = new BookViewHolder(itemView);
+            return viewHolder;
         }
     }
+
+    class BookViewHolder : RecyclerView.ViewHolder
+    {
+
+        public TextView titleField { get; private set; }
+        public TextView authorField { get; private set; }
+        public TextView publicationField { get; private set; }
+        public TextView dueDateField { get; private set; }
+        public View Item { get; private set; }
+
+        public BookViewHolder(View itemView) : base(itemView)
+        {
+
+            titleField = itemView.FindViewById<TextView>(Resource.Id.titleTextView);
+            authorField = itemView.FindViewById<TextView>(Resource.Id.authorTextView);
+            publicationField = itemView.FindViewById<TextView>(Resource.Id.publishedTextView);
+            dueDateField = itemView.FindViewById<TextView>(Resource.Id.dueDateTextView);
+            Item = itemView;
+        }
+
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
