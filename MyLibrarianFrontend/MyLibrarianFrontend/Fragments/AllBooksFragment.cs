@@ -8,6 +8,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.App;
+using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -18,7 +19,7 @@ namespace MyLibrarianFrontend.Fragments
 {
     public class AllBooksFragment : Fragment
     {
-        ListView bookListView;
+        RecyclerView bookListView;
         List<Book> books;
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -35,10 +36,10 @@ namespace MyLibrarianFrontend.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-            var view = inflater.Inflate(Resource.Layout.booksList, container, false);
+            var view = inflater.Inflate(Resource.Layout.recyclerView, container, false);
 
 
-            bookListView = view.FindViewById<ListView>(Resource.Id.bookListView);
+            bookListView = view.FindViewById<RecyclerView>(Resource.Id.bookListView);
 
 
 
@@ -49,8 +50,10 @@ namespace MyLibrarianFrontend.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
             List<Book> books = await Book.GetAll();
-            var adapter = new AllBooksAdapter(this.Activity, books);
-            bookListView.Adapter = adapter;
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.Activity);
+            bookListView.SetLayoutManager(layoutManager);
+            var adapter = new AllBooksAdapter(Context, books, bookListView);
+            bookListView.SetAdapter(adapter);
         }
     }
 }

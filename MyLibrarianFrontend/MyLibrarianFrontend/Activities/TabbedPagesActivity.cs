@@ -19,7 +19,7 @@ namespace MyLibrarianFrontend.Activities
     [Activity(Label = "TabbedPagesActivity")]
     public class TabbedPagesActivity : AppCompatActivity
     {
-        Toolbar toolbar;
+
         TabLayout tabLayout;
         ViewPager viewPager;
 
@@ -29,13 +29,9 @@ namespace MyLibrarianFrontend.Activities
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.tab);
-
-            toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+   
             tabLayout = FindViewById<TabLayout>(Resource.Id.tablayout);
             viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
-
-           
-
 
             BookPagerAdapter bookPagerAdapter = new BookPagerAdapter(SupportFragmentManager, 2);
             viewPager.Adapter = bookPagerAdapter;

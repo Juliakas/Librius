@@ -21,7 +21,7 @@ namespace MyLibrarianFrontend
     {
         private event Action<object, EventArgs> SignInFailed;
 
-        private RelativeLayout relativeLayout;
+        private LinearLayout linearLayout;
         private EditText userIdField;
         private EditText passwordField;
         private Button loginButton, registerButton;
@@ -37,7 +37,7 @@ namespace MyLibrarianFrontend
             SetContentView(Resource.Layout.loginWindow);
             object clnt = RequestClient.Instance;
 
-            relativeLayout = FindViewById<RelativeLayout>(Resource.Id.relativeLayout);
+            linearLayout = FindViewById<LinearLayout>(Resource.Id.linearLayout);
             userIdField = FindViewById<EditText>(Resource.Id.userIdEditText);
             passwordField = FindViewById<EditText>(Resource.Id.passwordEditText);
             loginButton = FindViewById<Button>(Resource.Id.loginButton);
@@ -48,8 +48,14 @@ namespace MyLibrarianFrontend
             registerButton.Click += RegisterButton_Click;
             loginButton.Click += LoginButton_Click;
             passwordField.FocusChange += (sender, e) => { redlabel.Visibility = ViewStates.Invisible; };
-            relativeLayout.Click += RelativeLayout_Click;
+            linearLayout.Click += LinearLayout_Click;
             SignInFailed += SignInFailed_InvalidId;
+        }
+
+        private void LinearLayout_Click(object sender, EventArgs e)
+        {
+            InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
+            inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)
@@ -113,11 +119,5 @@ namespace MyLibrarianFrontend
             this.Finish();
         }
 
-
-        private void RelativeLayout_Click(object sender, System.EventArgs e)
-        {
-            InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
-            inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
-        }
     }
 }

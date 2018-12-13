@@ -66,8 +66,10 @@
     <Compile Include="Activities\ExtensionMethods.cs" />
     <Compile Include="Fragments\AllBooksFragment.cs" />
     <Compile Include="Fragments\MyBooksFragment.cs" />
+    <Compile Include="Items\AllBooksDialog.cs" />
     <Compile Include="Items\ImageManager.cs" />
     <Compile Include="Items\IRequestItem.cs" />
+    <Compile Include="Items\MyBooksDialog.cs" />
     <Compile Include="Items\Reader.cs" />
     <Compile Include="Items\Copy.cs" />
     <Compile Include="Items\Book.cs" />
@@ -142,12 +144,22 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\myBooksListView.axml">
+    <AndroidResource Include="Resources\layout\tab.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\tab.axml">
+    <AndroidResource Include="Resources\layout\allBooksDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\recyclerView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\myBooksDialog.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
