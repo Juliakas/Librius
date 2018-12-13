@@ -32,6 +32,8 @@ namespace MyLibrarian.Forms
                 UserIdBox.Text = Convert.ToString(Properties.Settings.Default.PreviousID);
 
             PasswordPlaceholderText();
+
+            
         }
 
         #region Placeholder text methods
@@ -67,9 +69,9 @@ namespace MyLibrarian.Forms
         {
             userId = int.Parse(UserIdBox.Text.ToString());
             password = PasswordBox.Text.ToString();
-
-            HttpManager.Instance.PostImageAsync(new Bitmap("2.jpg"), "readers", "signin/face");
             
+            HttpManager.Instance.PostImageAsync(new Bitmap("4.jpg"), "readers", "signin/face");
+
             string id = await HttpManager.Instance.PostItemAsync(new Reader(userId, "", "", password), "signin");
 
             if (id != null)
